@@ -1,0 +1,95 @@
+# git folder
+/.home/
+
+# Personal
+/proj/
+/p/
+/tools/
+!/tools/fzf/
+
+# Apps
+#
+/.mozilla/
+/.nv/
+/.vscode/
+/.AndroidStudio*/
+/.android/
+/.gitconfig
+/.java/
+/.qt-license
+/Android/
+/Desktop/
+/Qt/
+/.ccache/
+/.gazebo/
+/.ignition/
+/.sdformat/
+/.gradle/
+/.ssr/
+/.zoom/
+/.balena/
+/.gimp-*/
+/.node_repl_history
+/.npm/
+/.pylint.d/
+/.python_history
+/.ssh/known_hosts.old
+/.steam/
+/.steampath
+/.steampid
+/.thumbnails/
+/.wget-hsts
+/.conda/
+/.ipython/
+/.jupyter/
+/.stellarium/
+/miniconda3/
+/.gem/
+/.mxnet/
+/fontconfig/
+/.conan/
+/.docker/
+/.fzf.bash
+
+# Ubuntu
+/Downloads/
+/snap/
+/.sudo_as_admin_successful
+/.dbus/
+/.
+/tmp/
+/.gvfs/
+/.apport-ignore.xml
+/.bash_logout
+/.bashrc
+/.nanorc
+/.nx/
+/.profile
+/.qt/
+/.ssh/
+
+# Gnome folders - user data: ~/.local/share; non-essential data files: ~/.cache
+/.gnome/
+/.cache/
+/.local/
+/.pki/
+/.gnupg/
+/.config/*
+/.icons/
+/.emulator_console_auth_token
+/Documents/
+/Pictures/
+/Videos/
+
+# Allow the following exception for .config and .local
+!/.config/blender/
+!/.local/share/gnome-shell/extensions/gTile@vibou/
+
+.ICEauthority
+
+# ssh
+/.ssh
+
+# Dynamic
+/.bash_history
+*.swp

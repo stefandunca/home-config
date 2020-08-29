@@ -1,0 +1,41 @@
+- name: "General workstation setup with Ansible and Git"
+  hosts: localhost
+  connection: local 
+  become: true
+
+  tasks:
+  - name: Update apt-get repo and cache
+    apt: update_cache=yes force_apt_get=yes cache_valid_time=3600
+    tags: first
+  - name: Upgrade all apt packages
+    apt: upgrade=dist force_apt_get=yes
+    tags: first
+  - name: Install basics
+    apt:
+      name: 
+        - htop
+        - mc
+        - ssh
+        - vlc
+        - mdadm
+        - p7zip
+    tags: first
+  # fzf
+  - name: Setup fzf
+    block:
+      - stat:
+          path: $HOME/.fzf.bash
+        register: fzf
+      - name: Install fzf
+        shell: "$HOME/tools/fzf/install"
+        when: fzf.stat.isreg is defined and not fzf.stat.isreg
+    become_user: "{{run_as_user}}"
+    tags: first
+# Setup docker
+- name: Setup docker
+  import_playbook: install-docker-playbook.yml
+  tags: [docker, first]
+# Setup VsCode
+- name: VsCode
+  roles:
+    - role: gantsign.visual-studio-code
