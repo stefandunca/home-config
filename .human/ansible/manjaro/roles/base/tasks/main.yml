@@ -1,0 +1,41 @@
+---
+- name: Install Utils
+  pacman:
+    name: '{{ utils }}'
+    state: present
+  become: yes
+
+- name: Install Utils
+  pacman:
+    name: base-devel
+    state: present
+  become: yes
+
+- name: Check if yay file exists
+  stat: 
+    path: /usr/bin/yay
+  register: is_yay_available
+- name: Setup yay
+  shell: if [ -d "/tmp/yay" ]; then rm -Rf "/tmp/yay"; fi && git clone https://aur.archlinux.org/yay.git && cd yay && echo "Y" | makepkg -si
+  become_user: "{{run_as_user}}"
+  args:
+    chdir: /tmp/
+  when: is_yay_available.stat.exists != true
+
+- name: Install Utils from Arch User Repository
+  yay:
+    name: '{{ utils_yay }}'
+    state: present
+  become: yes
+
+- name: Check if tools folder exists
+  stat:
+    path: /home/{{ run_as_user }}/tools
+  register: is_tools_available
+- name: Creates tools directory
+  file:
+    path: /home/{{ run_as_user }}/tools
+    state: directory
+  become_user: '{{ run_as_user }}'
+  become: yes
+  when: is_tools_available.stat.exists != true

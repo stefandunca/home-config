@@ -1,0 +1,19 @@
+---
+- name: "Docker - Add {{ run_as_user }} to docker group"
+  user:
+    name: "{{ run_as_user }}"
+    groups: docker
+    append: yes
+  become: yes
+  tags:
+    - docker
+
+- name: "Docker - Enable and start the docker daemon"
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+    masked: no
+  become: yes
+  tags:
+    - docker

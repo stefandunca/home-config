@@ -1,0 +1,17 @@
+---
+- name: Install Developer Tools
+  pacman:
+    name: '{{ developer_stack }}'
+    state: present
+  become_user: 'root'
+  become: yes
+
+- name: Install Developer Tools from Arch User Repository
+  yay:
+    name: '{{ developer_stack_yay }}'
+    state: present
+  become: yes
+  tags:
+    - yay
+
+- include: docker-config.yml

@@ -4,7 +4,7 @@ ENV USER=username
 ARG USER=$USER
 ARG DEBIAN_FRONTEND=noninteractive
 
-RUN groupadd -r $USER && useradd --no-log-init -d /home/$USER/ -m -r -g sudo -g $USER $USER
+RUN groupadd -r $USER && useradd --no-log-init -d /home/$USER/ -m -r -G sudo -g $USER $USER && echo "$USER:$USER" | chpasswd 
 
 # Install prerequisities for Ansible
 RUN apt-get update
@@ -24,13 +24,19 @@ COPY --chown=$USER . /home/$USER/.ssh/
 RUN ls -la ~/.ssh
 
 # Bring saved configuration files from the repository
-RUN home init && home remote add origin $HOME_REPO && home fetch
-RUN home checkout master
+RUN home init && home remote add origin $HOME_REPO && home fetch && home checkout master
 
 # Trigger customized configuration on bash interactive startup
 RUN echo "[[ -f $HOME/.human/.env_vars ]] && . $HOME/.human/.env_vars" >> $HOME/.bashrc
 
+USER root
+
+RUN apt-get -y install sudo
+
+USER $USER
+
 # Restart terminal or `source $HOME/.bashrc`
 # Install required dependencies
-RUN cd $HOME && ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory 127.0.0.1, --limit 127.0.0.1 .human/ansible/local.yml --extra-vars "run_as_user=$USER"
+RUN ansible-galaxy install gantsign.visual-studio-code
+#RUN cd $HOME && ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory 127.0.0.1, --limit 127.0.0.1 .human/ansible/local.yml --extra-vars "run_as_user=$USER"
 

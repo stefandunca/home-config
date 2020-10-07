@@ -1,0 +1,9 @@
+- name: "General workstation setup with Ansible and Git"
+  hosts: localhost
+  connection: local 
+  become: true
+
+  roles:
+  - { role: base,            tags: ['base'] }
+  - { role: developer-tools, tags: ['dev-tools'] }
+  - { role: multimedia,      tags: ['multimedia'] }

@@ -3,7 +3,7 @@
 
 # Personal
 /proj/
-/p/
+/.p/
 /tools/
 !/tools/fzf/
 
@@ -50,6 +50,13 @@
 /.conan/
 /.docker/
 /.fzf.bash
+/.vagrant.d/
+/.vagrant/
+/VirtualBox VMs/
+/.cargo/
+.vagrant/
+/.rustup/
+/Felgo/
 
 # Ubuntu
 /Downloads/
