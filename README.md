@@ -7,7 +7,7 @@
 alias home='git --work-tree=$HOME --git-dir=$HOME/.home'
 # Bring saved configuration files from the repository
 home init && home remote add origin git@github.com:stefandunca/home-config.git
-home checkout master
+home fetch && home checkout master
 # Trigger customized configuration on bash interactive startup
 echo "[[ -f $HOME/.human/bashrc ]] && . $HOME/.human/bashrc" >> $HOME/.bashrc
 # Restart terminal or `source $HOME/.bashrc`
@@ -24,7 +24,7 @@ sudo apt install software-properties-common ansible git
 alias home='git --work-tree=$HOME --git-dir=$HOME/.home'
 # Bring saved configuration files from the repository
 home init && home remote add origin git@github.com:stefandunca/home-config.git
-home checkout master
+home fetch && home checkout master
 # Trigger customized configuration on bash interactive startup
 echo "[[ -f $HOME/.human/bashrc ]] && . $HOME/.human/bashrc" >> $HOME/.bashrc
 # Restart terminal or `source $HOME/.bashrc`
