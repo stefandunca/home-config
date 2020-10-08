@@ -19,9 +19,6 @@ developer_stack:
 developer_stack_yay:
     - visual-studio-code-bin
 
-editors_yay:
-    - visual-studio-code-bin
-
 media:
     - peek
 
@@ -80,3 +77,9 @@ pip_packages:
 
 comms_yay:
     - slack-desktop
+
+srv:
+  - docker
+  - docker-compose
+
+srv_yay:

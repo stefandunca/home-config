@@ -1,18 +1,23 @@
 ---
-- name: Install Developer Tools
+- name: Install Base Server tools
   pacman:
-    name: '{{ developer_stack }}'
+    name: '{{ srv }}'
     state: present
   become_user: 'root'
   become: yes
+  tags:
+    - srv
 
-- name: Install Developer Tools from Arch User Repository
+- name: Install Base Server tools AUR
   yay:
-    name: '{{ developer_stack_yay }}'
+    name: '{{ srv_yay }}'
     state: present
   become: yes
   tags:
     - yay
+    - srv
 
 - name: Install Docker Tools
   include: ../../general/docker-config.yml
+  tags:
+    - srv

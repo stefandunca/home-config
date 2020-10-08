@@ -16,7 +16,7 @@
     path: /usr/bin/yay
   register: is_yay_available
 - name: Setup yay
-  shell: if [ -d "/tmp/yay" ]; then rm -Rf "/tmp/yay"; fi && git clone https://aur.archlinux.org/yay.git && cd yay && echo "Y" | makepkg -si
+  shell: if [ -d "/tmp/yay" ]; then rm -Rf "/tmp/yay"; fi && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
   become_user: "{{run_as_user}}"
   args:
     chdir: /tmp/

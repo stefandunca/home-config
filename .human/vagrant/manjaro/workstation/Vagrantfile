@@ -10,8 +10,8 @@ Vagrant.configure("2") do |config|
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
 
-  config.vm.box = "manjaro-gnome-20-vagrant"
-  config.vm.box_check_update = false
+  config.vm.box = "stefandunca/manjaro-gnome-20-vagrant"
+  #config.vm.box_check_update = false
 
   compatibility_mode = "2.0"
 
@@ -54,7 +54,7 @@ Vagrant.configure("2") do |config|
     # Customize the HW
     vb.memory = "2048"
     vb.cpus = 2
-    vb.name = "Manjaro Ansible Test"
+    vb.name = "Manjaro Workstation Ansible Test"
   end
 
   config.vm.provision "shell", inline: <<-SHELL
@@ -64,13 +64,13 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :ansible_local do |ansible|
     ansible.verbose = "v"
-    ansible.playbook = "/project_data/.human/ansible/manjaro/local.yml"
+    ansible.playbook = "/project_data/.human/ansible/manjaro/workstation.local.yml"
     ansible.raw_arguments = ["-e 'ansible_python_interpreter=/usr/bin/python3'", "--connection=local", "--inventory 127.0.0.1, --limit 127.0.0.1", '--extra-vars "run_as_user=$USER"']
   end
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     echo "Running tests!!!"
-    cd /project_data/.human/ansible/manjaro/tests/ && /project_data/.human/ansible/manjaro/tests/main.sh && echo "Tests were SUCCESSFUL"
+    cd /project_data/.human/ansible/manjaro/tests/ && /project_data/.human/ansible/manjaro/tests/workstation.sh && echo "Tests were SUCCESSFUL"
   SHELL
 end
 
