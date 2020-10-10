@@ -16,3 +16,6 @@
 
 - name: Install Docker Tools
   include: ../../general/docker-config.yml
+
+- name: Test commands
+  script: test_commands.sh

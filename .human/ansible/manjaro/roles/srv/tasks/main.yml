@@ -21,3 +21,6 @@
   include: ../../general/docker-config.yml
   tags:
     - srv
+
+- name: Test commands
+  script: test_commands.sh

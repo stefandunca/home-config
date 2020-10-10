@@ -57,6 +57,7 @@
 .vagrant/
 /.rustup/
 /Felgo/
+.ansible/
 
 # Ubuntu
 /Downloads/

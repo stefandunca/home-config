@@ -1,5 +1,9 @@
 # home-config
 
+## TODO:
+- [ ] Run tests in github
+- [ ] Deploy home-setup repo
+
 ## Manjaro
 
 ```bash
@@ -13,7 +17,12 @@ echo "[[ -f $HOME/.human/bashrc ]] && . $HOME/.human/bashrc" >> $HOME/.bashrc
 # Restart terminal or `source $HOME/.bashrc`
 ```
 
-Check Vagrant file: https://github.com/stefandunca/home-config/blob/384867c841f55ec8bfc4d76849bd16dcf64f91f3/.human/vagrant/manjaro/Vagrantfile#L60
+Sudo without a password:
+ - call `sudo visudo`, go to the end of the file, press `i` to enter edit mode, add: `human ALL=(ALL) NOPASSWD:ALL` and save and exit by typing `:wq!`
+
+Deploy setup remotelly: `ansible-playbook --extra-vars "run_as_user=human" --inventory mediasrv, mediasrv.yml`
+
+Use Vagrant test file as a reference: https://github.com/stefandunca/home-config/blob/384867c841f55ec8bfc4d76849bd16dcf64f91f3/.human/vagrant/manjaro/Vagrantfile#L60
 
 ## Ubuntu
 ```bash

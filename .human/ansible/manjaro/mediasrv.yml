@@ -1,6 +1,5 @@
 - name: "Mediasrv setup with Ansible and Git"
-  hosts: mediasrv:test_group
-  connection: local
+  hosts: mediasrv, test_group
   become: true
 
   roles:
