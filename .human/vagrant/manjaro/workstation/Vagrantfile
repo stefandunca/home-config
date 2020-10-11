@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "~/.human/ansible/", "/project_data/.human/ansible/", type: "rsync"
+  config.vm.synced_folder "~/.human/", "/project_data/.human/", type: "rsync"
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
 
   if Vagrant.has_plugin?("vagrant-vbguest")
@@ -60,6 +60,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     sudo pacman -Suy --noconfirm
     sudo pacman -S --needed --noconfirm ansible git
+    /project_data/.human/setup/setup_home.sh
   SHELL
 
   config.vm.provision :ansible_local do |ansible|

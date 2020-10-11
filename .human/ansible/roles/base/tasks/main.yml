@@ -54,6 +54,27 @@
   become: yes
   when: ansible_distribution == 'Archlinux'
 
+- name: Create output directory 
+  file:
+    path: "{{ output_dir }}"
+    state: directory
+  become_user: '{{ run_as_user }}'
+  tags: [test, setup]
+
+- name: Read prev setup results
+  shell: cat {{ output_dir }}/base_setup_result.txt
+  register: prev_setup_result
+  become_user: "{{run_as_user}}"
+  changed_when: false
+  ignore_errors: yes
+  tags: test
+- name: Setup scripts
+  script: /home/{{ run_as_user }}/.human/setup/setup_home.sh 2>&1 tee {{ output_dir }}/base_setup_result.txt
+  become_user: "{{run_as_user}}"
+  register: setup_result
+  changed_when: (prev_setup_result.stdout is undefined or setup_result.stdout is undefined) or setup_result.stdout != prev_setup_result.stdout
+  tags: setup
+
 - name: Check if tools folder exists
   stat:
     path: /home/{{ run_as_user }}/tools
@@ -65,12 +86,6 @@
   become_user: '{{ run_as_user }}'
   when: is_tools_available.stat.exists is defined and is_tools_available.stat.exists != true
 
-- name: Create output directory 
-  file:
-    path: "{{ output_dir }}"
-    state: directory
-  become_user: '{{ run_as_user }}'
-  tags: test
 - name: Read prev test results
   shell: cat {{ output_dir }}/base_test_result.txt
   register: prev_test_result
@@ -82,5 +97,5 @@
   script: test_commands.sh 2>&1 tee {{ output_dir }}/base_test_result.txt
   become_user: "{{run_as_user}}"
   register: test_result
-  changed_when: test_result.stdout != prev_test_result.stdout
+  changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
   tags: test

@@ -51,5 +51,5 @@
   script: test_commands.sh 2>&1 tee {{ output_dir }}/dev_test_result.txt
   become_user: "{{run_as_user}}"
   register: test_result
-  changed_when: test_result.stdout != prev_test_result.stdout
+  changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
   tags: test

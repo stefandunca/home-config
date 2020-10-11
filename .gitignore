@@ -7,8 +7,9 @@
 /tools/
 !/tools/fzf/
 
+/.human/ansible/.out/
+
 # Apps
-#
 /.mozilla/
 /.nv/
 /.vscode/
@@ -33,7 +34,6 @@
 /.npm/
 /.pylint.d/
 /.python_history
-/.ssh/known_hosts.old
 /.steam/
 /.steampath
 /.steampid
@@ -59,6 +59,16 @@
 /Felgo/
 .ansible/
 
+
+# Manjaro (gnome)
+/.Xauthority
+/.Xclients
+/.bash_profile
+/.dir_colors
+/.xinitrc
+/.xsession-errors
+/.xsession-errors.old
+
 # Ubuntu
 /Downloads/
 /snap/
@@ -74,7 +84,6 @@
 /.nx/
 /.profile
 /.qt/
-/.ssh/
 
 # Gnome folders - user data: ~/.local/share; non-essential data files: ~/.cache
 /.gnome/
@@ -97,6 +106,7 @@
 
 # ssh
 /.ssh
+!/.ssh/config
 
 # Dynamic
 /.bash_history
