@@ -64,6 +64,7 @@ utils:
   - mc
   - mdadm
   - p7zip
+  - nfs-utils
 
 utils_yay:
   - mkpasswd

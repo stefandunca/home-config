@@ -1,0 +1,58 @@
+---
+- name: Upgrade all packages ("pacman -Syu")
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  tags:
+    - upgrade
+
+- name: Install Utils
+  pacman:
+    name: '{{ utils }}'
+    state: present
+  become: yes
+
+- name: Check if yay file exists
+  stat:
+    path: /usr/bin/yay
+  register: is_yay_available
+- name: Install base-devel require to compile yay
+  pacman:
+    name: base-devel
+    state: present
+  become: yes
+  when: is_yay_available.stat.exists != true
+- name: Setup yay
+  shell: if [ -d "/tmp/yay" ]; then rm -Rf "/tmp/yay"; fi && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+  become_user: "{{run_as_user}}"
+  args:
+    chdir: /tmp/
+  when: is_yay_available.stat.exists != true
+
+- name: Install Utils from Arch User Repository
+  yay:
+    name: '{{ utils_yay }}'
+    state: present
+  become: yes
+
+- name: Check if tools folder exists
+  stat:
+    path: /home/{{ run_as_user }}/tools
+  register: is_tools_available
+- name: Creates tools directory
+  file:
+    path: /home/{{ run_as_user }}/tools
+    state: directory
+  become_user: '{{ run_as_user }}'
+  become: yes
+  when: is_tools_available.stat.exists != true
+
+- name: Test commands
+  script: test_commands.sh
+  register: test_result
+  changed_when: "test_result"
+#- copy: content="{{ your_json_feed }}" dest=/path/to/destination/file
+- name: dump
+  copy:
+   content={{ test_result }} dest=/tmp/base_test_result.txt
+  become: yes

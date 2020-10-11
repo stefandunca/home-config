@@ -3,24 +3,34 @@
   pacman:
     name: '{{ srv }}'
     state: present
-  become_user: 'root'
   become: yes
-  tags:
-    - srv
+  tags: srv
 
 - name: Install Base Server tools AUR
   yay:
     name: '{{ srv_yay }}'
     state: present
   become: yes
-  tags:
-    - yay
-    - srv
+  tags: [yay, srv]
 
 - name: Install Docker Tools
   include: ../../general/docker-config.yml
-  tags:
-    - srv
+  tags: srv
 
+- name: Setup Mout Options
+  include: ./mount.yml
+  tags: mount
+
+- name: Read prev test results
+  shell: cat {{ output_dir }}/srv_test_result.txt
+  register: prev_test_result
+  become_user: "{{run_as_user}}"
+  changed_when: false
+  ignore_errors: yes
+  tags: test
 - name: Test commands
-  script: test_commands.sh
+  script: ./test_commands.sh 2>&1 tee {{ output_dir }}/srv_test_result.txt
+  become_user: "{{run_as_user}}"
+  register: test_result
+  changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
+  tags: test

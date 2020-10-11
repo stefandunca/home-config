@@ -1,0 +1,82 @@
+- name: Mount RAID
+  mount:
+    path: /mnt/raid
+    src: UUID=ee8cb8d3-ff55-4381-9c96-ae7c3325882d
+    fstype: ext4
+    opts: noatime
+    state: mounted
+
+# - name: Mount QUICK
+#   mount:
+#     path: /mnt/quick
+#     src: UUID=04cc5bc2-2746-4a91-b5dd-155867764ff5
+#     fstype: ext4
+#     opts: noatime
+#     state: present
+
+- name: Mount Services
+  mount:
+    src: /home/{{ run_as_user }}/services
+    path: /srv/nfs/services
+    fstype: none
+    opts: bind
+    state: mounted
+
+- name: Mount RAID
+  mount:
+    src: /mnt/raid
+    path: /srv/nfs/raid
+    fstype: none
+    opts: bind
+    state: mounted
+
+- name: Mount RAID
+  mount:
+    src: /mnt/raid/todo
+    path: /srv/nfs/todo
+    fstype: none
+    opts: bind
+    state: mounted
+
+#- name: Mount services NFS volume
+#  mount:
+#    src: /mnt/raid
+#    path: /mount/nfs
+#    opts: rw,sync,hard,intr
+#    state: mounted
+#    fstype: nfs
+
+- name: copy /etc/exports
+  template: src=nfs_exports.j2 dest=/etc/exports owner=root group=root
+
+- name: test if nfs root dir is set
+  shell: grep -c "^rootdir" /etc/nfs.conf || true
+  register: test_rootdir
+  changed_when: test_rootdir.stdout == "0"
+- name: add couchbase host to properties
+  lineinfile:
+    dest: /etc/nfs.conf
+    line: rootdir=/srv/nfs
+  when: test_rootdir.stdout == "0"
+  become: yes
+
+# TODO: Don't restart if nothing changed
+- name: restart nfs server
+  service:
+    name: nfs-server.service
+    state: restarted
+    enabled: true
+
+# - name: Read prev test results
+#   shell: cat {{ output_dir }}/mount_test_result.txt
+#   register: prev_test_result
+#   become_user: "{{run_as_user}}"
+#   changed_when: false
+#   ignore_errors: yes
+#   tags: test
+# - name: Test commands
+#   script: ./test_mount.sh 2>&1 tee {{ output_dir }}/mount_test_result.txt
+#   become_user: "{{run_as_user}}"
+#   register: test_result
+#   changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
+#   tags: test
