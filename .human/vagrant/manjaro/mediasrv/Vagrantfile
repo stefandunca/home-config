@@ -64,13 +64,12 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision :ansible_local do |ansible|
     ansible.verbose = "v"
-    ansible.playbook = "/project_data/.human/ansible/manjaro/mediasrv.yml"
+    ansible.playbook = "/project_data/.human/ansible/mediasrv.yml"
     ansible.raw_arguments = ["-e 'ansible_python_interpreter=/usr/bin/python3'", "--connection=local", "--inventory ./test_group.yml", "--limit local", '--extra-vars "run_as_user=$USER"']
   end
 
-  config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    echo "Running tests!!!"
-    cd /project_data/.human/ansible/manjaro/tests/ && /project_data/.human/ansible/manjaro/tests/srv.sh && echo "Tests were SUCCESSFUL"
-  SHELL
+  #config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    #echo "Running tests!!!"
+  #SHELL  
 end
 

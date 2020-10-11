@@ -1,0 +1,11 @@
+- name: "Ubuntu workstation setup with Ansible and Git"
+  hosts: localhost, test_group
+  connection: local 
+  become: true
+  vars:
+    output_dir: "/home/{{ run_as_user }}/.human/ansible/.out"
+
+  roles:
+  - { role: base,            tags: ['base'] }
+  - { role: developer-tools, tags: ['dev-tools'] }
+  - { role: multimedia,      tags: ['multimedia'] }

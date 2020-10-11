@@ -1,6 +1,8 @@
 - name: "Mediasrv setup with Ansible and Git"
   hosts: mediasrv, test_group
   become: true
+  vars:
+    output_dir: "/home/{{ run_as_user }}/.human/ansible/.out"
 
   roles:
   - { role: base,            tags: ['base'] }

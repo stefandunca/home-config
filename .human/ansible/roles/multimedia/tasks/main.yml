@@ -1,0 +1,16 @@
+---
+- name: Install multimedia packages
+  pacman:
+    name: '{{ multimedia }}'
+    state: present
+  become: yes
+  when: ansible_distribution == 'Archlinux'
+  tags: multimedia
+
+- name: Install multimedia packages
+  apt:
+    name: '{{ multimedia }}'
+    state: present
+  become: yes
+  when: ansible_distribution == 'Ubuntu'
+  tags: multimedia

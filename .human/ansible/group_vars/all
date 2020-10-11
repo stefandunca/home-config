@@ -1,0 +1,106 @@
+developer_stack:
+  - docker
+  - docker-compose
+  - virtualbox
+  - vagrant
+  - hub
+  - nodejs
+  - npm
+  - maven
+  - clang
+
+developer_stack_arch:
+  - jre8-openjdk-headless
+  - jdk8-openjdk
+  - jre11-openjdk-headless
+  - jdk11-openjdk
+  - go-pie
+
+developer_stack_ubuntu:
+  - openjdk-8-jre-headless
+  - openjdk-8-jdk
+  - openjdk-11-jre-headless
+  - openjdk-11-jdk
+
+developer_stack_yay:
+  - visual-studio-code-bin
+
+developer_stack_snap:
+  - code
+
+multimedia:
+  - gimp
+  - inkscape
+  - audacity
+  - darktable
+  - blender
+  - vlc
+  - peek
+
+shell_aliases:
+  - alias ll='ls -lrt'
+  - alias vi=vim
+  - alias rgrep='grep -r'
+  - alias pull='hub pull-request --no-edit -o -p'
+
+utils_ubuntu:
+  - build-essential
+  - python3-pip
+
+utils_arch:
+  - base-devel
+  - python-pip
+
+utils:
+  - binutils
+  - gcc
+  - htop
+  - make
+  - tree
+  - xclip
+  - ntp
+  - gparted
+  - nano
+  - mc
+  - mdadm
+  - p7zip
+
+utils_yay:
+  - mkpasswd
+  - git-extras
+  - zsh-git-prompt
+
+zsh_plugins:
+  - archlinux
+  - colored-man-pages
+  - docker
+  - docker-compose
+  - dotenv
+  - spring
+  - thefuck
+  - git-prompt
+  - git-extras
+
+# Python
+pip_packages:
+  - thefuck
+  - github3.py
+
+# Ui tools
+ui_tools_yay:
+  - slack-desktop
+  - google-chrome
+  - chromedriver
+
+ui_tools_snap:
+  - slack-desktop
+  - google-chrome
+  - chromedriver
+
+# Srv
+#
+srv:
+  - docker
+  - docker-compose
+
+srv_yay:

@@ -14,6 +14,8 @@ Vagrant.configure("2") do |config|
   config.vm.box = "peru/ubuntu-20.04-desktop-amd64"
   config.vm.box_check_update = false
 
+  compatibility_mode = "2.0"
+
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
@@ -38,8 +40,12 @@ Vagrant.configure("2") do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  config.vm.synced_folder "~", "/project_data"
+  config.vm.synced_folder "~/.human/ansible/", "/project_data/.human/ansible/", type: "rsync"
   config.vm.synced_folder ".", "/vagrant", type: "rsync"
+
+  if Vagrant.has_plugin?("vagrant-vbguest")
+    config.vbguest.auto_update = false
+  end
 
   # VirtualBox specific configuration
   config.vm.provider "virtualbox" do |vb|
@@ -49,7 +55,7 @@ Vagrant.configure("2") do |config|
     # Customize the HW
     vb.memory = "2048"
     vb.cpus = 2
-    vb.name = "Test Ansible Workstation Setup"
+    vb.name = "Test Ansible Workstation Ubuntu Setup"
   end
 
   config.vm.provision "shell", inline: <<-SHELL
@@ -57,14 +63,10 @@ Vagrant.configure("2") do |config|
     #sudo apt install -y software-properties-common ansible git
   SHELL
 
-  config.vm.provision "shell", inline: <<-SHELL
-    ansible-galaxy install gantsign.visual-studio-code
-  SHELL
-
   config.vm.provision :ansible_local do |ansible|
     ansible.verbose = "v"
-    ansible.playbook = "/project_data/.human/ansible/local.yml"
-    ansible.raw_arguments = ["-e 'ansible_python_interpreter=/usr/bin/python3'", "--connection=local", "--inventory 127.0.0.1, --limit 127.0.0.1", '--extra-vars "run_as_user=$USER"']
+    ansible.playbook = "/project_data/.human/ansible/ubuntu.local.yml"
+    ansible.raw_arguments = ["-e 'ansible_python_interpreter=/usr/bin/python3'", "--connection=local", "--inventory ./test_group.yml", "--limit local", '--extra-vars "run_as_user=$USER"']
   end
 end
 
