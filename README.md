@@ -12,7 +12,8 @@ Use `./.human/setup/setup_home.sh` test script as reference or instead of manual
 ### Manjaro
 ```bash
 # Install ansible
-sudo pacman -Syu git ansible
+sudo pacman -Syu git ansible openssh
+
 ```
 
 ### Ubuntu

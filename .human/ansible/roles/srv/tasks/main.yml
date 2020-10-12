@@ -4,22 +4,25 @@
     name: '{{ srv }}'
     state: present
   become: yes
-  tags: srv
 
 - name: Install Base Server tools AUR
   yay:
     name: '{{ srv_yay }}'
     state: present
   become: yes
-  tags: [yay, srv]
+  tags: [yay]
 
 - name: Install Docker Tools
   include: ../../general/docker-config.yml
-  tags: srv
+  tags: docker
 
 - name: Setup Mout Options
   include: ./mount.yml
   tags: mount
+
+- name: setup Services
+  include: services.yml
+  tags: services
 
 - name: Read prev test results
   shell: cat {{ output_dir }}/srv_test_result.txt

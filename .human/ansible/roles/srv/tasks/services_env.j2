@@ -1,0 +1,6 @@
+PUID={{ run_as_user_uid.stdout }}
+PGID={{ run_as_user_gid.stdout }}
+TZ=Europe/Zurich
+SERVICES_DIR=/home/{{ run_as_user }}/services
+VPN_INTERFACE={{ ansible_default_ipv4.interface }}
+DPERSON_SAMBA_SHARES='{{ dperson_samba_shares }}'

@@ -1,4 +1,4 @@
-- name: Mount RAID
+- name: mount RAID
   mount:
     path: /mnt/raid
     src: UUID=ee8cb8d3-ff55-4381-9c96-ae7c3325882d
@@ -14,34 +14,49 @@
 #     opts: noatime
 #     state: present
 
-- name: Mount Services
+
+# NFS bindings
+#
+
+# TODO: use to generate mount params and flags (rw vs. ro)
+- name: set shared NFS list
+  set_fact:
+    mount_list:
+      - { nfs_name: services, src: "/home/{{ run_as_user }}/services" }
+      - { nfs_name: raid, src: "/mnt/raid" }
+      - { nfs_name: todo, src: "/mnt/raid/todo" }
+      #- { nfs_name: quick, src: "/home/{{ run_as_user }}/quick" }
+
+- name: make NFS share dirs
+  file:
+    path: "/srv/nfs/{{ item.nfs_name }}"
+    state: directory
+    owner: "{{ run_as_user }}"
+    group: "{{ run_as_user }}"
+  become: yes
+  with_items: "{{ mount_list }}"
+
+- name: bind NFS shares
   mount:
-    src: /home/{{ run_as_user }}/services
-    path: /srv/nfs/services
+    src: "{{ item.src }}"
+    path: /srv/nfs/{{ item.nfs_name }}
     fstype: none
     opts: bind
     state: mounted
+  with_items: "{{ mount_list }}"
 
-- name: Mount RAID
-  mount:
-    src: /mnt/raid
-    path: /srv/nfs/raid
-    fstype: none
-    opts: bind
-    state: mounted
+- name: make dperson samba shares
+  set_fact:
+    dperson_samba_shares: "{{ dperson_samba_shares | default('') ~ ' -s \"' ~ item.nfs_name ~ ';/shares/' ~ item.nfs_name ~ ';yes;no;yes\"' }}"
+  with_items: "{{ mount_list }}"
+- name: finalize dperson samba shares
+  set_fact:
+    dperson_samba_shares: "{{ '-n -W -w SDHOME ' ~ dperson_samba_shares }}"
 
-- name: Mount RAID
-  mount:
-    src: /mnt/raid/todo
-    path: /srv/nfs/todo
-    fstype: none
-    opts: bind
-    state: mounted
-
-#- name: Mount services NFS volume
+#- name: Mount NFS volumes example
 #  mount:
-#    src: /mnt/raid
-#    path: /mount/nfs
+#    src: "mediasrv:/mount"
+#    path: /mnt/services
 #    opts: rw,sync,hard,intr
 #    state: mounted
 #    fstype: nfs
@@ -49,14 +64,15 @@
 - name: copy /etc/exports
   template: src=nfs_exports.j2 dest=/etc/exports owner=root group=root
 
-- name: test if nfs root dir is set
+- name: test if nfs rootdir is set
   shell: grep -c "^rootdir" /etc/nfs.conf || true
   register: test_rootdir
   changed_when: test_rootdir.stdout == "0"
-- name: add couchbase host to properties
+- name: add 
   lineinfile:
     dest: /etc/nfs.conf
     line: rootdir=/srv/nfs
+    insertafter: '^\[exports\]$'
   when: test_rootdir.stdout == "0"
   become: yes
 
