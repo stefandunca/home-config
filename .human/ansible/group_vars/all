@@ -70,6 +70,7 @@ utils_yay:
   - mkpasswd
   - git-extras
   - zsh-git-prompt
+  - nomachine
 
 zsh_plugins:
   - archlinux
@@ -87,13 +88,14 @@ pip_packages:
   - thefuck
   - github3.py
 
-# Ui tools
-ui_tools_yay:
+# UI Applications
+apps:
+apps_yay:
   - slack-desktop
   - google-chrome
   - chromedriver
 
-ui_tools_snap:
+apps_snap:
   - slack-desktop
   - google-chrome
   - chromedriver

@@ -1,0 +1,21 @@
+---
+- name: Install apps
+  pacman:
+    name: '{{ apps }}'
+    state: present
+  become: yes
+  when: ansible_distribution == 'Archlinux'
+
+- name: Install apps [Ubuntu]
+  snap:
+    name: '{{ apps_snap }}'
+    state: present
+  become: yes
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Install apps from AUR
+  yay:
+    name: '{{ apps_yay }}'
+    state: present
+  become: yes
+  when: ansible_distribution == 'Archlinux'

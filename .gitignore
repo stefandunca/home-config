@@ -58,6 +58,8 @@
 /.rustup/
 /Felgo/
 .ansible/
+.history/
+/Templates/
 
 
 # Manjaro (gnome)
@@ -68,6 +70,10 @@
 /.xinitrc
 /.xsession-errors
 /.xsession-errors.old
+/.zcompdump
+/.zhistory
+/.zshrc
+/.fzf.zsh
 
 # Ubuntu
 /Downloads/

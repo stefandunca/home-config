@@ -24,6 +24,15 @@
   include: services.yml
   tags: services
 
+- name: enable and start nxserver.service
+  systemd:
+    name: nxserver
+    enabled: yes
+    state: started
+    masked: no
+  become: yes
+  tags: nomachine
+
 - name: Read prev test results
   shell: cat {{ output_dir }}/srv_test_result.txt
   register: prev_test_result

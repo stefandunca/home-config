@@ -12,7 +12,7 @@
 #     src: UUID=04cc5bc2-2746-4a91-b5dd-155867764ff5
 #     fstype: ext4
 #     opts: noatime
-#     state: present
+#     state: mounted
 
 
 # NFS bindings

@@ -58,8 +58,8 @@ Use `--syntax-check` to check syntax
 
 ### Manjaro (mediasrv)
 - Command:
-  - workstation: `ansible-playbook "run_as_user=$USER" -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory localhost, --limit localhost ~/.human/ansible/workstation.local.yml`
-  - mediasrv: `ansible-playbook --extra-vars "run_as_user=human" -e 'ansible_python_interpreter=/usr/bin/python3' --inventory mediasrv, --limit "mediasrv" ~/.human/ansible/mediasrv.yml`
+  - workstation: `sudo ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory hosts.yml --limit localhost ~/.human/ansible/workstation.local.yml`
+  - mediasrv: `ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --inventory hosts.yml --limit mediasrv ~/.human/ansible/mediasrv.yml`
 
 ### Ubuntu
 

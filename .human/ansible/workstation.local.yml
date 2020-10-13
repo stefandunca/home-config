@@ -7,3 +7,4 @@
   - { role: base,            tags: ['base'] }
   - { role: developer-tools, tags: ['dev-tools'] }
   - { role: multimedia,      tags: ['multimedia'] }
+  - { role: workstation,     tags: ['workstation'] }
