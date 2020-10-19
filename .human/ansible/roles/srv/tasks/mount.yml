@@ -1,31 +1,36 @@
-- name: mount RAID
+- name: set mount list
+  set_fact:
+    mount_list:
+      - { uuid: "ee8cb8d3-ff55-4381-9c96-ae7c3325882d", dest: "/mnt/raid", permissions: "u=rwx,g=rx,o=rx" }
+      - { uuid: "5fd5ef79-fd60-4091-9273-349c0c2cad63", dest: "/mnt/quick", permissions: "u=rwx,g=rx,o=rx" }
+
+- name: mount disks
   mount:
-    path: /mnt/raid
-    src: UUID=ee8cb8d3-ff55-4381-9c96-ae7c3325882d
+    path: "{{ item.dest }}"
+    src: "UUID={{ item.uuid }}"
     fstype: ext4
     opts: noatime
     state: mounted
+  with_items: "{{ mount_list }}"
 
-# - name: Mount QUICK
-#   mount:
-#     path: /mnt/quick
-#     src: UUID=04cc5bc2-2746-4a91-b5dd-155867764ff5
-#     fstype: ext4
-#     opts: noatime
-#     state: mounted
-
+- name: take ownership and set permissions for disk mounts  
+  file:
+    path: "{{ item.dest }}"
+    owner: "{{ run_as_user }}"
+    group: "{{ run_as_user }}"
+    mode: "{{ item.permissions }}"
+  with_items: "{{ mount_list }}"
 
 # NFS bindings
 #
-
 # TODO: use to generate mount params and flags (rw vs. ro)
 - name: set shared NFS list
   set_fact:
-    mount_list:
+    bind_list:
       - { nfs_name: services, src: "/home/{{ run_as_user }}/services" }
       - { nfs_name: raid, src: "/mnt/raid" }
       - { nfs_name: todo, src: "/mnt/raid/todo" }
-      #- { nfs_name: quick, src: "/home/{{ run_as_user }}/quick" }
+      - { nfs_name: quick, src: "/mnt/quick" }
 
 - name: make NFS share dirs
   file:
@@ -34,7 +39,7 @@
     owner: "{{ run_as_user }}"
     group: "{{ run_as_user }}"
   become: yes
-  with_items: "{{ mount_list }}"
+  with_items: "{{ bind_list }}"
 
 - name: bind NFS shares
   mount:
@@ -43,12 +48,12 @@
     fstype: none
     opts: bind
     state: mounted
-  with_items: "{{ mount_list }}"
+  with_items: "{{ bind_list }}"
 
 - name: make dperson samba shares
   set_fact:
     dperson_samba_shares: "{{ dperson_samba_shares | default('') ~ ' -s \"' ~ item.nfs_name ~ ';/shares/' ~ item.nfs_name ~ ';yes;no;yes\"' }}"
-  with_items: "{{ mount_list }}"
+  with_items: "{{ bind_list }}"
 - name: finalize dperson samba shares
   set_fact:
     dperson_samba_shares: "{{ '-n -W -w SDHOME ' ~ dperson_samba_shares }}"
@@ -76,12 +81,14 @@
   when: test_rootdir.stdout == "0"
   become: yes
 
-# TODO: Don't restart if nothing changed
+# Disabled for now, doesn't work as expected due to different GUID
 - name: restart nfs server
   service:
     name: nfs-server.service
-    state: restarted
-    enabled: true
+    # Stop it until I make it useful: `restarted`
+    state: stopped
+    # Don't start on boot
+    enabled: false
 
 # - name: Read prev test results
 #   shell: cat {{ output_dir }}/mount_test_result.txt

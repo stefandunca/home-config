@@ -60,7 +60,9 @@
 .ansible/
 .history/
 /Templates/
-
+/.dotnet/
+/.nvidia-settings-rc
+/.viminfo
 
 # Manjaro (gnome)
 /.Xauthority

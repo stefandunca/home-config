@@ -14,6 +14,8 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias vi=vim
+
 alias ls='ls --group-directories-first -Fh --color=auto'  # make ls coloured, and append characters to denote filetype ( eg trailing / on directory names)
 alias l='ls -hCF'
 alias l.='ls -hd .*'  #show only hidden files

@@ -1,48 +1,5 @@
-developer_stack:
-  - docker
-  - docker-compose
-  - virtualbox
-  - vagrant
-  - hub
-  - nodejs
-  - npm
-  - maven
-  - clang
-
-developer_stack_arch:
-  - jre8-openjdk-headless
-  - jdk8-openjdk
-  - jre11-openjdk-headless
-  - jdk11-openjdk
-  - go-pie
-
-developer_stack_ubuntu:
-  - openjdk-8-jre-headless
-  - openjdk-8-jdk
-  - openjdk-11-jre-headless
-  - openjdk-11-jdk
-
-developer_stack_yay:
-  - visual-studio-code-bin
-
-developer_stack_snap:
-  - code
-
-multimedia:
-  - gimp
-  - inkscape
-  - audacity
-  - darktable
-  - blender
-  - vlc
-  - peek
-
-shell_aliases:
-  - alias ll='ls -lrt'
-  - alias vi=vim
-  - alias rgrep='grep -r'
-  - alias pull='hub pull-request --no-edit -o -p'
-
+# base
+#
 utils_ubuntu:
   - build-essential
   - python3-pip
@@ -65,12 +22,79 @@ utils:
   - mdadm
   - p7zip
   - nfs-utils
+  - net-tools
+  - sshpass
+  - iperf3
+  - vi
+  - vim
 
 utils_yay:
   - mkpasswd
   - git-extras
   - zsh-git-prompt
   - nomachine
+
+# Developer
+#
+developer_stack:
+    # Virtualization
+  - docker
+  - docker-compose
+  - virtualbox
+  - vagrant
+    # Helpers
+  - hub
+  - nodejs
+  - npm
+  - maven
+    # Build helpers
+  - cmake
+  - ninja
+    # Compilers & debuggers
+  - gdb
+  - clang
+  - lldb
+    # Instrumentation
+  - valgrind
+    # Web assembly
+  - emscripten
+
+developer_stack_arch:
+    # Java
+  - jre8-openjdk-headless
+  - jdk8-openjdk
+  - jre11-openjdk-headless
+  - jdk11-openjdk
+    # Others
+  - go-pie
+
+developer_stack_ubuntu:
+  - openjdk-8-jre-headless
+  - openjdk-8-jdk
+  - openjdk-11-jre-headless
+  - openjdk-11-jdk
+
+developer_stack_yay:
+  - visual-studio-code-bin
+  # Android
+  - android-studio
+  - android-sdk
+  - android-sdk-build-tools
+  - android-sdk-platform-tools
+  - android-platform
+  - android-emulator
+
+developer_stack_snap:
+  - code
+
+multimedia:
+  - gimp
+  - inkscape
+  - audacity
+  - darktable
+  - blender
+  - vlc
+  - peek
 
 zsh_plugins:
   - archlinux
