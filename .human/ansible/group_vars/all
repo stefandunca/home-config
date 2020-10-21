@@ -1,12 +1,5 @@
 # base
 #
-utils_ubuntu:
-  - build-essential
-  - python3-pip
-
-utils_arch:
-  - base-devel
-  - python-pip
 
 utils:
   - binutils
@@ -21,18 +14,27 @@ utils:
   - mc
   - mdadm
   - p7zip
-  - nfs-utils
   - net-tools
   - sshpass
   - iperf3
-  - vi
   - vim
+
+utils_arch:
+  - base-devel
+  - python-pip
+  - nfs-utils
+  - vi
 
 utils_yay:
   - mkpasswd
   - git-extras
   - zsh-git-prompt
   - nomachine
+
+utils_ubuntu:
+  - build-essential
+  - python3-pip
+  - libnfs-utils
 
 # Developer
 #
@@ -49,15 +51,12 @@ developer_stack:
   - maven
     # Build helpers
   - cmake
-  - ninja
     # Compilers & debuggers
   - gdb
   - clang
   - lldb
     # Instrumentation
   - valgrind
-    # Web assembly
-  - emscripten
 
 developer_stack_arch:
     # Java
@@ -65,6 +64,10 @@ developer_stack_arch:
   - jdk8-openjdk
   - jre11-openjdk-headless
   - jdk11-openjdk
+    # Build helpers
+  - ninja
+    # Web assembly
+  - emscripten
     # Others
   - go-pie
 
@@ -73,6 +76,7 @@ developer_stack_ubuntu:
   - openjdk-8-jdk
   - openjdk-11-jre-headless
   - openjdk-11-jdk
+  - ninja-build 
 
 developer_stack_yay:
   - visual-studio-code-bin

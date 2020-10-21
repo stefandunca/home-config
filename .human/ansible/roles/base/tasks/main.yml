@@ -69,7 +69,7 @@
   ignore_errors: yes
   tags: test
 - name: Setup scripts
-  script: /home/{{ run_as_user }}/.human/setup/setup_home.sh 2>&1 tee {{ output_dir }}/base_setup_result.txt
+  script: /home/{{ run_as_user }}/.human/setup/setup_home.sh 2>&1 | tee {{ output_dir }}/base_setup_result.txt
   become_user: "{{run_as_user}}"
   register: setup_result
   changed_when: (prev_setup_result.stdout is undefined or setup_result.stdout is undefined) or setup_result.stdout != prev_setup_result.stdout
@@ -94,8 +94,16 @@
   ignore_errors: yes
   tags: test
 - name: Test commands
-  script: test_commands.sh 2>&1 tee {{ output_dir }}/base_test_result.txt
+  script: test_commands.sh 2>&1 | tee {{ output_dir }}/base_test_result.txt
   become_user: "{{run_as_user}}"
   register: test_result
-  changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
+  changed_when: "(prev_test_result.stdout is undefined or test_result.stdout is undefined) or prev_test_result.stdout != test_result.stdout"
+  tags: test
+- name: Debug prev
+  debug:
+    msg: "{{ prev_test_result.stdout }}"
+  tags: test
+- name: Debug new
+  debug:
+    msg: "{{ test_result.stdout }}"
   tags: test

@@ -7,5 +7,5 @@
 
   roles:
   - { role: base,            tags: ['base'] }
-  - { role: developer-tools, tags: ['dev-tools'] }
+  - { role: dev,             tags: ['dev'] }
   - { role: multimedia,      tags: ['multimedia'] }
