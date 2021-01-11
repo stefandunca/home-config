@@ -1,10 +1,14 @@
 # .bashrc
 alias home='git --work-tree=$HOME --git-dir=$HOME/.home'
+export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
 
 # https://stackoverflow.com/questions/9910966/how-to-get-shell-to-self-detect-using-zsh-or-bash
 # .shell_profile additions
 [[ -f $HOME/.human/shell_profile ]] && . $HOME/.human/shell_profile
 
 [[ -f $HOME/.human/env_vars ]] && . $HOME/.human/env_vars
-[[ -z "$ZSH_VERSION" ]] && [[ -f $HOME/.human/bash-ps1.txt ]] && source $HOME/.human/bash-ps1.txt
 [[ -f $HOME/.human/shell_aliases ]] && source $HOME/.human/shell_aliases
+
+
+[[ -z "$ZSH_VERSION" ]] && [[ -f $HOME/.human/bash-ps1.txt ]] && source $HOME/.human/bash-ps1.txt
+[[ -z "$ZSH_VERSION" ]] && [[ -f $HOME/.human/arch_aliases ]] && source $HOME/.human/arch_aliases

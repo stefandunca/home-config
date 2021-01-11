@@ -12,7 +12,6 @@
 # Apps
 /.mozilla/
 /.nv/
-/.vscode/
 /.AndroidStudio*/
 /.android/
 /.gitconfig
@@ -63,6 +62,17 @@
 /.dotnet/
 /.nvidia-settings-rc
 /.viminfo
+/.arduino*/
+/.audacity-data/
+/.cert/
+/.config/
+/.electron-gyp/
+.vscode/
+/.ipynb_checkpoints/
+/.platformio/
+/.vmware/
+/.zsh/
+/Arduino/
 
 # Manjaro (gnome)
 /.Xauthority

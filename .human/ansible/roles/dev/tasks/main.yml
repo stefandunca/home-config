@@ -61,6 +61,12 @@
     recursive: yes
     state: present
   when: ansible_distribution == 'Archlinux'
+  
+# `yes | sdkmanager --licenses`
+# `sdkmanager --update`
+
+# Tests
+#
 
 - name: Create output directory
   file:

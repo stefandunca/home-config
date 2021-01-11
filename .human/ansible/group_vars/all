@@ -7,6 +7,7 @@ utils_ubuntu:
 utils_arch:
   - base-devel
   - python-pip
+  - expac
 
 utils:
   - binutils
@@ -27,6 +28,9 @@ utils:
   - iperf3
   - vi
   - vim
+  - util-linux
+  - nfs-utils
+  - borg
 
 utils_yay:
   - mkpasswd
@@ -58,6 +62,10 @@ developer_stack:
   - valgrind
     # Web assembly
   - emscripten
+    # Tools
+  - meld
+    # Data science
+  - jupyterlab
 
 developer_stack_arch:
     # Java
@@ -76,13 +84,15 @@ developer_stack_ubuntu:
 
 developer_stack_yay:
   - visual-studio-code-bin
-  # Android
+    # Android
   - android-studio
   - android-sdk
   - android-sdk-build-tools
   - android-sdk-platform-tools
   - android-platform
   - android-emulator
+    # Data science
+  - evcxr_jupyter
 
 developer_stack_snap:
   - code
@@ -114,6 +124,8 @@ pip_packages:
 
 # UI Applications
 apps:
+  - firefox
+
 apps_yay:
   - slack-desktop
   - google-chrome
@@ -129,5 +141,8 @@ apps_snap:
 srv:
   - docker
   - docker-compose
+  - virtualbox
+  - vagrant
 
 srv_yay:
+  - virtualbox-ext-oracle
