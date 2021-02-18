@@ -30,6 +30,7 @@ utils_yay:
   - git-extras
   - zsh-git-prompt
   - nomachine
+  - nano-syntax-highlighting-git
 
 utils_ubuntu:
   - build-essential
