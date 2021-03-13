@@ -58,9 +58,9 @@ Use `--syntax-check` to check syntax
 
 ### Manjaro (mediasrv)
 - Command:
-  - workstation: `sudo ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory hosts.yml --limit localhost ~/.human/ansible/workstation.local.yml`
-  - mediasrv: `ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --inventory hosts.yml --limit mediasrv ~/.human/ansible/mediasrv.yml`
+  - workstation: `sudo ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --inventory $HOME/.human/ansible/hosts.yml --limit localhost --extra-vars "run_as_user=$USER" $HOME/.human/ansible/workstation.local.yml`
+  - mediasrv: `ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --inventory $HOME/.human/ansible/hosts.yml --limit mediasrv $HOME/.human/ansible/mediasrv.yml`
 
 ### Ubuntu
 
-- Command: `sudo ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory localhost, --limit localhost ~/.human/ansible/ubuntu.local.yml --extra-vars "run_as_user=$USER"`
+- Command: `sudo ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory $HOME/.human/ansible/hosts.yml --limit localhost  --extra-vars "run_as_user=$USER" ~/.human/ansible/ubuntu.local.yml`

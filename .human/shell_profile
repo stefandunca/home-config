@@ -6,6 +6,10 @@ export HISTSIZE=100000
 export HISTFILESIZE=1000000
 export SAVEHIST=$HISTSIZE
 
+# https://wiki.archlinux.org/index.php/nano
+export VISUAL=nano
+export EDITOR=nano
+
 # Zsh
 #HISTFILE="$HOME/.zsh_history"
 #HISTSIZE=10000000

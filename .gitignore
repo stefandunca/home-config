@@ -5,9 +5,8 @@
 /proj/
 /.p/
 /tools/
+/backup/
 !/tools/fzf/
-
-/.human/ansible/.out/
 
 # Apps
 /.mozilla/
@@ -73,6 +72,9 @@
 /.vmware/
 /.zsh/
 /Arduino/
+/.lesshst
+/.platformio/
+/.putty/
 
 # Manjaro (gnome)
 /.Xauthority
@@ -118,6 +120,7 @@
 
 # Allow the following exception for .config and .local
 !/.config/blender/
+!/.config/nano/nanorc
 !/.local/share/gnome-shell/extensions/gTile@vibou/
 
 .ICEauthority
