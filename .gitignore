@@ -6,6 +6,9 @@
 /.p/
 /tools/
 /backup/
+/.human/ansible/.out/
+/services/
+
 !/tools/fzf/
 
 # Apps
@@ -75,6 +78,7 @@
 /.lesshst
 /.platformio/
 /.putty/
+.dmrc
 
 # Manjaro (gnome)
 /.Xauthority
