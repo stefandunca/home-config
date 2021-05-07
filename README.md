@@ -9,39 +9,6 @@
 
 Use `./.human/setup/setup_home.sh` test script as reference or instead of manual steps
 
-### Manjaro
-```bash
-# Install ansible
-sudo pacman -Syu git ansible openssh
-
-```
-
-### Ubuntu
-```bash
-# Install ansible
-sudo apt update
-sudo apt install software-properties-common ansible git
-```
-
-## General home setup
-
-```bash
-# Create an alias command for git commands with set work dir to home and ".git" dir as ".home"
-alias home='git --work-tree=$HOME --git-dir=$HOME/.home'
-# Bring saved configuration files from the repository
-home init && home remote add origin git@github.com:stefandunca/home-config.git
-home fetch && home checkout master && home submodule update --init --recursive
-# Trigger customized configuration on bash interactive startup
-echo "[[ -f $HOME/.human/bashrc ]] && . $HOME/.human/bashrc" >> $HOME/.bashrc && . $HOME/.human/bashrc
-```
-
-### Manjaro
-```
-# Trigger customized configuration on bash interactive startup
-echo "[[ -f $HOME/.human/bashrc ]] && . $HOME/.human/bashrc" >> $HOME/.bashrc
-# Restart terminal or `source $HOME/.bashrc`
-```
-
 Sudo without a password:
  - call `sudo visudo`, go to the end of the file, press `i` to enter edit mode, add: `human ALL=(ALL) NOPASSWD:ALL` and save and exit by typing `:wq!`
 
