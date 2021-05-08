@@ -3,11 +3,14 @@
 utils_ubuntu:
   - build-essential
   - python3-pip
+  - libnfs-utils
 
 utils_arch:
   - base-devel
   - python-pip
   - expac
+  - nfs-utils
+  - vi
 
 utils:
   - binutils
@@ -31,23 +34,12 @@ utils:
   - borg
   - rmlint
 
-utils_arch:
-  - base-devel
-  - python-pip
-  - nfs-utils
-  - vi
-
 utils_yay:
   - mkpasswd
   - git-extras
   - zsh-git-prompt
   - nomachine
   - nano-syntax-highlighting-git
-
-utils_ubuntu:
-  - build-essential
-  - python3-pip
-  - libnfs-utils
 
 # Developer
 #
