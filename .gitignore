@@ -3,11 +3,17 @@
 
 # Personal
 /proj/
+/proj
 /.p/
+/.p
 /tools/
 /backup/
 /.human/ansible/.out/
 /services/
+/.keys/
+/rmlint.json
+/rmlint.sh
+
 
 !/tools/fzf/
 
@@ -79,6 +85,9 @@
 /.platformio/
 /.putty/
 .dmrc
+.vboxclient-clipboard.pid
+.vboxclient-draganddrop.pid
+.vboxclient-seamless.pid
 
 # Manjaro (gnome)
 /.Xauthority

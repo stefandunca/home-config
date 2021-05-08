@@ -29,6 +29,7 @@ utils:
   - util-linux
   - nfs-utils
   - borg
+  - rmlint
 
 utils_arch:
   - base-devel
