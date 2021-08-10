@@ -33,6 +33,8 @@ utils:
   - nfs-utils
   - borg
   - rmlint
+  - git
+  - git-lfs
 
 utils_yay:
   - mkpasswd
@@ -96,6 +98,7 @@ developer_stack_yay:
   - android-sdk
   - android-sdk-build-tools
   - android-sdk-platform-tools
+  - android-sdk-cmdline-tools-latest
   - android-platform
   - android-emulator
     # Data science

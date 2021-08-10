@@ -1,0 +1,2 @@
+_fzf_setup_completion path code
+_fzf_setup_completion path nano

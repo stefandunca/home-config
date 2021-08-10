@@ -37,6 +37,5 @@ USER $USER
 
 # Restart terminal or `source $HOME/.bashrc`
 # Install required dependencies
-RUN ansible-galaxy install gantsign.visual-studio-code
-#RUN cd $HOME && ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory 127.0.0.1, --limit 127.0.0.1 .human/ansible/local.yml --extra-vars "run_as_user=$USER"
+RUN cd $HOME && ansible-playbook -e 'ansible_python_interpreter=/usr/bin/python3' --connection=local --inventory 127.0.0.1, --limit 127.0.0.1 .human/ansible/local.yml --extra-vars "run_as_user=$USER"
 
