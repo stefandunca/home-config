@@ -1,17 +1,5 @@
 # base
 #
-utils_ubuntu:
-  - build-essential
-  - python3-pip
-  - libnfs-utils
-
-utils_arch:
-  - base-devel
-  - python-pip
-  - expac
-  - nfs-utils
-  - vi
-
 utils:
   - binutils
   - gcc
@@ -23,7 +11,6 @@ utils:
   - gparted
   - nano
   - mc
-  - mdadm
   - p7zip
   - net-tools
   - sshpass
@@ -36,12 +23,38 @@ utils:
   - git
   - git-lfs
 
+# Also host
+host_utils:
+  - mdadm
+
+utils_ubuntu:
+  - build-essential
+  - python3-pip
+  - libnfs-utils
+
+utils_arch:
+  - base-devel
+  - python-pip
+  - expac
+  - nfs-utils
+  - vi
+
 utils_yay:
   - mkpasswd
   - git-extras
   - zsh-git-prompt
-  - nomachine
+      #
+  - zsh-syntax-highlighting
+  - zsh-autosuggestions
+  - zsh-history-substring-search
+  - zsh-theme-powerlevel10k
+  - zsh-completions
+
   - nano-syntax-highlighting-git
+
+host_utils_yay:
+  - nomachine
+
 
 # Developer
 #
@@ -49,8 +62,6 @@ developer_stack:
     # Virtualization
   - docker
   - docker-compose
-  - virtualbox
-  - vagrant
     # Helpers
   - hub
   - nodejs
@@ -71,6 +82,10 @@ developer_stack:
     # Data science
   - jupyterlab
 
+host_developer_stack:
+  - virtualbox
+  - vagrant
+  
 developer_stack_arch:
     # Java
   - jre8-openjdk-headless
@@ -94,7 +109,6 @@ developer_stack_ubuntu:
 developer_stack_yay:
   - visual-studio-code-bin
     # Android
-  - android-studio
   - android-sdk
   - android-sdk-build-tools
   - android-sdk-platform-tools
@@ -104,10 +118,13 @@ developer_stack_yay:
     # Data science
   - evcxr_jupyter
 
-developer_stack_snap:
+host_developer_stack_yay:
+  - android-studio
+
+host_developer_stack_snap:
   - code
 
-multimedia:
+host_multimedia:
   - gimp
   - inkscape
   - audacity

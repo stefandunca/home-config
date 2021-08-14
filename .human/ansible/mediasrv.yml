@@ -6,4 +6,5 @@
 
   roles:
   - { role: base,            tags: ['base'] }
+  - { role: host,            tags: ['host'] }
   - { role: srv,             tags: ['srv'] }

@@ -9,6 +9,3 @@
 # Allow the following exception for .config and .local
 !/.config/blender/
 !/.local/share/gnome-shell/extensions/gTile@vibou/
-
-# ssh
-!/.ssh/config

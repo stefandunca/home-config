@@ -6,6 +6,13 @@
   become: yes
   when: ansible_distribution == 'Archlinux'
 
+- name: Install Developer Tools
+  pacman:
+    name: '{{ host_developer_stack }}'
+    state: present
+  become: yes
+  when: ansible_distribution == 'Archlinux' and not no_ui_present
+
 - name: Install Developer Tools [Ubuntu]
   apt:
     name: '{{ developer_stack + developer_stack_ubuntu }}'
@@ -23,7 +30,7 @@
 
 - name: Install Developer Tools from Snap [Ubuntu]
   snap:
-    name: '{{ developer_stack_snap }}'
+    name: '{{ host_developer_stack_snap }}'
     state: present
     # This option can only be specified if there is a single snap in the task.!?
     classic: true
