@@ -1,9 +1,12 @@
 # Ignore files and folder in the root dir
 /*
 
+#
 # Personal
 !/tools/fzf/
 !/.human
+# Tests
+!/.human/ansible/.out/
 !/.nanorc
 
 # Allow the following exception for .config and .local

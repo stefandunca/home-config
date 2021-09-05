@@ -1,9 +1,0 @@
----
-# TODO: finalize this someday
-- name: Create backup destination
-  shell: borg init --encryption=<repokey> <ssh_destination>
-  register: prev_setup_result
-  become_user: "{{run_as_user}}"
-  changed_when: false
-  ignore_errors: yes
-  tags: test

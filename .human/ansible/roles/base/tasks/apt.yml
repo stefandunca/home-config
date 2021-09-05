@@ -1,0 +1,20 @@
+---
+- name: Upgrade all packages [Ubuntu]
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+    upgrade: dist
+    cache_valid_time: 3600
+  tags: upgrade
+
+- name: Install Ubuntu packages
+  apt:
+    name: '{{ packages_ubuntu }}'
+    state: present
+  become: yes
+
+- name: Uninstall Ubuntu packages
+  apt:
+    name: '{{ unwanted_packages_ubuntu }}'
+    state: present
+  become: yes

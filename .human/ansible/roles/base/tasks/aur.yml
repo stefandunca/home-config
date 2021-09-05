@@ -1,0 +1,31 @@
+---
+- name: Check if yay file exists
+  stat:
+    path: /usr/bin/yay
+  register: is_yay_available
+
+- name: Install base-devel require to compile yay
+  pacman:
+    name: base-devel
+    state: present
+  become: yes
+  when: (is_yay_available.stat.exists is defined and is_yay_available.stat.exists != true)
+
+- name: Setup yay
+  shell: if [ -d "/tmp/yay" ]; then rm -Rf "/tmp/yay"; fi && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm
+  become_user: "{{run_as_user}}"
+  args:
+    chdir: /tmp/
+  when: (is_yay_available.stat.exists is defined and is_yay_available.stat.exists != true)
+
+- name: Install AUR packages
+  yay:
+    name: '{{ packages_aur }}'
+    state: present
+  become: yes
+
+- name: Install AUR packages
+  yay:
+    name: '{{ packages_aur }}'
+    state: present
+  become: yes

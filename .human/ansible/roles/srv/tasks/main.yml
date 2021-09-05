@@ -1,21 +1,4 @@
 ---
-- name: Install Base Server tools
-  pacman:
-    name: '{{ srv }}'
-    state: present
-  become: yes
-
-- name: Install Base Server tools AUR
-  yay:
-    name: '{{ srv_yay }}'
-    state: present
-  become: yes
-  tags: [yay]
-
-- name: Install Docker Tools
-  include: ../../general/docker-config.yml
-  tags: docker
-
 - name: Setup Mout Options
   include: ./mount.yml
   tags: mount

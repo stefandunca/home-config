@@ -25,142 +25,182 @@ utils:
 
 # Also host
 utils:
-  ui: true
+  if_tag: raid
   items:
     - mdadm
 
-utils_ubuntu:
-  - build-essential
-  - python3-pip
-  - libnfs-utils
+utils:
+  on: ubuntu
+  items:
+    - build-essential
+    - python3-pip
+    - libnfs-utils
 
-utils_arch:
-  - base-devel
-  - python-pip
-  - expac
-  - nfs-utils
-  - vi
+utils:
+  on: arch
+  items:
+    - base-devel
+    - python-pip
+    - expac
+    - nfs-utils
+    - vi
 
-utils_yay:
-  - mkpasswd
-  - git-extras
-  - zsh-git-prompt
-      #
-  - zsh-syntax-highlighting
-  - zsh-autosuggestions
-  - zsh-history-substring-search
-  - zsh-theme-powerlevel10k
-  - zsh-completions
+utils:
+  using: yay
+  items:
+    - mkpasswd
+    - git-extras
+    - zsh-git-prompt
+        #
+    - zsh-syntax-highlighting
+    - zsh-autosuggestions
+    - zsh-history-substring-search
+    - zsh-theme-powerlevel10k
+    - zsh-completions
 
-  - nano-syntax-highlighting-git
+    - nano-syntax-highlighting-git
 
-host_utils_yay:
-  - nomachine
+host_utils_:
+  using: yay
+    - nomachine
 
 
 # Developer
 #
 developer_stack:
-    # Virtualization
-  - docker
-  - docker-compose
-    # Helpers
-  - hub
-  - nodejs
-  - npm
-  - maven
-    # Build helpers
-  - cmake
-    # Compilers & debuggers
-  - gdb
-  - clang
-  - lldb
-    # Instrumentation
-  - valgrind
-    # Web assembly
-  - emscripten
-    # Tools
-  - meld
-    # Data science
-  - jupyterlab
+  if_tag: dev
+  items:
+      # Virtualization
+    - docker
+    - docker-compose
+      # Helpers
+    - hub
+    - nodejs
+    - npm
+    - maven
+      # Build helpers
+    - cmake
+      # Compilers & debuggers
+    - gdb
+    - clang
+    - lldb
+      # Instrumentation
+    - valgrind
+      # Web assembly
+    - emscripten
+      # Tools
+    - meld
+      # Data science
+    - jupyterlab
 
-host_developer_stack:
-  - virtualbox
-  - vagrant
+developer_stack:
+  if_tag: vm
+  items:
+    - virtualbox
+    - vagrant
   
-developer_stack_arch:
-    # Java
-  - jre8-openjdk-headless
-  - jdk8-openjdk
-  - jre11-openjdk-headless
-  - jdk11-openjdk
-    # Build helpers
-  - ninja
-    # Web assembly
-  - emscripten
-    # Others
-  - go-pie
+developer_stack:
+  on: arch
+  items:
+      # Java
+    - jre8-openjdk-headless
+    - jdk8-openjdk
+    - jre11-openjdk-headless
+    - jdk11-openjdk
+      # Build helpers
+    - ninja
+      # Web assembly
+    - emscripten
+      # Others
+    - go-pie
 
-developer_stack_ubuntu:
-  - openjdk-8-jre-headless
-  - openjdk-8-jdk
-  - openjdk-11-jre-headless
-  - openjdk-11-jdk
-  - ninja-build 
+developer_stack:
+  on: ubuntu
+  items:
+    - openjdk-8-jre-headless
+    - openjdk-8-jdk
+    - openjdk-11-jre-headless
+    - openjdk-11-jdk
+    - ninja-build 
 
-developer_stack_yay:
-  - visual-studio-code-bin
-    # Android
-  - android-sdk
-  - android-sdk-build-tools
-  - android-sdk-platform-tools
-  - android-sdk-cmdline-tools-latest
-  - android-platform
-  - android-emulator
-    # Data science
-  - evcxr_jupyter
+developer_stack:
+  using: yay
+  install:
+    - visual-studio-code-bin
+      # Android
+    - android-sdk
+    - android-sdk-build-tools
+    - android-sdk-platform-tools
+    - android-sdk-cmdline-tools-latest
+    - android-platform
+    - android-emulator
+      # Data science
+    - evcxr_jupyter
 
-host_developer_stack_yay:
-  - android-studio
+developer_stack:
+  on: host
+  using: yay
+  items:
+    - android-studio
 
-host_developer_stack_snap:
-  - code
+developer_stack:
+  if_tag: ui
+  using: snap
+  on:
+    - host
+    - ubuntu
+  items:
+    - code
 
-host_multimedia:
-  - gimp
-  - inkscape
-  - audacity
-  - darktable
-  - blender
-  - vlc
-  - peek
+multimedia:
+  if_tag: ui
+  on: host
+  items:
+    - gimp
+    - inkscape
+    - audacity
+    - darktable
+    - blender
+    - vlc
+    - peek
 
 zsh_plugins:
-  - archlinux
-  - colored-man-pages
-  - docker
-  - docker-compose
-  - dotenv
-  - spring
-  - thefuck
-  - git-prompt
-  - git-extras
+  using: zsh
+  items:
+    - archlinux
+    - colored-man-pages
+    - docker
+    - docker-compose
+    - dotenv
+    - spring
+    - thefuck
+    - git-prompt
+    - git-extras
 
 # Python
 pip_packages:
-  - thefuck
-  - github3.py
+  using: pip
+  items:
+    - thefuck
+    - github3.py
 
 # UI Applications
 apps:
-  - firefox
+  if_tag: ui
+  items:
+    - firefox
 
-apps_yay:
-  - slack-desktop
-  - google-chrome
-  - chromedriver
+apps:
+  using: yay
+  if_tag: ui
+  items:
+    - slack-desktop
+    - google-chrome
+    - chromedriver
 
-apps_snap:
+apps:
+  using: snap
+  items:
   - slack-desktop
   - google-chrome
   - chromedriver
@@ -173,5 +213,6 @@ srv:
   - virtualbox
   - vagrant
 
-srv_yay:
-  - virtualbox-ext-oracle
+srv:
+  using: yay
+    - virtualbox-ext-oracle
