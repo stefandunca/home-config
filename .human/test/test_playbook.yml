@@ -1,0 +1,7 @@
+- name: "Test setup"
+  hosts: localhost
+  connection: local
+  become: true
+
+  roles:
+  - { role: base,            tags: ['base'] }

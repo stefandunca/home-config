@@ -26,6 +26,6 @@
 
 - name: Install AUR packages
   yay:
-    name: '{{ packages_aur }}'
+    name: '{{ unwanted_packages_aur }}'
     state: present
   become: yes

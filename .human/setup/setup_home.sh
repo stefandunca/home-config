@@ -32,7 +32,6 @@ if [ ! -d "$HOME/.home" ]; then
     else
         echo "[[ -f $HOME/.human/shellrc ]] && . $HOME/.human/shellrc" >> $HOME/.zshrc && . $HOME/.zshrc
     fi
-
 else
     home pull --ff-only origin master && home submodule update --init --recursive
 fi

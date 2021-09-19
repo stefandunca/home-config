@@ -1,0 +1,9 @@
+#
+#
+
+packages_arch:
+  - htop
+
+unwanted_packages_arch:
+packages_aur:
+unwanted_packages_aur:

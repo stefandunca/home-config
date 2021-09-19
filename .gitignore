@@ -9,6 +9,9 @@
 !/.human/ansible/.out/
 !/.nanorc
 
+# Dev
+.human/.vscode/
+
 # Allow the following exception for .config and .local
 !/.config/blender/
 !/.local/share/gnome-shell/extensions/gTile@vibou/

@@ -1,6 +1,6 @@
 # .bashrc
 alias home='git --work-tree=$HOME --git-dir=$HOME/.home'
-export JUPYTERLAB_DIR=$HOME/.local/share/jupyter/lab
+export PATH=$PATH:$HOME/.cargo/bin
 
 # https://stackoverflow.com/questions/9910966/how-to-get-shell-to-self-detect-using-zsh-or-bash
 # .shell_profile additions
