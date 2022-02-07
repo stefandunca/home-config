@@ -1,7 +1,5 @@
 all:
   hosts:
-    mediasrv:
-    human-mrig:
     localhost:
   vars:
     run_as_user: human

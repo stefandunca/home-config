@@ -1,7 +1,0 @@
-version: "3.9"
-services:
-  arch-test:
-    build:
-      context: .
-      dockerfile: Dockerfile-arch
-    image: home-config-test-arch:dev

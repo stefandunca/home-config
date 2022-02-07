@@ -9,7 +9,7 @@
 
 - name: Install Ubuntu packages
   apt:
-    name: '{{ packages_ubuntu }}'
+    name: '{{ packages.apt }}'
     state: present
   become: yes
 
