@@ -8,8 +8,8 @@ source .venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-## Run tests
+## Generate config
 
-```python
-python .human/ansible/inventory_setup/main.py --config .human/ansible/inventory_setup/test/test_configuration.qml --output_dir .human/ansible/inventory_setup/test/
+```bash
+python /home/$USER/.human/ansible/inventory_setup/main.py --config /home/$USER/.human/ansible/inventory_setup/configuration/configuration.qml --output_dir /home/$USER/.human/ansible/group_vars/
 ```

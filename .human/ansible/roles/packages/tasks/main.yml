@@ -1,14 +1,14 @@
 ---
 - name: Process pacman packages
-  include: pacman.yml
+  include_tasks: pacman.yml
   when: ansible_distribution == 'Archlinux'
 
 - name: Process AUR packages
-  include: aur.yml
+  include_tasks: aur.yml
   when: ansible_distribution == 'Archlinux'
 
 - name: Process AUR packages
-  include: apt.yml
+  include_tasks: apt.yml
   when: ansible_distribution == 'Ubuntu'
 
 #

@@ -9,12 +9,14 @@
 
 - name: Install Ubuntu packages
   apt:
-    name: '{{ packages.apt }}'
+    name: '{{ install.apt }}'
     state: present
   become: yes
+  when: install.apt is defined
 
 - name: Uninstall Ubuntu packages
   apt:
-    name: '{{ unwanted_packages_ubuntu }}'
+    name: '{{ uninstall.apt }}'
     state: present
   become: yes
+  when: uninstall.apt is defined

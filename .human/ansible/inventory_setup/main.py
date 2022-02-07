@@ -24,19 +24,21 @@ class AnsibleVarsExporter(QQuickItem):
     def __init__(self):
         QQuickItem.__init__(self)
 
-    def process_configuration(self, out_dir):
-        targets = list()
-        for item in self.children():
-            if type(item) is Target:
-                targets.append(item)
+def process_configuration(exporter : AnsibleVarsExporter, out_dir, allowlist):
+    targets = list()
+    for item in exporter.children():
+        if type(item) is Target:
+            targets.append(item)
 
-        for target in targets:
-            present = dict()
-            not_present = dict()
-            for item in target.package_list:
-                if type(item) is PackageList:
-                    for p in item.children():
-                        for pm in p.supported_targets():
+    for target in targets:
+        present = dict()
+        not_present = dict()
+        allow_labels = target.allow_labels + allowlist
+        for item in target.package_list:
+            if type(item) is PackageList:
+                for p in item.children():
+                    for pm in p.supported_targets():
+                        if len(p.allowlist) == 0 or all(allow in allow_labels for allow in p.allowlist):
                             if p.exclude:
                                 if pm not in not_present:
                                     not_present[pm] = list()
@@ -45,19 +47,18 @@ class AnsibleVarsExporter(QQuickItem):
                                 if pm not in present:
                                     present[pm] = list()
                                 present[pm].append(getattr(p, pm))
-            content = dict()
-            if len(present) > 0:
-                content["present"] = present
-            if len(not_present) > 0:
-                content["not_present"] = not_present
+        content = dict()
+        if len(present) > 0:
+            content["install"] = present
+        if len(not_present) > 0:
+            content["uninstall"] = not_present
 
-            if len(content):
-                fname = target.host + ".yaml"
-                fpath = os.path.join(out_dir, fname)
-                f = open(fpath, "w")
-                f.write(yaml.dump(content))
-                f.close()
-
+        if len(content):
+            fname = target.host + ".yml"
+            fpath = os.path.join(out_dir, fname)
+            f = open(fpath, "w")
+            f.write(yaml.dump(content))
+            f.close()
 
 #
 # Script entry
@@ -66,7 +67,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", "-f", type=str, required=True)
     parser.add_argument("--output_dir", "-o", type=str, required=True)
+    parser.add_argument("--allow_labels", "-a", type=str, default="", help="Coma separated labels to filter Package entries")
     args = parser.parse_args()
+
+    allowlist = args.allow_labels.split(",") if len(args.allow_labels) > 0 else list()
 
     # Construct qml engine with it's dependencies
     app = QGuiApplication(sys.argv + ["QT_QPA_PLATFORM", "minimal"])
@@ -80,7 +84,7 @@ if __name__ == "__main__":
     # Expect that root dir is an AnsibleVarsExporter
     package_exporter = engine.root_objects()[0]
     if type(package_exporter) == AnsibleVarsExporter:
-        package_exporter.process_configuration(args.output_dir)
+        process_configuration(package_exporter, args.output_dir, allowlist)
     else:
         print("Wrong root QML item for the configuration file:", args.config, "; type", type(package_exporter), "; expected AnsibleVarsExporter")
         sys.exit(-2)

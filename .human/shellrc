@@ -10,5 +10,4 @@ export PATH=$PATH:$HOME/.cargo/bin
 [[ -f $HOME/.human/shell_aliases ]] && source $HOME/.human/shell_aliases
 
 
-[[ -z "$ZSH_VERSION" ]] && [[ -f $HOME/.human/bash-ps1.txt ]] && source $HOME/.human/bash-ps1.txt
-[[ -z "$ZSH_VERSION" ]] && [[ -f $HOME/.human/arch_aliases ]] && source $HOME/.human/arch_aliases
+[[ -z "$ZSH_VERSION" ]] || [[ -f $HOME/.human/arch_aliases ]] && source $HOME/.human/arch_aliases

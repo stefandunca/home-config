@@ -12,6 +12,7 @@ class Package(QtQuick.QQuickItem):
     def __init__(self):
         QtQuick.QQuickItem.__init__(self)
         self.exclude_val = False    # True ensures it is removed and installed otherwise
+        self.allowlist_val = list()
         self.targets = {"pacman": None, "aur": None, "apt": None, "snap": None}
 
     # `name` property
@@ -94,6 +95,7 @@ class Package(QtQuick.QQuickItem):
         self.snap_changed.emit()
 
     # `exclude` property
+    # If False install package. If True ensure it is removed
     @QtCore.Signal
     def exclude_changed(self):
         pass
@@ -108,6 +110,23 @@ class Package(QtQuick.QQuickItem):
             return
         self.exclude_val = val
         self.exclude_changed.emit()
+
+    # `allowlist` property
+    # List of labels. Install if allowlisted labels are defined otherwise not
+    @QtCore.Signal
+    def allowlist_changed(self):
+        pass
+
+    @QtCore.Property('QVariantList', notify=allowlist_changed)
+    def allowlist(self):
+        return self.allowlist_val
+
+    @allowlist.setter
+    def allowlist(self, val):
+        if val == self.allowlist_val:
+            return
+        self.allowlist_val = val
+        self.allowlist_changed.emit()
 
     # List of supported package managers
     def supported_targets(self):

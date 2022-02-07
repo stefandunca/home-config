@@ -1,2 +1,0 @@
-rsync -vr --perms --chmod=u+rwX,go-rwx --chown=human:human --delete /mnt/c/Users/human/.ssh/ /home/human/.ssh
-rsync -vr --perms --chmod=u+rwX,go-rwx --chown=human:human --delete /mnt/c/Users/human/.keys/ /home/human/.keys

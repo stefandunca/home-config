@@ -1,20 +1,15 @@
-# Ignore files and folder in the root dir
+# Ignore files and folders in the root dir ectory
 /*
 
+# Ignore hidden files and folders
+.*
+
 #
+# Exceptions
+
 # Personal
 !/tools/fzf/
 !/.human
-# Tests
-!/.human/ansible/.out/
 !/.nanorc
+!/.p10k.zsh
 
-# Dev
-.human/.vscode/
-
-# Allow the following exception for .config and .local
-!/.config/blender/
-!/.local/share/gnome-shell/extensions/gTile@vibou/
-
-# Python
-.venv/

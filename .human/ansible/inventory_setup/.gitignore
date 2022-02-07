@@ -1,5 +1,5 @@
-# This file is used to ignore files which are generated
-# ----------------------------------------------------------------------------
+# Ignore generated files
+# ----------------------
 
 *~
 *.autosave
@@ -63,8 +63,11 @@ Thumbs.db
 *.Debug
 *.Release
 
-# Python byte code
+# Python
+
+# byte code
 *.pyc
+__pycache__
 
 # Binaries
 # --------

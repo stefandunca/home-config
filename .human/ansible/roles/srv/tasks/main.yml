@@ -1,5 +1,5 @@
 ---
-- name: Setup Mout Options
+- name: Setup Mount Options
   include: ./mount.yml
   tags: mount
 

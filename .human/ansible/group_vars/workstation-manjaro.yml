@@ -1,0 +1,52 @@
+install:
+  apt:
+  - zsh
+  - git
+  - curl
+  - wget
+  - p7zip
+  - vim
+  - htop
+  - mc
+  - tree
+  - xclip
+  - nano
+  - net-tools
+  - util-linux
+  - borg
+  - rmlint
+  - gparted
+  - build-essential
+  - python3-pip
+  - openjdk-8-jre-headless
+  - openjdk-8-jdk
+  - openjdk-11-jre-headless
+  - openjdk-11-jdk
+  aur:
+  - git-extras
+  - visual-studio-code-bin
+  pacman:
+  - zsh
+  - git
+  - curl
+  - wget
+  - p7zip
+  - vim
+  - htop
+  - mc
+  - tree
+  - xclip
+  - nano
+  - net-tools
+  - util-linux
+  - borg
+  - rmlint
+  - gparted
+  - nano-syntax-highlighting
+  - yay
+  - base-devel
+  - python-pip
+  - jre8-openjdk-headless
+  - jdk8-openjdk
+  - jre11-openjdk-headless
+  - jdk11-openjdk

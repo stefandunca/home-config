@@ -8,12 +8,14 @@
 
 - name: Install packages
   pacman:
-    name: '{{ packages_arch }}'
+    name: '{{ install.pacman }}'
     state: present
   become: yes
+  when: install.pacman is defined
 
 - name: Uninstall packages
   pacman:
-    name: '{{ unwanted_packages_arch }}'
+    name: '{{ uninstall.pacman }}'
     state: absent
   become: yes
+  when: uninstall.pacman is defined

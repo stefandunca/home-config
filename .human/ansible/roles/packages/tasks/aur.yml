@@ -20,12 +20,14 @@
 
 - name: Install AUR packages
   yay:
-    name: '{{ packages_aur }}'
+    name: '{{ install.aur }}'
     state: present
   become: yes
+  when: install.aur is defined
 
 - name: Install AUR packages
   yay:
-    name: '{{ unwanted_packages_aur }}'
+    name: '{{ uninstall.aur }}'
     state: present
   become: yes
+  when: uninstall.aur is defined

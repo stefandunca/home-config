@@ -15,6 +15,7 @@ class Target(QtCore.QObject):
         QtCore.QObject.__init__(self)
         self.package_list_val = list()
         self.host_val = None
+        self.allow_labels_val = list()
 
     # Host property
     @QtCore.Signal
@@ -47,3 +48,20 @@ class Target(QtCore.QObject):
             return
         self.package_list_val = val
         self.package_list_changed.emit()
+
+    # `allow_labels` property
+    # List of labels. Install if allowed labels are defined otherwise not
+    @QtCore.Signal
+    def allow_labels_changed(self):
+        pass
+
+    @QtCore.Property('QVariantList', notify=allow_labels_changed)
+    def allow_labels(self):
+        return self.allow_labels_val
+
+    @allow_labels.setter
+    def allow_labels(self, val):
+        if val == self.allow_labels_val:
+            return
+        self.allow_labels_val = val
+        self.allow_labels_changed.emit()
