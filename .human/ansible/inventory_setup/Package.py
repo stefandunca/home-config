@@ -13,7 +13,8 @@ class Package(QtQuick.QQuickItem):
         QtQuick.QQuickItem.__init__(self)
         self.exclude_val = False    # True ensures it is removed and installed otherwise
         self.allowlist_val = list()
-        self.targets = {"pacman": None, "aur": None, "apt": None, "snap": None}
+        self.targets = {"pacman": None, "aur": None, "apt": None,
+                        "snap": None, "choco": None, "pip": None}
 
     # `name` property
     @QtCore.Signal
@@ -93,6 +94,38 @@ class Package(QtQuick.QQuickItem):
             return
         self.targets["snap"] = val
         self.snap_changed.emit()
+
+    # `choco` property
+    @QtCore.Signal
+    def choco_changed(self):
+        pass
+
+    @QtCore.Property(str, notify=choco_changed)
+    def choco(self):
+        return self.targets["choco"]
+
+    @choco.setter
+    def choco(self, val):
+        if val == self.targets["choco"]:
+            return
+        self.targets["choco"] = val
+        self.choco_changed.emit()
+
+    # `pip` property
+    @QtCore.Signal
+    def pip_changed(self):
+        pass
+
+    @QtCore.Property(str, notify=pip_changed)
+    def pip(self):
+        return self.targets["pip"]
+
+    @pip.setter
+    def pip(self, val):
+        if val == self.targets["pip"]:
+            return
+        self.targets["pip"] = val
+        self.pip_changed.emit()
 
     # `exclude` property
     # If False install package. If True ensure it is removed

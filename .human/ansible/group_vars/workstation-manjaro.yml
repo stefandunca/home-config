@@ -18,13 +18,66 @@ install:
   - gparted
   - build-essential
   - python3-pip
+  - python3-pip
+  - python3-dev
+  - python3-setuptools
   - openjdk-8-jre-headless
   - openjdk-8-jdk
   - openjdk-11-jre-headless
   - openjdk-11-jdk
+  - firefox
+  - meld
+  - vlc
+  - gimp
+  - inkscape
+  - peek
+  - nomachine
+  - blender
+  - hub
+  - nodejs
+  - npm
+  - maven
+  - virtualbox
+  - vagrant
+  - docker
+  - docker-compose
+  - cmake
+  - gdb
+  - clang
+  - lldb
+  - valgrind
+  - emscripten
+  - ninja-build
+  - nim
   aur:
   - git-extras
   - visual-studio-code-bin
+  - google-chrome
+  - nomachine
+  choco:
+  - firefox
+  - googlechrome
+  - meld
+  - vlc
+  - gimp
+  - inkscape
+  - nomachine
+  - blender
+  - hub
+  - nodejs
+  - npm
+  - maven
+  - virtualbox
+  - vagrant
+  - cmake
+  - gdb
+  - clang
+  - lldb
+  - valgrind
+  - emscripten
+  - golang
+  - golang
+  - nim
   pacman:
   - zsh
   - git
@@ -46,7 +99,42 @@ install:
   - yay
   - base-devel
   - python-pip
+  - python-pip
+  - python-setuptools
   - jre8-openjdk-headless
   - jdk8-openjdk
   - jre11-openjdk-headless
   - jdk11-openjdk
+  - firefox
+  - meld
+  - vlc
+  - gimp
+  - inkscape
+  - peek
+  - cura
+  - blender
+  - hub
+  - nodejs
+  - npm
+  - maven
+  - virtualbox
+  - vagrant
+  - docker
+  - docker-compose
+  - cmake
+  - gdb
+  - clang
+  - lldb
+  - valgrind
+  - emscripten
+  - ninja
+  - go
+  - go-tools
+  - nim
+  pip:
+  - thefuck
+  - jupyterlab
+  snap:
+  - code
+  - google-chrome
+  - cura-slicer

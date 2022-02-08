@@ -1,0 +1,13 @@
+---
+- name: Install python packages
+  pip:
+    name: '{{ install.pip }}'
+    extra_args: --upgrade
+    state: present
+  when: install.pip is defined
+
+- name: Uninstall python packages
+  pip:
+    name: '{{ uninstall.pip }}'
+    state: absent
+  when: uninstall.pip is defined

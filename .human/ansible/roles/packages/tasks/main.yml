@@ -1,15 +1,22 @@
 ---
 - name: Process pacman packages
   include_tasks: pacman.yml
-  when: ansible_distribution == 'Archlinux'
+  when: ansible_os_family == 'Archlinux'
 
 - name: Process AUR packages
   include_tasks: aur.yml
-  when: ansible_distribution == 'Archlinux'
+  when: ansible_os_family == 'Archlinux'
 
-- name: Process AUR packages
+- name: Process apt packages
   include_tasks: apt.yml
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_os_family == 'Debian'
+
+- name: Process snap packages
+  include_tasks: snap.yml
+  when: ansible_os_family == 'Debian'
+
+- name: Process PIP packages
+  include_tasks: pip.yml
 
 #
 # Todo tests, ansible seems not to be the best choice

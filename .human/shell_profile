@@ -2,10 +2,10 @@
 # Bash: https://wiki.archlinux.org/index.php/Bash#Tab_completion
 # Zsh: https://unix.stackexchange.com/questions/273861/unlimited-history-in-zsh
 export HISTCONTROL=ignoredups
-export HISTSIZE=100000
-export HISTFILESIZE=1000000
+export HISTSIZE=10000
+export HISTFILESIZE=100000
 export SAVEHIST=$HISTSIZE
 
 # https://wiki.archlinux.org/index.php/nano
-export VISUAL=nano
+export VISUAL=code
 export EDITOR=nano

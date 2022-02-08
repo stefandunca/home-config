@@ -25,9 +25,9 @@
   become: yes
   when: install.aur is defined
 
-- name: Install AUR packages
+- name: Uninstall AUR packages
   yay:
     name: '{{ uninstall.aur }}'
-    state: present
+    state: absent
   become: yes
   when: uninstall.aur is defined

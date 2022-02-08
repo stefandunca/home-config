@@ -85,9 +85,10 @@ fi
 
 grep -q '^.*.p10k.zsh.*.p10k.zsh$' $HOME/.zshrc || printf "\n\n#Custom prompt; For a new setup, run `p10k configure` or edit ~/.p10k.zsh.\n[[ ! -f $HOME/.p10k.zsh ]] || source \$HOME/.p10k.zsh" >> $HOME/.zshrc
 
+eval $(thefuck --alias)
 
 # Custom plugins list to replace the default one
-MY_OHMY_ZSH_PLUGINS="git python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
+MY_OHMY_ZSH_PLUGINS="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring thefuck python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
 
 sed -i "s?^plugins=(.*)\$?plugins=(${MY_OHMY_ZSH_PLUGINS})?" $HOME/.zshrc
 

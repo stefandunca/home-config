@@ -17,6 +17,6 @@
 - name: Uninstall Ubuntu packages
   apt:
     name: '{{ uninstall.apt }}'
-    state: present
+    state: absent
   become: yes
   when: uninstall.apt is defined
