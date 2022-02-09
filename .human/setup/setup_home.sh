@@ -34,11 +34,8 @@ else
     home pull --ff-only origin main && home submodule update --init --recursive
 fi
 
-if ! command -v fzf &> /dev/null
-then
-    printf "\n... install fzf\n\n"
-    $HOME/tools/fzf/install --key-bindings --completion --update-rc
-fi
+printf "\n... install fzf\n\n"
+git --git-dir $HOME/tools/fzf/.git pull --ff-only origin master && $HOME/tools/fzf/install --key-bindings --completion --update-rc
 
 if [ ! -d ~/.oh-my-zsh ]; then
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -89,7 +86,7 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
 
     grep -q '^.*.human/shellrc.*.human/shellrc$' $HOME/.zshrc || printf "\n\n#User stuff\n[[ -f /home/stefan/.human/shellrc ]] && . /home/stefan/.human/shellrc" >> $HOME/.zshrc
 
-    eval $(thefuck --alias)
+    zsh -ic "eval $(thefuck --alias)"
 
     # Custom plugins list to replace the default one
     MY_OHMY_ZSH_PLUGINS="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring thefuck python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
