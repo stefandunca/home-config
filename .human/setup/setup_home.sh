@@ -22,7 +22,7 @@ fi
 # Manual entry: `alias home='git --work-tree=$HOME --git-dir=$HOME/.home'`
 # Create an alias command for git commands with set work dir to home and ".git" dir as ".home"
 home() {
-    git --work-tree=$HOME --git-dir=$HOME/.home $*
+    git --work-tree="$HOME" --git-dir=. -C "$HOME/.home" $*
 }
 export -f home
 

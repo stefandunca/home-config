@@ -61,7 +61,6 @@ install:
   - android-sdk-cmdline-tools-latest
   - android-platform
   - android-emulator
-  - ''
   choco:
   - firefox
   - googlechrome
