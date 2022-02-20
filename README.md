@@ -7,4 +7,4 @@ Use [setup_home.sh](./.human/setup/setup_home.sh) test script as reference or in
 ## Tips
 
 - Sudo without a password
-  - call `sudo visudo`, go to the end of the file, press `i` to enter edit mode, add: `human ALL=(ALL) NOPASSWD:ALL` and save and exit by typing `:wq!`
+  - use `sudo visudo` to edit the sudoers, add the end of the file: `<username> ALL=(ALL) NOPASSWD:ALL`

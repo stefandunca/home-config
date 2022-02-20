@@ -1,6 +1,9 @@
 #!/bin/bash
 
-export OSNAME=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+# exit when any command fails
+set -e
+
+export OSNAME=$(awk -F= '/^NAME/{gsub(/"/, "", $2); print $2}' /etc/os-release)
 
 # Install ansible
 if ! command -v ansible &> /dev/null

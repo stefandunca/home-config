@@ -53,6 +53,15 @@ install:
   - visual-studio-code-bin
   - google-chrome
   - nomachine
+  - mqtt-cli-bin
+  - android-studio
+  - android-sdk
+  - android-sdk-build-tools
+  - android-sdk-platform-tools
+  - android-sdk-cmdline-tools-latest
+  - android-platform
+  - android-emulator
+  - ''
   choco:
   - firefox
   - googlechrome

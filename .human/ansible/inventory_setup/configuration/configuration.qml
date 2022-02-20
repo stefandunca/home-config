@@ -2,6 +2,8 @@ import dev.dunca.home
 
 AnsibleVarsExporter {
     Target {
+        id: workstation_manjaro
+
         host: "workstation-manjaro"
         package_list: [
             base,
@@ -10,7 +12,8 @@ AnsibleVarsExporter {
             dev_base,
             dev_host,
             dev_cpp,
-            dev_extra
+            dev_extra,
+            dev_android
         ]
         allow_labels: ["manjaro"]
     }
@@ -24,6 +27,14 @@ AnsibleVarsExporter {
             dev_extra
         ]
         allow_labels: ["wsl"]
+    }
+
+    Target {
+        id: mobilerig_manjaro
+
+        host: "mobilerig-manjaro"
+        package_list: workstation_manjaro.package_list.concat([ mobilerig_arch ])
+        allow_labels: workstation_manjaro.allow_labels
     }
     
     PackageList {
@@ -214,6 +225,11 @@ AnsibleVarsExporter {
             choco: "golang"
         }
         AllPackage { name: "nim" }
+
+        Package {
+           name: "mqtt-cli"
+           aur: "mqtt-cli-bin"
+        }
     }
 
     PackageList {
@@ -226,7 +242,6 @@ AnsibleVarsExporter {
         AurPackage { name: "android-sdk-cmdline-tools-latest" }
         AurPackage { name: "android-platform" }
         AurPackage { name: "android-emulator" }
-        AurPackage { name: "" }
     }
 
     PackageList {
@@ -241,6 +256,28 @@ AnsibleVarsExporter {
 
         LinuxPackage { name: "mdadm" }
     }
+
+    PackageList {
+        id: mobilerig_arch
+
+        Package {
+            name: "fprintd"
+            pacman: "fprintd"
+        }
+        Package {
+            name: "imagemagick"
+            pacman: "imagemagick"
+        }
+        Package {
+            name: "libfprint"
+            aur: "libfprint-2-tod1-xps9300-bin"
+        }
+        
+    }
+
+    //
+    // Helper components
+    //
 
     component LinuxPackage: Package {
         pacman: name

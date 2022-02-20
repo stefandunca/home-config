@@ -21,35 +21,6 @@
     mode: "{{ item.permissions }}"
   with_items: "{{ mount_list }}"
 
-# NFS bindings
-#
-# TODO: use to generate mount params and flags (rw vs. ro)
-- name: set shared NFS list
-  set_fact:
-    bind_list:
-      - { nfs_name: services, src: "/home/{{ run_as_user }}/services" }
-      - { nfs_name: raid, src: "/mnt/raid" }
-      - { nfs_name: todo, src: "/mnt/raid/todo" }
-      - { nfs_name: quick, src: "/mnt/quick" }
-
-- name: make NFS share dirs
-  file:
-    path: "/srv/nfs/{{ item.nfs_name }}"
-    state: directory
-    owner: "{{ run_as_user }}"
-    group: "{{ run_as_user }}"
-  become: yes
-  with_items: "{{ bind_list }}"
-
-- name: bind NFS shares
-  mount:
-    src: "{{ item.src }}"
-    path: /srv/nfs/{{ item.nfs_name }}
-    fstype: none
-    opts: bind
-    state: mounted
-  with_items: "{{ bind_list }}"
-
 - name: make dperson samba shares
   set_fact:
     dperson_samba_shares: "{{ dperson_samba_shares | default('') ~ ' -s \"' ~ item.nfs_name ~ ';/shares/' ~ item.nfs_name ~ ';yes;no;yes\"' }}"
@@ -57,49 +28,3 @@
 - name: finalize dperson samba shares
   set_fact:
     dperson_samba_shares: "{{ '-n -W -w SDHOME ' ~ dperson_samba_shares }}"
-
-#- name: Mount NFS volumes example
-#  mount:
-#    src: "mediasrv:/mount"
-#    path: /mnt/services
-#    opts: rw,sync,hard,intr
-#    state: mounted
-#    fstype: nfs
-
-- name: copy /etc/exports
-  template: src=nfs_exports.j2 dest=/etc/exports owner=root group=root
-
-- name: test if nfs rootdir is set
-  shell: grep -c "^rootdir" /etc/nfs.conf || true
-  register: test_rootdir
-  changed_when: test_rootdir.stdout == "0"
-- name: add 
-  lineinfile:
-    dest: /etc/nfs.conf
-    line: rootdir=/srv/nfs
-    insertafter: '^\[exports\]$'
-  when: test_rootdir.stdout == "0"
-  become: yes
-
-# Disabled for now, doesn't work as expected due to different GUID
-- name: restart nfs server
-  service:
-    name: nfs-server.service
-    # Stop it until I make it useful: `restarted`
-    state: stopped
-    # Don't start on boot
-    enabled: false
-
-# - name: Read prev test results
-#   shell: cat {{ output_dir }}/mount_test_result.txt
-#   register: prev_test_result
-#   become_user: "{{run_as_user}}"
-#   changed_when: false
-#   ignore_errors: yes
-#   tags: test
-# - name: Test commands
-#   script: ./test_mount.sh 2>&1 | tee {{ output_dir }}/mount_test_result.txt
-#   become_user: "{{run_as_user}}"
-#   register: test_result
-#   changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
-#   tags: test

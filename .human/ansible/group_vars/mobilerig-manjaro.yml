@@ -25,12 +25,22 @@ install:
   - openjdk-8-jdk
   - openjdk-11-jre-headless
   - openjdk-11-jdk
+  - firefox
+  - meld
+  - vlc
+  - gimp
+  - inkscape
+  - peek
+  - nomachine
+  - blender
   - hub
   - nodejs
   - npm
   - maven
   - docker
   - docker-compose
+  - virtualbox
+  - vagrant
   - cmake
   - gdb
   - clang
@@ -40,12 +50,34 @@ install:
   - nim
   aur:
   - git-extras
+  - visual-studio-code-bin
+  - google-chrome
+  - nomachine
   - mqtt-cli-bin
+  - android-studio
+  - android-sdk
+  - android-sdk-build-tools
+  - android-sdk-platform-tools
+  - android-sdk-cmdline-tools-latest
+  - android-platform
+  - android-emulator
+  - ''
+  - libfprint-2-tod1-xps9300-bin
   choco:
+  - firefox
+  - googlechrome
+  - meld
+  - vlc
+  - gimp
+  - inkscape
+  - nomachine
+  - blender
   - hub
   - nodejs
   - npm
   - maven
+  - virtualbox
+  - vagrant
   - cmake
   - gdb
   - clang
@@ -72,6 +104,7 @@ install:
   - gparted
   - nano-syntax-highlighting
   - borg
+  - yay
   - base-devel
   - python-pip
   - python-pip
@@ -80,12 +113,22 @@ install:
   - jdk8-openjdk
   - jre11-openjdk-headless
   - jdk11-openjdk
+  - firefox
+  - meld
+  - vlc
+  - gimp
+  - inkscape
+  - peek
+  - cura
+  - blender
   - hub
   - nodejs
   - npm
   - maven
   - docker
   - docker-compose
+  - virtualbox
+  - vagrant
   - cmake
   - gdb
   - clang
@@ -96,6 +139,12 @@ install:
   - go
   - go-tools
   - nim
+  - fprintd
+  - imagemagick
   pip:
   - thefuck
   - jupyterlab
+  snap:
+  - code
+  - google-chrome
+  - cura-slicer

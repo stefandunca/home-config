@@ -1,31 +1,8 @@
 ---
 - name: Setup Mount Options
-  include: ./mount.yml
+  include_tasks: ./mount.yml
   tags: mount
 
 - name: setup Services
-  include: services.yml
+  include_tasks: services.yml
   tags: services
-
-- name: enable and start nxserver.service
-  systemd:
-    name: nxserver
-    enabled: yes
-    state: started
-    masked: no
-  become: yes
-  tags: nomachine
-
-- name: Read prev test results
-  shell: cat {{ output_dir }}/srv_test_result.txt
-  register: prev_test_result
-  become_user: "{{run_as_user}}"
-  changed_when: false
-  ignore_errors: yes
-  tags: test
-- name: Test commands
-  script: ./test_commands.sh 2>&1 | tee {{ output_dir }}/srv_test_result.txt
-  become_user: "{{run_as_user}}"
-  register: test_result
-  changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
-  tags: test

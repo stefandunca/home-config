@@ -5,4 +5,4 @@
 
   roles:
   - { role: packages,        tags: ['packages'] }
-#  - { role: dev,             tags: ['dev'] }
+  - { role: dev,             tags: ['dev'] }

@@ -1,22 +1,26 @@
 ---
 - name: Setup Docker Tools
-  include: ../../general/docker-config.yml
+  include_tasks: docker-config.yml
 
 # Android
 #
+
+- name: Gather package facts
+  ansible.builtin.package_facts:
+    manager: auto
 
 # The AUR packages install the SDK in /opt/android-sdk/. This directory has root permissions, to use it as a regular user, create the android-sdk users group, add `run_as_user`.
 - name: Ensure group "android-sdk" exists
   group:
     name: android-sdk
     state: present
-  when: ansible_distribution == 'Archlinux'
+  when: "ansible_distribution == 'Archlinux' and 'android-sdk' in ansible_facts.packages"
 - name: Add the user to android
   user:
     name: "{{ run_as_user }}"
     groups: android-sdk
     append: yes
-  when: ansible_distribution == 'Archlinux'
+  when: "ansible_distribution == 'Archlinux' and 'android-sdk' in ansible_facts.packages"
 
 # Set an access control list to let user write into the android-sdk folder. As running sdkmanager can also create new files, set the ACL as default ACL. the X in the default group entry means "allow execution if executable by the owner (or anyone else)"
 - name: Sets default ACL for run_as_user on /etc/foo.d/
@@ -28,30 +32,4 @@
     default: yes
     recursive: yes
     state: present
-  when: ansible_distribution == 'Archlinux'
-  
-# `yes | sdkmanager --licenses`
-# `sdkmanager --update`
-
-# Tests
-#
-
-- name: Create output directory
-  file:
-    path: "{{ output_dir }}"
-    state: directory
-  become_user: '{{ run_as_user }}'
-  tags: test
-- name: Read prev test results
-  shell: cat {{ output_dir }}/dev_test_result.txt
-  register: prev_test_result
-  become_user: "{{run_as_user}}"
-  changed_when: false
-  ignore_errors: yes
-  tags: test
-- name: Test commands
-  script: test_commands.sh 2>&1 | tee {{ output_dir }}/dev_test_result.txt
-  become_user: "{{run_as_user}}"
-  register: test_result
-  changed_when: (prev_test_result.stdout is undefined or test_result.stdout is undefined) or test_result.stdout != prev_test_result.stdout
-  tags: test
+  when: "ansible_distribution == 'Archlinux' and 'android-sdk' in ansible_facts.packages"
