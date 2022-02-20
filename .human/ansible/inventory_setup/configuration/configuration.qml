@@ -8,10 +8,22 @@ AnsibleVarsExporter {
             gui_base,
             hobby,
             dev_base,
+            dev_host,
             dev_cpp,
             dev_extra
         ]
         allow_labels: ["manjaro"]
+    }
+
+    Target {
+        host: "workstation-wsl"
+        package_list: [
+            base,
+            dev_base,
+            dev_cpp,
+            dev_extra
+        ]
+        allow_labels: ["wsl"]
     }
     
     PackageList {
@@ -30,13 +42,18 @@ AnsibleVarsExporter {
         LinuxPackage { name: "nano" }
         LinuxPackage { name: "net-tools" }
         LinuxPackage { name: "util-linux" }
-        LinuxPackage { name: "borg" }
         LinuxPackage { name: "rmlint" }
         LinuxPackage { name: "gparted" }
 
         PipPackage { name: "thefuck" }
 
         PacmanPackage { name: "nano-syntax-highlighting" }
+
+        Package {
+            name: "borg"
+            pacman: "borg"
+            apt: "borgbackup"
+        }
 
         Package {
             name: "git-extras"
@@ -80,6 +97,7 @@ AnsibleVarsExporter {
             name: "vscode"
             aur: "visual-studio-code-bin"
             snap: "code"
+            allowlist: ["manjaro"]
         }
         Package {
             name: "jre8"
@@ -149,10 +167,15 @@ AnsibleVarsExporter {
         AllPackage { name: "npm" }
         AllPackage { name: "maven" }
 
-        AllPackage { name: "virtualbox" }
-        AllPackage { name: "vagrant" }
         LinuxPackage { name: "docker" }
         LinuxPackage { name: "docker-compose" }
+    }
+
+    PackageList {
+        id: dev_host
+
+        AllPackage { name: "virtualbox" }
+        AllPackage { name: "vagrant" }
     }
 
     PackageList {
@@ -163,13 +186,17 @@ AnsibleVarsExporter {
         AllPackage { name: "clang" }
         AllPackage { name: "lldb" }
         AllPackage { name: "valgrind" }
-        AllPackage { name: "emscripten" }
         PipPackage { name: "jupyterlab" }
         
         Package {
             name: "ninja"
             pacman: "ninja"
             apt: "ninja-build"
+        }
+
+        Package {
+            name: "emsdk"
+            pacman: "emscripten"
         }
     }
 

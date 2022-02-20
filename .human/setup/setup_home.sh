@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export OSNAME=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+
 # Install ansible
 if ! command -v ansible &> /dev/null
 then
@@ -50,6 +52,7 @@ if [ ! -d ~/.oh-my-zsh ]; then
 fi
 
 if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
+    printf "\n... setup powerlevel10k\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     else
@@ -58,33 +61,45 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
 
     sed -i 's?^ZSH_THEME=\".*\"$?ZSH_THEME=\"powerlevel10k/powerlevel10k\"?' $HOME/.zshrc
 
+    printf "\n... setup zsh-autosuggestions\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then
         git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     else
         git --git-dir ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions/.git pull
     fi
 
+    printf "\n... setup zsh-history-substring-search\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-history-substring-search" ]; then
         git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
     else
         git --git-dir ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search/.git pull
     fi
 
+    printf "\n... setup zsh-completions\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-completions" ]; then
         git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
     else
         git --git-dir ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions/.git pull
     fi
 
+    printf "\n... setup zsh-syntax-highlighting\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting" ]; then
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     else
         git --git-dir ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting/.git pull
     fi
 
+    #
+    # Update .zshrc if necessary 
+    #
     grep -q '^.*.p10k.zsh.*.p10k.zsh$' $HOME/.zshrc || printf "\n\n#Custom prompt; For a new setup, run `p10k configure` or edit ~/.p10k.zsh.\n[[ ! -f $HOME/.p10k.zsh ]] || source \$HOME/.p10k.zsh" >> $HOME/.zshrc
 
-    grep -q '^.*.human/shellrc.*.human/shellrc$' $HOME/.zshrc || printf "\n\n#User stuff\n[[ -f /home/stefan/.human/shellrc ]] && . /home/stefan/.human/shellrc" >> $HOME/.zshrc
+    grep -q '^.*.human/shellrc.*.human/shellrc$' $HOME/.zshrc || printf "\n\n#User stuff\n[[ -f $HOME/.human/shellrc ]] && . $HOME/.human/shellrc" >> $HOME/.zshrc
+
+    if [[ ${OSNAME} == '"Ubuntu"' ]]; then
+        printf "\n... add PIP executable dir to ZSH path\n\n"
+        grep -q '^.*path+=.*/home.*/.local/bin.*$' $HOME/.zshrc || printf "\n\n#PIP commands in ZSH\npath+=('$HOME/.local/bin')" >> $HOME/.zshrc
+    fi
 
     zsh -ic "eval $(thefuck --alias)"
 

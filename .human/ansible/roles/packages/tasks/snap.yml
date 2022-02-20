@@ -1,21 +1,14 @@
 ---
-- name: Upgrade all packages [Ubuntu]
-  apt:
-    update_cache: yes
-    force_apt_get: yes
-    upgrade: dist
-    cache_valid_time: 3600
-  tags: upgrade
-
 - name: Install Snap packages
-  community.general.snap:
+  snap:
     name: '{{ install.snap }}'
     state: present
+    classic: yes
   become: yes
   when: install.snap is defined
 
 - name: Uninstall Snap packages
-  community.general.snap:
+  snap:
     name: '{{ uninstall.snap }}'
     state: absent
   become: yes
