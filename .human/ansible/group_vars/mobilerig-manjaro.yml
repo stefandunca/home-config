@@ -70,6 +70,7 @@ install:
   - gimp
   - inkscape
   - nomachine
+  - discord
   - blender
   - hub
   - nodejs
@@ -118,6 +119,7 @@ install:
   - gimp
   - inkscape
   - peek
+  - discord
   - cura
   - blender
   - hub
@@ -146,4 +148,5 @@ install:
   snap:
   - code
   - google-chrome
+  - discord
   - cura-slicer

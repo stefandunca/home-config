@@ -158,6 +158,12 @@ AnsibleVarsExporter {
             apt: "nomachine"
             choco: "nomachine"
         }
+        Package {
+            name: "discord"
+            pacman: "discord"
+            snap: "discord"
+            choco: "discord"
+        }
     }
 
     PackageList {
