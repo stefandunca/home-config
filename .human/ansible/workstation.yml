@@ -1,6 +1,6 @@
 - name: "General workstation setup with Ansible and Git"
-  hosts: localhost
-  connection: local 
+  hosts: '{{ target }}'
+  connection: local
   become: true
 
   roles:

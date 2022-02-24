@@ -1,8 +1,8 @@
 - name: "WSL setup with Ansible and Git"
-  hosts: localhost
-  connection: local 
+  hosts: '{{ target }}'
+  connection: local
   become: true
 
   roles:
   - { role: packages,        tags: ['packages'] }
-#  - { role: dev,             tags: ['dev'] }
+  #- { role: dev,             tags: ['dev'] }
