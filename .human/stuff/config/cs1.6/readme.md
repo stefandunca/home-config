@@ -1,0 +1,1 @@
+CS 1.6 - `config.cfg` location C:\Program Files (x86)\Steam\steamapps\common\Half-Life\cstrike

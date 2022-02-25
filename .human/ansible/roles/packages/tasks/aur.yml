@@ -18,16 +18,23 @@
     chdir: /tmp/
   when: (is_yay_available.stat.exists is defined and is_yay_available.stat.exists != true)
 
+- name: Upgrade all packages [AUR]
+  yay:
+    update_cache: yes
+    upgrade: yes
+  become_user: "{{run_as_user}}"
+  tags: upgrade
+
 - name: Install AUR packages
   yay:
     name: '{{ install.aur }}'
     state: present
-  become: yes
+  become_user: "{{run_as_user}}"
   when: install.aur is defined
 
 - name: Uninstall AUR packages
   yay:
     name: '{{ uninstall.aur }}'
     state: absent
-  become: yes
+  become_user: "{{run_as_user}}"
   when: uninstall.aur is defined
