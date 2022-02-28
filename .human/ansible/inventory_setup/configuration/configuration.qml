@@ -193,6 +193,11 @@ AnsibleVarsExporter {
 
         AllPackage { name: "virtualbox" }
         AllPackage { name: "vagrant" }
+        Package {
+            name: "drawio"
+            aur: "drawio-desktop"
+            snap: "drawio"
+        }
     }
 
     PackageList {

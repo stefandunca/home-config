@@ -53,6 +53,7 @@ install:
   - visual-studio-code-bin
   - google-chrome
   - nomachine
+  - drawio-desktop
   - mqtt-cli-bin
   - android-studio
   - android-sdk
@@ -150,3 +151,4 @@ install:
   - google-chrome
   - discord
   - cura-slicer
+  - drawio
