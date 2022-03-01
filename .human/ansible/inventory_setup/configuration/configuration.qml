@@ -13,7 +13,8 @@ AnsibleVarsExporter {
             dev_host,
             dev_cpp,
             dev_extra,
-            dev_android
+            dev_android,
+            dev_status
         ]
         allow_labels: ["manjaro"]
     }
@@ -209,6 +210,7 @@ AnsibleVarsExporter {
         AllPackage { name: "lldb" }
         AllPackage { name: "valgrind" }
         PipPackage { name: "jupyterlab" }
+        PipPackage { name: "conan" }
         
         Package {
             name: "ninja"
@@ -253,6 +255,13 @@ AnsibleVarsExporter {
         AurPackage { name: "android-sdk-cmdline-tools-latest" }
         AurPackage { name: "android-platform" }
         AurPackage { name: "android-emulator" }
+    }
+
+
+    PackageList {
+        id: dev_status
+
+        LinuxPackage { name: "jq" }
     }
 
     PackageList {

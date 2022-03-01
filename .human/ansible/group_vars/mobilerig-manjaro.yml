@@ -146,6 +146,7 @@ install:
   pip:
   - thefuck
   - jupyterlab
+  - conan
   snap:
   - code
   - google-chrome
