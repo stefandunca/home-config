@@ -20,6 +20,23 @@ AnsibleVarsExporter {
     }
 
     Target {
+        id: workstation
+
+        host: "workstation"
+        package_list: [
+            base,
+            gui_base,
+            hobby,
+            dev_base,
+            dev_host,
+            dev_cpp,
+            dev_extra,
+            dev_android,
+            dev_status
+        ]
+    }
+
+    Target {
         host: "workstation-wsl"
         package_list: [
             base,

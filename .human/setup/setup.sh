@@ -13,8 +13,14 @@ fi
 export EXTRAVARS=$1
 export ANSIBLEPLAYBOOK=$2
 
+export OSNAME=$(awk -F= '/^NAME/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+
 # exit when any command fails
 set -e
+
+if [[ ${OSNAME} == '"Ubuntu"' || ${OSNAME} == 'Pop!_OS' ]]; then
+    sudo apt install python3.9-venv
+fi
 
 python3 -m venv $HOME/.human/ansible/inventory_setup/.venv
 . $HOME/.human/ansible/inventory_setup/.venv/bin/activate
@@ -38,3 +44,5 @@ if [[ ${OSNAME} == '"Ubuntu"' ]]; then
 
     $HOME/.human/setup/install-emscripten-sdk-on-ubuntu.sh
 fi
+
+$HOME/.human/setup/general_settings.sh

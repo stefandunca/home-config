@@ -99,7 +99,7 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
 
     grep -q '^.*.human/shellrc.*.human/shellrc$' $HOME/.zshrc || printf "\n\n#User stuff\n[[ -f $HOME/.human/shellrc ]] && . $HOME/.human/shellrc" >> $HOME/.zshrc
 
-    if [[ ${OSNAME} == '"Ubuntu"' ]]; then
+    if [[ ${OSNAME} == '"Ubuntu"' || ${OSNAME} == 'Pop!_OS' ]]; then
         printf "\n... add PIP executable dir to ZSH path\n\n"
         grep -q '^.*path+=.*/home.*/.local/bin.*$' $HOME/.zshrc || printf "\n\n#PIP commands in ZSH\npath+=('$HOME/.local/bin')" >> $HOME/.zshrc
     fi

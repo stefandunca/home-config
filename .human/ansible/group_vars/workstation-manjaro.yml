@@ -48,6 +48,7 @@ install:
   - valgrind
   - ninja-build
   - nim
+  - jq
   aur:
   - git-extras
   - visual-studio-code-bin
@@ -140,6 +141,7 @@ install:
   - go
   - go-tools
   - nim
+  - jq
   pip:
   - thefuck
   - jupyterlab
