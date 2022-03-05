@@ -1,9 +1,10 @@
 #!/bin/bash
 
 # Eg 
-# Manjaro: .human/setup/setup.sh $HOME/.human/ansible/group_vars/workstation-manjaro.yml $HOME/.human/ansible/workstation.yml
-# Manjaro mobile rig: .human/setup/setup.sh $HOME/.human/ansible/group_vars/mobilerig-manjaro.yml $HOME/.human/ansible/workstation.yml
-# WSL: .human/setup/setup.sh $HOME/.human/ansible/group_vars/workstation-wsl.yml $HOME/.human/ansible/wsl.yml
+# Manjaro: $HOME/.human/setup/setup.sh $HOME/.human/ansible/group_vars/workstation-manjaro.yml $HOME/.human/ansible/workstation.yml
+# Ubuntu: $HOME/.human/setup/setup.sh $HOME/.human/ansible/group_vars/workstation.yml $HOME/.human/ansible/workstation.yml
+# Manjaro mobile rig: $HOME/.human/setup/setup.sh $HOME/.human/ansible/group_vars/mobilerig-manjaro.yml $HOME/.human/ansible/workstation.yml
+# WSL: $HOME/.human/setup/setup.sh $HOME/.human/ansible/group_vars/workstation-wsl.yml $HOME/.human/ansible/wsl.yml
 
 if [ "$#" -ne 2 ]; then
     echo "Missing Variables yml and playbook file in this order"

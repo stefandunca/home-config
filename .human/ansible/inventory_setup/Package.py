@@ -14,7 +14,8 @@ class Package(QtQuick.QQuickItem):
         self.exclude_val = False    # True ensures it is removed and installed otherwise
         self.allowlist_val = list()
         self.targets = {"pacman": None, "aur": None, "apt": None,
-                        "snap": None, "choco": None, "pip": None}
+                        "snap": None, "choco": None, "pip": None,
+                        "deb": None}
 
     # `name` property
     @QtCore.Signal
@@ -126,6 +127,22 @@ class Package(QtQuick.QQuickItem):
             return
         self.targets["pip"] = val
         self.pip_changed.emit()
+
+    # `deb` property
+    @QtCore.Signal
+    def deb_changed(self):
+        pass
+
+    @QtCore.Property(str, notify=deb_changed)
+    def deb(self):
+        return self.targets["deb"]
+
+    @deb.setter
+    def deb(self, val):
+        if val == self.targets["deb"]:
+            return
+        self.targets["deb"] = val
+        self.deb_changed.emit()
 
     # `exclude` property
     # If False install package. If True ensure it is removed

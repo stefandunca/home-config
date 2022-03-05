@@ -87,6 +87,7 @@ AnsibleVarsExporter {
         Package {
             name: "git-extras"
             aur: "git-extras"
+            apt: git-extras
         }
         Package {
             name: "yay"
@@ -125,8 +126,7 @@ AnsibleVarsExporter {
         Package {
             name: "vscode"
             aur: "visual-studio-code-bin"
-            snap: "code"
-            allowlist: ["manjaro"]
+            deb: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
         }
         Package {
             name: "jre8"
@@ -162,24 +162,25 @@ AnsibleVarsExporter {
         Package {
             name: "chrome"
             aur: "google-chrome"
-            snap: "google-chrome"
+            deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
             choco: "googlechrome"
         }
-        AllPackage { name: "meld" }
-        AllPackage { name: "vlc" }
-        AllPackage { name: "gimp" }
-        AllPackage { name: "inkscape" }
-        LinuxPackage { name: "peek" }
+        AllPackage { name: "meld" }     // Diff
+        AllPackage { name: "vlc" }      // Media files
+        AllPackage { name: "gimp" }     // Raster editing
+        AllPackage { name: "imagemagick" }  // image manipulation helpers
+        AllPackage { name: "inkscape" } // Vector graphics
+        LinuxPackage { name: "peek" }   // GIF screen recorder
         Package {
-            name: "nomachine"
+            name: "nomachine"   //  Remote desktop connection
             aur: "nomachine"
-            apt: "nomachine"
+            deb: "https://download.nomachine.com/download/7.8/Linux/nomachine_7.8.2_1_amd64.deb"
             choco: "nomachine"
         }
         Package {
             name: "discord"
             pacman: "discord"
-            snap: "discord"
+            deb: "https://discord.com/api/download?platform=linux&format=deb"
             choco: "discord"
         }
     }
@@ -187,20 +188,21 @@ AnsibleVarsExporter {
     PackageList {
         id: hobby
 
+        // 3D printing slicer
         Package {
             pacman: "cura"
             snap: "cura-slicer"
         }
-        AllPackage { name: "blender" }
+        AllPackage { name: "blender" }  // 3D editing
     }
 
     PackageList {
         id: dev_base
 
-        AllPackage { name: "hub" }
+        AllPackage { name: "hub" }      // Github cmd line
         AllPackage { name: "nodejs" }
-        AllPackage { name: "npm" }
-        AllPackage { name: "maven" }
+        AllPackage { name: "npm" }      // Node package manager
+        AllPackage { name: "maven" }    
 
         LinuxPackage { name: "docker" }
         LinuxPackage { name: "docker-compose" }
@@ -209,8 +211,9 @@ AnsibleVarsExporter {
     PackageList {
         id: dev_host
 
-        AllPackage { name: "virtualbox" }
-        AllPackage { name: "vagrant" }
+        AllPackage { name: "virtualbox" }   // VMs
+        AllPackage { name: "vagrant" }      // Cmd line VM management
+        // Diagrams
         Package {
             name: "drawio"
             aur: "drawio-desktop"
@@ -254,6 +257,7 @@ AnsibleVarsExporter {
             pacman: "go-tools"
             choco: "golang"
         }
+
         AllPackage { name: "nim" }
 
         Package {
@@ -278,20 +282,20 @@ AnsibleVarsExporter {
     PackageList {
         id: dev_status
 
-        LinuxPackage { name: "jq" }
+        LinuxPackage { name: "jq" } // command-line JSON processor
     }
 
     PackageList {
         id: handy_when_needed
 
-        AllPackage { name: "audacity" }
-        AllPackage { name: "darktable" }
+        AllPackage { name: "audacity" }     // Audio editor
+        AllPackage { name: "darktable" }    // photography
     }
 
     PackageList {
         id: srv
 
-        LinuxPackage { name: "mdadm" }
+        LinuxPackage { name: "mdadm" }      // Raid management
     }
 
     PackageList {
@@ -300,10 +304,6 @@ AnsibleVarsExporter {
         Package {
             name: "fprintd"
             pacman: "fprintd"
-        }
-        Package {
-            name: "imagemagick"
-            pacman: "imagemagick"
         }
         Package {
             name: "libfprint"

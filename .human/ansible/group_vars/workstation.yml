@@ -63,7 +63,6 @@ install:
   - android-sdk-cmdline-tools-latest
   - android-platform
   - android-emulator
-  - libfprint-2-tod1-xps9300-bin
   choco:
   - firefox
   - googlechrome
@@ -112,7 +111,6 @@ install:
   - gparted
   - nano-syntax-highlighting
   - borg
-  - yay
   - base-devel
   - python-pip
   - python-pip
@@ -150,7 +148,6 @@ install:
   - go-tools
   - nim
   - jq
-  - fprintd
   pip:
   - thefuck
   - jupyterlab

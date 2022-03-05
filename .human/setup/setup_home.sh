@@ -82,7 +82,9 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-completions" ]; then
         git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
     else
-        git --git-dir ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions/.git pull
+        # Setup process alters files
+        git --git-dir ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions/.git fetch --all
+        git --git-dir ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions/.git reset --hard origin/master
     fi
 
     printf "\n... setup zsh-syntax-highlighting\n\n"

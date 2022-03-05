@@ -20,3 +20,18 @@
     state: absent
   become: yes
   when: uninstall.apt is defined
+
+- name: Install deb packages
+  apt:
+    deb: '{{ item }}'
+    state: present
+  become: yes
+  loop: '{{ install.deb }}'
+  when: install.deb is defined
+
+- name: Uninstall deb packages
+  apt:
+    deb: '{{ uninstall.deb }}'
+    state: absent
+  become: yes
+  when: uninstall.deb is defined

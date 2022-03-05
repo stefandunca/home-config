@@ -29,9 +29,9 @@ install:
   - meld
   - vlc
   - gimp
+  - imagemagick
   - inkscape
   - peek
-  - nomachine
   - blender
   - hub
   - nodejs
@@ -69,6 +69,7 @@ install:
   - meld
   - vlc
   - gimp
+  - imagemagick
   - inkscape
   - nomachine
   - discord
@@ -87,6 +88,11 @@ install:
   - golang
   - golang
   - nim
+  deb:
+  - https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
+  - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+  - https://download.nomachine.com/download/7.8/Linux/nomachine_7.8.2_1_amd64.deb
+  - https://discord.com/api/download?platform=linux&format=deb
   pacman:
   - zsh
   - git
@@ -118,6 +124,7 @@ install:
   - meld
   - vlc
   - gimp
+  - imagemagick
   - inkscape
   - peek
   - discord
@@ -147,8 +154,5 @@ install:
   - jupyterlab
   - conan
   snap:
-  - code
-  - google-chrome
-  - discord
   - cura-slicer
   - drawio
