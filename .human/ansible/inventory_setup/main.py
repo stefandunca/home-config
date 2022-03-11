@@ -39,14 +39,11 @@ def process_configuration(exporter : AnsibleVarsExporter, out_dir, allowlist):
                 for p in item.children():
                     for pm in p.supported_targets():
                         if len(p.allowlist) == 0 or all(allow in allow_labels for allow in p.allowlist):
-                            if p.exclude:
-                                if pm not in not_present:
-                                    not_present[pm] = list()
-                                not_present[pm].append(p[pm])
-                            else:
-                                if pm not in present:
-                                    present[pm] = list()
-                                present[pm].append(getattr(p, pm))
+                            #TODO: Support objects with properties (CustomApt)
+                            pkg_list = not_present if p.exclude else present
+                            if pm not in pkg_list:
+                                pkg_list[pm] = list()
+                            pkg_list[pm].append(getattr(p, pm))
         content = dict()
         if len(present) > 0:
             content["install"] = present

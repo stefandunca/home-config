@@ -2,6 +2,8 @@ from PySide6 import QtCore
 from PySide6 import QtQuick
 from PySide6 import QtQml
 
+from CustomApt import CustomApt
+
 from __feature__ import snake_case, true_property
 
 QML_IMPORT_NAME = "dev.dunca.home"
@@ -15,7 +17,7 @@ class Package(QtQuick.QQuickItem):
         self.allowlist_val = list()
         self.targets = {"pacman": None, "aur": None, "apt": None,
                         "snap": None, "choco": None, "pip": None,
-                        "deb": None}
+                        "deb": None, "custom_apt": None}
 
     # `name` property
     @QtCore.Signal
@@ -143,6 +145,24 @@ class Package(QtQuick.QQuickItem):
             return
         self.targets["deb"] = val
         self.deb_changed.emit()
+
+    # `custom_apt` property
+    @QtCore.Signal
+    def custom_apt_changed(self):
+        pass
+
+    @QtCore.Property(CustomApt, notify=custom_apt_changed)
+    def custom_apt(self):
+        return self.targets["custom_apt"]
+
+    @custom_apt.setter
+    def custom_apt(self, val):
+        if val == self.targets["custom_apt"]:
+            return
+        self.targets["custom_apt"] = val
+        self.custom_apt.emit()
+
+
 
     # `exclude` property
     # If False install package. If True ensure it is removed

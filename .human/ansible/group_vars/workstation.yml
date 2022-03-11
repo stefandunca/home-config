@@ -16,6 +16,7 @@ install:
   - rmlint
   - gparted
   - borgbackup
+  - git-extras
   - build-essential
   - python3-pip
   - python3-pip
@@ -33,7 +34,6 @@ install:
   - inkscape
   - peek
   - blender
-  - hub
   - nodejs
   - npm
   - maven
@@ -74,7 +74,6 @@ install:
   - nomachine
   - discord
   - blender
-  - hub
   - nodejs
   - npm
   - maven
@@ -129,7 +128,7 @@ install:
   - discord
   - cura
   - blender
-  - hub
+  - github-cli
   - nodejs
   - npm
   - maven
@@ -155,3 +154,10 @@ install:
   snap:
   - cura-slicer
   - drawio
+uninstall:
+  apt:
+  - hub
+  choco:
+  - hub
+  pacman:
+  - hub

@@ -16,6 +16,7 @@ install:
   - rmlint
   - gparted
   - borgbackup
+  - git-extras
   - build-essential
   - python3-pip
   - python3-pip
@@ -25,7 +26,6 @@ install:
   - openjdk-8-jdk
   - openjdk-11-jre-headless
   - openjdk-11-jdk
-  - hub
   - nodejs
   - npm
   - maven
@@ -43,7 +43,6 @@ install:
   - visual-studio-code-bin
   - mqtt-cli-bin
   choco:
-  - hub
   - nodejs
   - npm
   - maven
@@ -83,7 +82,7 @@ install:
   - jdk8-openjdk
   - jre11-openjdk-headless
   - jdk11-openjdk
-  - hub
+  - github-cli
   - nodejs
   - npm
   - maven
@@ -103,3 +102,10 @@ install:
   - thefuck
   - jupyterlab
   - conan
+uninstall:
+  apt:
+  - hub
+  choco:
+  - hub
+  pacman:
+  - hub

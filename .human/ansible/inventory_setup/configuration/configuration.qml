@@ -2,24 +2,6 @@ import dev.dunca.home
 
 AnsibleVarsExporter {
     Target {
-        id: workstation_manjaro
-
-        host: "workstation-manjaro"
-        package_list: [
-            base,
-            gui_base,
-            hobby,
-            dev_base,
-            dev_host,
-            dev_cpp,
-            dev_extra,
-            dev_android,
-            dev_status
-        ]
-        allow_labels: ["manjaro"]
-    }
-
-    Target {
         id: workstation
 
         host: "workstation"
@@ -37,14 +19,11 @@ AnsibleVarsExporter {
     }
 
     Target {
-        host: "workstation-wsl"
-        package_list: [
-            base,
-            dev_base,
-            dev_cpp,
-            dev_extra
-        ]
-        allow_labels: ["wsl"]
+        id: workstation_manjaro
+
+        host: "workstation-manjaro"
+        package_list: workstation.package_list
+        allow_labels: workstation.allow_labels.concat([ "manjaro" ])
     }
 
     Target {
@@ -53,6 +32,17 @@ AnsibleVarsExporter {
         host: "mobilerig-manjaro"
         package_list: workstation_manjaro.package_list.concat([ mobilerig_arch ])
         allow_labels: workstation_manjaro.allow_labels
+    }
+
+    Target {
+        host: "workstation-wsl"
+        package_list: [
+            base,
+            dev_base,
+            dev_cpp,
+            dev_extra
+        ]
+        allow_labels: ["wsl"]
     }
     
     PackageList {
@@ -87,7 +77,7 @@ AnsibleVarsExporter {
         Package {
             name: "git-extras"
             aur: "git-extras"
-            apt: git-extras
+            apt: "git-extras"
         }
         Package {
             name: "yay"
@@ -199,13 +189,26 @@ AnsibleVarsExporter {
     PackageList {
         id: dev_base
 
-        AllPackage { name: "hub" }      // Github cmd line
+        // Github cmd line
+        Package {
+            name: "github-cli"
+            pacman: "github-cli"
+            custom_apt: CustomApt {
+                name: "gh"
+                key: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+            }
+        }
         AllPackage { name: "nodejs" }
         AllPackage { name: "npm" }      // Node package manager
         AllPackage { name: "maven" }    
 
         LinuxPackage { name: "docker" }
         LinuxPackage { name: "docker-compose" }
+
+        AllPackage {
+            exclude: true
+            name: "hub"
+        }
     }
 
     PackageList {
