@@ -11,17 +11,17 @@ install:
   - tree
   - xclip
   - nano
-  - net-tools
   - util-linux
   - rmlint
   - gparted
+  - net-tools
   - borgbackup
   - git-extras
   - build-essential
   - python3-pip
-  - python3-pip
   - python3-dev
   - python3-setuptools
+  - java
   - openjdk-8-jre-headless
   - openjdk-8-jdk
   - openjdk-11-jre-headless
@@ -53,6 +53,7 @@ install:
   - git-extras
   - visual-studio-code-bin
   - google-chrome
+  - brave
   - nomachine
   - drawio-desktop
   - mqtt-cli-bin
@@ -63,9 +64,59 @@ install:
   - android-sdk-cmdline-tools-latest
   - android-platform
   - android-emulator
+  brew:
+  - zsh
+  - git
+  - curl
+  - wget
+  - p7zip
+  - vim
+  - htop
+  - mc
+  - tree
+  - xclip
+  - nano
+  - util-linux
+  - rmlint
+  - borgbackup
+  - git-extras
+  - python
+  - java
+  - imagemagick
+  - gh
+  - nodejs
+  - npm
+  - maven
+  - docker
+  - docker-compose
+  - cmake
+  - ninja
+  - emscripten
+  - go
+  - golang
+  - nim
+  - jq
+  brew_cask:
+  - visual-studio-code
+  - firefox
+  - google-chrome
+  - brave-browser
+  - meld
+  - vlc
+  - gimp
+  - inkscape
+  - discord
+  - ultimaker-cura
+  - blender
+  - drawio
+  brew_tap:
+  - cask: mqtt-cli
+    tap: hivemq/mqtt-cli
   choco:
+  - java
   - firefox
   - googlechrome
+  - brave
   - meld
   - vlc
   - gimp
@@ -87,6 +138,13 @@ install:
   - golang
   - golang
   - nim
+  custom_apt:
+  - key: https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    name: brave
+    repo: deb https://brave-browser-apt-release.s3.brave.com/ stable main
+  - key: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    name: gh
+    repo: deb https://cli.github.com/packages stable main
   deb:
   - https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
   - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -104,17 +162,17 @@ install:
   - tree
   - xclip
   - nano
-  - net-tools
   - util-linux
   - rmlint
   - gparted
+  - net-tools
   - nano-syntax-highlighting
   - borg
   - yay
   - base-devel
   - python-pip
-  - python-pip
   - python-setuptools
+  - java
   - jre8-openjdk-headless
   - jdk8-openjdk
   - jre11-openjdk-headless
@@ -150,6 +208,7 @@ install:
   - jq
   pip:
   - thefuck
+  - setuptools
   - jupyterlab
   - conan
   snap:
@@ -157,6 +216,8 @@ install:
   - drawio
 uninstall:
   apt:
+  - hub
+  brew:
   - hub
   choco:
   - hub

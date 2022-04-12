@@ -8,6 +8,7 @@
 - name: Gather package facts
   ansible.builtin.package_facts:
     manager: auto
+  when: "ansible_distribution == 'Archlinux' and 'android-sdk' in ansible_facts.packages"
 
 # The AUR packages install the SDK in /opt/android-sdk/. This directory has root permissions, to use it as a regular user, create the android-sdk users group, add `run_as_user`.
 - name: Ensure group "android-sdk" exists

@@ -3,6 +3,7 @@ from PySide6 import QtQuick
 from PySide6 import QtQml
 
 from CustomApt import CustomApt
+from CustomBrewTap import CustomBrewTap
 
 from __feature__ import snake_case, true_property
 
@@ -17,7 +18,7 @@ class Package(QtQuick.QQuickItem):
         self.allowlist_val = list()
         self.targets = {"pacman": None, "aur": None, "apt": None,
                         "snap": None, "choco": None, "pip": None,
-                        "deb": None, "custom_apt": None}
+                        "deb": None, "custom_apt": None, "brew": None, "brew_cask": None, "brew_tap": None}
 
     # `name` property
     @QtCore.Signal
@@ -160,9 +161,55 @@ class Package(QtQuick.QQuickItem):
         if val == self.targets["custom_apt"]:
             return
         self.targets["custom_apt"] = val
-        self.custom_apt.emit()
+        self.custom_apt_changed.emit()
 
+    # `brew` property
+    @QtCore.Signal
+    def brew_changed(self):
+        pass
 
+    @QtCore.Property(str, notify=brew_changed)
+    def brew(self):
+        return self.targets["brew"]
+
+    @brew.setter
+    def brew(self, val):
+        if val == self.targets["brew"]:
+            return
+        self.targets["brew"] = val
+        self.brew_changed.emit()
+
+    # `brew_cask` property
+    @QtCore.Signal
+    def brew_cask_changed(self):
+        pass
+
+    @QtCore.Property(str, notify=brew_cask_changed)
+    def brew_cask(self):
+        return self.targets["brew_cask"]
+
+    @brew_cask.setter
+    def brew_cask(self, val):
+        if val == self.targets["brew_cask"]:
+            return
+        self.targets["brew_cask"] = val
+        self.brew_cask_changed.emit()
+
+    # `brew_tap` property
+    @QtCore.Signal
+    def brew_tap_changed(self):
+        pass
+
+    @QtCore.Property(CustomBrewTap, notify=brew_tap_changed)
+    def brew_tap(self):
+        return self.targets["brew_tap"]
+
+    @brew_tap.setter
+    def brew_tap(self, val):
+        if val == self.targets["brew_tap"]:
+            return
+        self.targets["brew_tap"] = val
+        self.brew_tap_changed.emit()
 
     # `exclude` property
     # If False install package. If True ensure it is removed

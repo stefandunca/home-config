@@ -3,20 +3,26 @@
 # exit when any command fails
 set -e
 
-export OSNAME=$(awk -F= '/^NAME/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+if [[ $OSTYPE == 'darwin'* ]]; then
+  export OSNAME="MACOS"
+else
+  export OSNAME=$(awk -F= '/^NAME/{gsub(/"/, "", $2); print $2}' /etc/os-release)
+fi
 
 # Install ansible
 if ! command -v ansible &> /dev/null
 then
-    printf "\n... install required dependencies\n\n"
-    if command -v pacman &> /dev/null
-    then
-        sudo pacman -Syu git ansible openssh
-    else
-        sudo apt update
-        sudo apt install -y software-properties-common ansible git zsh
-        chsh -s $(which zsh)
-    fi
+  printf "\n... install required dependencies\n\n"
+  if [[ ${OSNAME} == 'MACOS' ]]; then
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew install ansible
+  elif [[ ${OSNAME} == '"Ubuntu"' || ${OSNAME} == 'Pop!_OS' ]]; then
+    sudo apt update
+    sudo apt install -y software-properties-common ansible git zsh
+    chsh -s $(which zsh)
+  else
+    sudo pacman -Syu git ansible openssh
+  fi
 fi
 
 # Manual entry: `alias home='git --work-tree=$HOME --git-dir=$HOME/.home'`
@@ -59,32 +65,34 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
         git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
     else
-        git --git-dir ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k/.git pull
+        # Setup process alters files
+        git --git-dir ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/themes/powerlevel10k/.git fetch --all
+        git --git-dir ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/themes/powerlevel10k/.git reset --hard origin/master
     fi
 
-    sed -i 's?^ZSH_THEME=\".*\"$?ZSH_THEME=\"powerlevel10k/powerlevel10k\"?' $HOME/.zshrc
+    sed -i "" 's?^ZSH_THEME=\".*\"$?ZSH_THEME=\"powerlevel10k/powerlevel10k\"?' $HOME/.zshrc
 
     printf "\n... setup zsh-autosuggestions\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
     else
-        git --git-dir ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions/.git pull
+        git --git-dir ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions/.git pull
     fi
 
     printf "\n... setup zsh-history-substring-search\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-history-substring-search" ]; then
-        git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
+        git clone https://github.com/zsh-users/zsh-history-substring-search ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-history-substring-search
     else
-        git --git-dir ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-history-substring-search/.git pull
+        git --git-dir ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-history-substring-search/.git pull
     fi
 
     printf "\n... setup zsh-completions\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-completions" ]; then
-        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins/zsh-completions
     else
         # Setup process alters files
-        git --git-dir ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions/.git fetch --all
-        git --git-dir ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions/.git reset --hard origin/master
+        git --git-dir ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins/zsh-completions/.git fetch --all
+        git --git-dir ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins/zsh-completions/.git reset --hard origin/master
     fi
 
     printf "\n... setup zsh-syntax-highlighting\n\n"
@@ -111,7 +119,7 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
     # Custom plugins list to replace the default one
     MY_OHMY_ZSH_PLUGINS="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring thefuck python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
 
-    sed -i "s?^plugins=(.*)\$?plugins=(${MY_OHMY_ZSH_PLUGINS})?" $HOME/.zshrc
+    sed -i "" "s?^plugins=(.*)\$?plugins=(${MY_OHMY_ZSH_PLUGINS})?" $HOME/.zshrc
 
     # Update oh my zsh
     zsh -ic "omz update"

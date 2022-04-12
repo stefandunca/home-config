@@ -1,0 +1,68 @@
+---
+- name: Setup brew tap repository
+  homebrew_tap:
+    name: '{{ item.tap }}'
+    state: present
+  loop: '{{ install.brew_tap }}'
+  when: install.brew_tap is defined
+
+- name: Upgrade all brew packages
+  homebrew:
+    update_homebrew: yes
+    upgrade_all: yes
+  tags: upgrade
+  when: ansible_os_family == 'Darwin'
+
+- name: Install custom brew packages from tap
+  homebrew:
+    name: '{{ item.brew }}'
+    state: present
+  loop: '{{ install.brew_tap }}'
+  when: install.brew_tap is defined and item.brew is defined
+
+- name: Uninstall custom brew packages from tap
+  homebrew:
+    name: '{{ item.brew }}'
+    state: present
+  loop: '{{uninstall.brew_tap }}'
+  when: uninstall.brew_tap is defined and item.brew is defined
+
+- name: Install custom brew cask packages from tap
+  homebrew:
+    name: '{{ item.cask }}'
+    state: present
+  loop: '{{ install.brew_tap }}'
+  when: install.brew_tap is defined and item.cask is defined
+
+- name: Uninstall custom brew cask packages from tap
+  homebrew:
+    name: '{{ item.cask }}'
+    state: present
+  loop: '{{ uninstall.brew_tap }}'
+  when: uninstall.brew_tap is defined and item.cask is defined
+
+- name: Install bew packages
+  homebrew:
+    name: '{{ install.brew }}'
+    state: present
+  when: install.brew is defined
+
+- name: Uninstall brew packages
+  homebrew:
+    name: '{{ uninstall.brew }}'
+    state: absent
+  when: uninstall.brew is defined
+
+- name: Install bew cask packages
+  homebrew_cask:
+    name: '{{ install.brew_cask }}'
+    state: present
+  when: install.brew_cask is defined
+
+- name: Uninstall brew cask packages
+  homebrew_cask:
+    name: '{{ uninstall.brew_cask }}'
+    state: absent
+  when: uninstall.brew_cask is defined
+
+  

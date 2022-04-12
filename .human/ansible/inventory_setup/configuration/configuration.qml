@@ -27,6 +27,14 @@ AnsibleVarsExporter {
     }
 
     Target {
+        id: workstation_mac
+
+        host: "workstation-mac"
+        package_list: workstation.package_list
+        allow_labels: workstation.allow_labels.concat([ "mac" ])
+    }
+
+    Target {
         id: mobilerig_manjaro
 
         host: "mobilerig-manjaro"
@@ -48,21 +56,23 @@ AnsibleVarsExporter {
     PackageList {
         id: base
 
-        LinuxPackage { name: "zsh" }
-        LinuxPackage { name: "git" }
-        LinuxPackage { name: "curl" }
-        LinuxPackage { name: "wget" }
-        LinuxPackage { name: "p7zip" }
-        LinuxPackage { name: "vim" }
-        LinuxPackage { name: "htop" }
-        LinuxPackage { name: "mc" }
-        LinuxPackage { name: "tree" }
-        LinuxPackage { name: "xclip" }
-        LinuxPackage { name: "nano" }
+        UnixPackage { name: "zsh" }
+        UnixPackage { name: "git" }
+        UnixPackage { name: "curl" }
+        UnixPackage { name: "wget" }
+        UnixPackage { name: "p7zip" }
+        UnixPackage { name: "vim" }
+        UnixPackage { name: "htop" }
+        UnixPackage { name: "mc" }
+        UnixPackage { name: "tree" }
+        UnixPackage { name: "xclip" }
+        UnixPackage { name: "nano" }
+        UnixPackage { name: "util-linux" }
+        UnixPackage { name: "rmlint" }
+
+	LinuxPackage { name: "gparted" }
         LinuxPackage { name: "net-tools" }
-        LinuxPackage { name: "util-linux" }
-        LinuxPackage { name: "rmlint" }
-        LinuxPackage { name: "gparted" }
+
 
         PipPackage { name: "thefuck" }
 
@@ -72,12 +82,14 @@ AnsibleVarsExporter {
             name: "borg"
             pacman: "borg"
             apt: "borgbackup"
+            brew: "borgbackup"
         }
 
         Package {
             name: "git-extras"
             aur: "git-extras"
             apt: "git-extras"
+            brew: "git-extras"
         }
         Package {
             name: "yay"
@@ -89,16 +101,12 @@ AnsibleVarsExporter {
             pacman: "base-devel"
             apt: "build-essential"
         }
-        Package {
-            name: "pip"
-            pacman: "python-pip"
-            apt: "python3-pip"
-        }
 
         Package {
             name: "pip"
             pacman: "python-pip"
             apt: "python3-pip"
+            brew: "python"
         }
 
         Package {
@@ -113,11 +121,29 @@ AnsibleVarsExporter {
             apt: "python3-setuptools"
         }
 
+        PipPackage {
+            name: "python-setuptools-mac"
+            pip: "setuptools"
+        }
+
         Package {
             name: "vscode"
             aur: "visual-studio-code-bin"
             deb: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
+            brew_cask: "visual-studio-code"
         }
+
+        AllPackage {
+            name: "java"
+        }
+        // Not available natively yet
+        // Package {
+        //     name: "jdk"
+        //     brew_tap: CustomBrewTap {
+        //         tap: "adoptopenjdk/openjdk"
+        //         cask: "adoptopenjdk"
+        //     }
+        // }
         Package {
             name: "jre8"
             pacman: "jre8-openjdk-headless"
@@ -148,30 +174,45 @@ AnsibleVarsExporter {
             pacman: "firefox"
             apt: "firefox"
             choco: "firefox"
+            brew_cask: "firefox"
         }
         Package {
             name: "chrome"
             aur: "google-chrome"
             deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
             choco: "googlechrome"
+            brew_cask: "google-chrome"
         }
-        AllPackage { name: "meld" }     // Diff
-        AllPackage { name: "vlc" }      // Media files
-        AllPackage { name: "gimp" }     // Raster editing
+        Package {
+            name: "brave"
+            aur: "brave"
+            custom_apt: CustomApt {
+                name: "brave"
+                key: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
+                repo: "deb https://brave-browser-apt-release.s3.brave.com/ stable main"
+            }
+            choco: "brave"
+            brew_cask: "brave-browser"
+        }
+        AllUiPackage { name: "meld" }     // Diff
+        AllUiPackage { name: "vlc" }      // Media files
+        AllUiPackage { name: "gimp" }     // Raster editing
         AllPackage { name: "imagemagick" }  // image manipulation helpers
-        AllPackage { name: "inkscape" } // Vector graphics
+        AllUiPackage { name: "inkscape" } // Vector graphics
         LinuxPackage { name: "peek" }   // GIF screen recorder
         Package {
             name: "nomachine"   //  Remote desktop connection
             aur: "nomachine"
             deb: "https://download.nomachine.com/download/7.8/Linux/nomachine_7.8.2_1_amd64.deb"
             choco: "nomachine"
+            //brew_cask: "nomachine" // needs rosetta
         }
         Package {
             name: "discord"
             pacman: "discord"
             deb: "https://discord.com/api/download?platform=linux&format=deb"
             choco: "discord"
+            brew_cask: "discord"
         }
     }
 
@@ -182,8 +223,9 @@ AnsibleVarsExporter {
         Package {
             pacman: "cura"
             snap: "cura-slicer"
+            brew_cask: "ultimaker-cura"
         }
-        AllPackage { name: "blender" }  // 3D editing
+        AllUiPackage { name: "blender" }  // 3D editing
     }
 
     PackageList {
@@ -196,14 +238,16 @@ AnsibleVarsExporter {
             custom_apt: CustomApt {
                 name: "gh"
                 key: "https://cli.github.com/packages/githubcli-archive-keyring.gpg"
+                repo: "deb https://cli.github.com/packages stable main"
             }
+            brew: "gh"
         }
         AllPackage { name: "nodejs" }
         AllPackage { name: "npm" }      // Node package manager
-        AllPackage { name: "maven" }    
+        AllPackage { name: "maven" }
 
-        LinuxPackage { name: "docker" }
-        LinuxPackage { name: "docker-compose" }
+        UnixPackage { name: "docker" }
+        UnixPackage { name: "docker-compose" }
 
         AllPackage {
             exclude: true
@@ -214,13 +258,28 @@ AnsibleVarsExporter {
     PackageList {
         id: dev_host
 
-        AllPackage { name: "virtualbox" }   // VMs
-        AllPackage { name: "vagrant" }      // Cmd line VM management
+        // VMs
+        Package {
+            name: "virtualbox"
+            pacman: name
+            apt: name
+            choco: name
+            //brew_cask: name   // Not available yet
+        }
+        // Control VMs
+        Package {
+            name: "vagrant"
+            pacman: name
+            apt: name
+            choco: name
+            //brew_cask: name   // Not available yet
+        }
         // Diagrams
         Package {
             name: "drawio"
             aur: "drawio-desktop"
             snap: "drawio"
+            brew_cask: "drawio"   // Not available yet
         }
     }
 
@@ -228,10 +287,37 @@ AnsibleVarsExporter {
         id: dev_cpp
 
         AllPackage { name: "cmake" }
-        AllPackage { name: "gdb" }
-        AllPackage { name: "clang" }
-        AllPackage { name: "lldb" }
-        AllPackage { name: "valgrind" }
+        // Control VMs
+        Package {
+            name: "gdb"
+            pacman: name
+            apt: name
+            choco: name
+            //brew_cask: name   // Not available yet
+        }
+        Package {
+            name: "clang"
+            pacman: name
+            apt: name
+            choco: name
+        }
+        Package {
+            name: "lldb"
+            pacman: name
+            apt: name
+            choco: name
+        }
+        // Control VMs
+        Package {
+            name: "valgrind"
+            pacman: name
+            apt: name
+            choco: name
+            // brew_tap:  CustomBrewTap {
+            //     tap: "LouisBrunner/valgrind"
+            //     brew: "valgrind"
+            // }
+        }
         PipPackage { name: "jupyterlab" }
         PipPackage { name: "conan" }
         
@@ -239,11 +325,13 @@ AnsibleVarsExporter {
             name: "ninja"
             pacman: "ninja"
             apt: "ninja-build"
+            brew: "ninja"
         }
 
         Package {
             name: "emsdk"
             pacman: "emscripten"
+            brew: "emscripten"
         }
     }
 
@@ -254,11 +342,13 @@ AnsibleVarsExporter {
             name: "go"
             pacman: "go"
             choco: "golang"
+            brew: "go"
         }
         Package {
             name: "go-tools"
             pacman: "go-tools"
             choco: "golang"
+            brew: "golang"
         }
 
         AllPackage { name: "nim" }
@@ -266,6 +356,10 @@ AnsibleVarsExporter {
         Package {
            name: "mqtt-cli"
            aur: "mqtt-cli-bin"
+           brew_tap: CustomBrewTap {
+                tap: "hivemq/mqtt-cli"
+                cask: "mqtt-cli"
+            }
         }
     }
 
@@ -285,20 +379,20 @@ AnsibleVarsExporter {
     PackageList {
         id: dev_status
 
-        LinuxPackage { name: "jq" } // command-line JSON processor
+        UnixPackage { name: "jq" } // command-line JSON processor
     }
 
     PackageList {
         id: handy_when_needed
 
-        AllPackage { name: "audacity" }     // Audio editor
-        AllPackage { name: "darktable" }    // photography
+        AllUiPackage { name: "audacity" }     // Audio editor
+        AllUiPackage { name: "darktable" }    // photography
     }
 
     PackageList {
         id: srv
 
-        LinuxPackage { name: "mdadm" }      // Raid management
+        UnixPackage { name: "mdadm" }      // Raid management
     }
 
     PackageList {
@@ -319,6 +413,12 @@ AnsibleVarsExporter {
     // Helper components
     //
 
+    component UnixPackage: Package {
+        pacman: name
+        apt: name
+        brew: name
+    }
+
     component LinuxPackage: Package {
         pacman: name
         apt: name
@@ -337,5 +437,12 @@ AnsibleVarsExporter {
         pacman: name
         apt: name
         choco: name
+        brew: name
+    }
+    component AllUiPackage: Package {
+        pacman: name
+        apt: name
+        choco: name
+        brew_cask: name
     }
 }

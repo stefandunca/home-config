@@ -6,6 +6,7 @@
     append: yes
   become: yes
   tags: docker
+  when: ansible_os_family != 'Darwin' 
 
 - name: "Docker - Enable and start the docker daemon"
   systemd:
@@ -15,3 +16,4 @@
     masked: no
   become: yes
   tags: docker
+  when: ansible_os_family != 'Darwin'

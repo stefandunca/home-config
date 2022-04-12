@@ -11,17 +11,17 @@ install:
   - tree
   - xclip
   - nano
-  - net-tools
   - util-linux
   - rmlint
   - gparted
+  - net-tools
   - borgbackup
   - git-extras
   - build-essential
   - python3-pip
-  - python3-pip
   - python3-dev
   - python3-setuptools
+  - java
   - openjdk-8-jre-headless
   - openjdk-8-jdk
   - openjdk-11-jre-headless
@@ -42,7 +42,43 @@ install:
   - git-extras
   - visual-studio-code-bin
   - mqtt-cli-bin
+  brew:
+  - zsh
+  - git
+  - curl
+  - wget
+  - p7zip
+  - vim
+  - htop
+  - mc
+  - tree
+  - xclip
+  - nano
+  - util-linux
+  - rmlint
+  - borgbackup
+  - git-extras
+  - python
+  - java
+  - gh
+  - nodejs
+  - npm
+  - maven
+  - docker
+  - docker-compose
+  - cmake
+  - ninja
+  - emscripten
+  - go
+  - golang
+  - nim
+  brew_cask:
+  - visual-studio-code
+  brew_tap:
+  - cask: mqtt-cli
+    tap: hivemq/mqtt-cli
   choco:
+  - java
   - nodejs
   - npm
   - maven
@@ -54,6 +90,10 @@ install:
   - golang
   - golang
   - nim
+  custom_apt:
+  - key: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+    name: gh
+    repo: deb https://cli.github.com/packages stable main
   deb:
   - https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64
   pacman:
@@ -68,16 +108,16 @@ install:
   - tree
   - xclip
   - nano
-  - net-tools
   - util-linux
   - rmlint
   - gparted
+  - net-tools
   - nano-syntax-highlighting
   - borg
   - base-devel
   - python-pip
-  - python-pip
   - python-setuptools
+  - java
   - jre8-openjdk-headless
   - jdk8-openjdk
   - jre11-openjdk-headless
@@ -100,10 +140,13 @@ install:
   - nim
   pip:
   - thefuck
+  - setuptools
   - jupyterlab
   - conan
 uninstall:
   apt:
+  - hub
+  brew:
   - hub
   choco:
   - hub

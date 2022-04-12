@@ -1,7 +1,6 @@
 - name: "General workstation setup with Ansible and Git"
   hosts: '{{ target }}'
   connection: local
-  become: yes
 
   roles:
   - { role: packages,        tags: ['packages'] }

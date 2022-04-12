@@ -11,6 +11,10 @@
   include_tasks: apt.yml
   when: ansible_os_family == 'Debian'
 
+- name: Process brew packages
+  include_tasks: brew.yml
+  when: ansible_os_family == 'Darwin'
+
 - name: Process snap packages
   include_tasks: snap.yml
   when: ansible_os_family == 'Debian'
