@@ -38,7 +38,7 @@ def process_configuration(exporter : AnsibleVarsExporter, out_dir, allowlist):
             if type(item) is PackageList:
                 for p in item.children():
                     for pm in p.supported_targets():
-                        if len(p.allowlist) == 0 or all(allow in allow_labels for allow in p.allowlist):
+                        if (len(p.allowlist) == 0 or all(allow in allow_labels for allow in p.allowlist)) and (len(p.denylist) == 0 or not any(deny in allow_labels for deny in p.denylist)):
                             pkg_list = not_present if p.exclude else present
                             if pm not in pkg_list:
                                 pkg_list[pm] = list()

@@ -70,7 +70,11 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
         git --git-dir ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/themes/powerlevel10k/.git reset --hard origin/master
     fi
 
-    sed -i "" 's?^ZSH_THEME=\".*\"$?ZSH_THEME=\"powerlevel10k/powerlevel10k\"?' $HOME/.zshrc
+    if [[ ${OSNAME} == 'MACOS' ]]; then
+        sed -i "" 's?^ZSH_THEME=\".*\"$?ZSH_THEME=\"powerlevel10k/powerlevel10k\"?' $HOME/.zshrc
+    else
+        sed -i 's?^ZSH_THEME=\".*\"$?ZSH_THEME=\"powerlevel10k/powerlevel10k\"?' $HOME/.zshrc
+    fi
 
     printf "\n... setup zsh-autosuggestions\n\n"
     if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions" ]; then
@@ -119,7 +123,11 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
     # Custom plugins list to replace the default one
     MY_OHMY_ZSH_PLUGINS="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring thefuck python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
 
-    sed -i "" "s?^plugins=(.*)\$?plugins=(${MY_OHMY_ZSH_PLUGINS})?" $HOME/.zshrc
+    if [[ ${OSNAME} == 'MACOS' ]]; then
+        sed -i "" "s?^plugins=(.*)\$?plugins=(${MY_OHMY_ZSH_PLUGINS})?" $HOME/.zshrc
+    else
+        sed -i "s?^plugins=(.*)\$?plugins=(${MY_OHMY_ZSH_PLUGINS})?" $HOME/.zshrc
+    fi
 
     # Update oh my zsh
     zsh -ic "omz update"

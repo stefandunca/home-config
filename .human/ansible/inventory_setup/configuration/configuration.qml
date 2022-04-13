@@ -39,7 +39,7 @@ AnsibleVarsExporter {
 
         host: "mobilerig-manjaro"
         package_list: workstation_manjaro.package_list.concat([ mobilerig_arch ])
-        allow_labels: workstation_manjaro.allow_labels
+        allow_labels: workstation_manjaro.allow_labels.concat([ "mobilerig" ])
     }
 
     Target {
@@ -131,18 +131,23 @@ AnsibleVarsExporter {
             aur: "visual-studio-code-bin"
             deb: "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64"
             brew_cask: "visual-studio-code"
+            denylist: ["wsl"]
         }
 
-        AllPackage {
+        Package {
             name: "java"
+            apt: "default-jre"
+            pacman: "jre-openjdk"
+            choco: "javaruntime"
+            brew_tap: CustomBrewTap {
+                tap: "adoptopenjdk/openjdk"
+                cask: "adoptopenjdk"
+            }
         }
         // Not available natively yet
         // Package {
         //     name: "jdk"
-        //     brew_tap: CustomBrewTap {
-        //         tap: "adoptopenjdk/openjdk"
-        //         cask: "adoptopenjdk"
-        //     }
+        //     
         // }
         Package {
             name: "jre8"

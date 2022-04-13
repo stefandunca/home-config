@@ -15,7 +15,11 @@ class Package(QtQuick.QQuickItem):
     def __init__(self):
         QtQuick.QQuickItem.__init__(self)
         self.exclude_val = False    # True ensures it is removed and installed otherwise
+        # Only include package if these labels are in the allow list
         self.allowlist_val = list()
+        # Don't include package if these labels are in the allow list
+        self.denylist_val = list()
+        # Only allow if attached labes are in this list
         self.targets = {"pacman": None, "aur": None, "apt": None,
                         "snap": None, "choco": None, "pip": None,
                         "deb": None, "custom_apt": None, "brew": None, "brew_cask": None, "brew_tap": None}
@@ -244,6 +248,27 @@ class Package(QtQuick.QQuickItem):
             return
         self.allowlist_val = val
         self.allowlist_changed.emit()
+
+    # List of supported package managers
+    def supported_targets(self):
+        return [k for k, v in self.targets.items() if v != None]
+
+    # `denylist` property
+    # List of labels. Don't install if deny labels are defined
+    @QtCore.Signal
+    def denylist_changed(self):
+        pass
+
+    @QtCore.Property('QVariantList', notify=denylist_changed)
+    def denylist(self):
+        return self.denylist_val
+
+    @denylist.setter
+    def denylist(self, val):
+        if val == self.denylist_val:
+            return
+        self.denylist_val = val
+        self.denylist_changed.emit()
 
     # List of supported package managers
     def supported_targets(self):
