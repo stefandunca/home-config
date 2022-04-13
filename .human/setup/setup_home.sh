@@ -20,8 +20,10 @@ then
     sudo apt update
     sudo apt install -y software-properties-common ansible git zsh
     chsh -s $(which zsh)
+  elif [[ ${OSNAME} == 'MSYS2' ]]; then
+    pacman -Syu --needed git ansible openssh
   else
-    sudo pacman -Syu git ansible openssh
+    sudo pacman --needed -Syu git ansible openssh
   fi
 fi
 
@@ -118,10 +120,15 @@ if [ -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/}" ]; then
         grep -q '^.*path+=.*/home.*/.local/bin.*$' $HOME/.zshrc || printf "\n\n#PIP commands in ZSH\npath+=('$HOME/.local/bin')" >> $HOME/.zshrc
     fi
 
-    zsh -ic "eval $(thefuck --alias)"
-
     # Custom plugins list to replace the default one
-    MY_OHMY_ZSH_PLUGINS="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring thefuck python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
+    if [[ ${OSNAME} == 'MSYS2' ]]; then
+        # very slow: zsh-syntax-highlighting git-prompt
+        MY_OHMY_ZSH_PLUGINS="git-extras git colored-man-pages python vscode zsh-autosuggestions zsh-history-substring-search zsh-completions"
+    else
+        zsh -ic "eval $(thefuck --alias)"
+
+        MY_OHMY_ZSH_PLUGINS="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring thefuck python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
+    fi
 
     if [[ ${OSNAME} == 'MACOS' ]]; then
         sed -i "" "s?^plugins=(.*)\$?plugins=(${MY_OHMY_ZSH_PLUGINS})?" $HOME/.zshrc
