@@ -10,6 +10,7 @@ AnsibleVarsExporter {
             gui_base,
             hobby,
             dev_base,
+            dev_gui,
             dev_host,
             dev_cpp,
             dev_extra,
@@ -219,6 +220,12 @@ AnsibleVarsExporter {
             choco: "discord"
             brew_cask: "discord"
         }
+        Package {
+            name: "whatsapp"
+            aur: "whatsapp"
+            choco: "whatsapp"
+            brew_cask: "whatsapp"
+        }
     }
 
     PackageList {
@@ -257,6 +264,18 @@ AnsibleVarsExporter {
         AllPackage {
             exclude: true
             name: "hub"
+        }
+    }
+
+    PackageList {
+        id: dev_gui
+
+        Package {
+            name: "dbeaver"
+            pacman: name
+            deb: "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
+            choco: name
+            brew: dbeaver-community
         }
     }
 
@@ -385,6 +404,12 @@ AnsibleVarsExporter {
         id: dev_status
 
         UnixPackage { name: "jq" } // command-line JSON processor
+        Package {
+            name: "sqlcipher"
+            pacman: name
+            apt: name
+            brew: name
+        }
     }
 
     PackageList {

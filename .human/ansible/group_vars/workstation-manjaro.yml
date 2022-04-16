@@ -49,12 +49,14 @@ install:
   - ninja-build
   - nim
   - jq
+  - sqlcipher
   aur:
   - git-extras
   - visual-studio-code-bin
   - google-chrome
   - brave
   - nomachine
+  - whatsapp
   - drawio-desktop
   - mqtt-cli-bin
   - android-studio
@@ -95,6 +97,7 @@ install:
   - golang
   - nim
   - jq
+  - sqlcipher
   brew_cask:
   - visual-studio-code
   - firefox
@@ -105,6 +108,7 @@ install:
   - gimp
   - inkscape
   - discord
+  - whatsapp
   - ultimaker-cura
   - blender
   - drawio
@@ -125,10 +129,12 @@ install:
   - inkscape
   - nomachine
   - discord
+  - whatsapp
   - blender
   - nodejs
   - npm
   - maven
+  - dbeaver
   - virtualbox
   - vagrant
   - cmake
@@ -151,6 +157,7 @@ install:
   - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - https://download.nomachine.com/download/7.8/Linux/nomachine_7.8.2_1_amd64.deb
   - https://discord.com/api/download?platform=linux&format=deb
+  - https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
   pacman:
   - zsh
   - git
@@ -194,6 +201,7 @@ install:
   - maven
   - docker
   - docker-compose
+  - dbeaver
   - virtualbox
   - vagrant
   - cmake
@@ -207,6 +215,7 @@ install:
   - go-tools
   - nim
   - jq
+  - sqlcipher
   pip:
   - thefuck
   - setuptools

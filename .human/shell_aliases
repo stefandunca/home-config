@@ -5,7 +5,6 @@ alias fsz='du -hs'
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     alias dir='dir --color=auto'
     alias vdir='vdir --color=auto'
 
@@ -16,7 +15,12 @@ fi
 
 alias vi=vim
 
-alias ls='ls --group-directories-first -Fh --color=auto'  # make ls coloured, and append characters to denote filetype ( eg trailing / on directory names)
+# https://apple.stackexchange.com/questions/300615/group-directories-first-option-for-ls-command
+if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
+  alias gls='ls --group-directories-first -Fh --color=auto'
+else
+  alias ls='ls --group-directories-first -Fh --color=auto'  # make ls coloured, and append characters to denote filetype ( eg trailing / on directory names)
+fi
 alias l='ls -hCF'
 alias l.='ls -hd .*'  #show only hidden files
 alias la='ls -ha'  # list all files
