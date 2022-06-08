@@ -54,7 +54,6 @@ install:
   - git-extras
   - visual-studio-code-bin
   - google-chrome
-  - brave
   - nomachine
   - whatsapp
   - drawio-desktop
@@ -109,6 +108,7 @@ install:
   - inkscape
   - discord
   - whatsapp
+  - openvpn-connect
   - ultimaker-cura
   - blender
   - drawio
@@ -120,7 +120,7 @@ install:
   choco:
   - javaruntime
   - firefox
-  - googlechrome
+  - google-chrome
   - brave
   - meld
   - vlc
@@ -130,6 +130,7 @@ install:
   - nomachine
   - discord
   - whatsapp
+  - openvpn-connect
   - blender
   - nodejs
   - npm

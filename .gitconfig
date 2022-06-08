@@ -1,0 +1,12 @@
+[init]
+    defaultBranch = main
+[pull]
+    ff = only
+[core]
+    editor = code --wait --new-window
+    pager = less -F -X
+    excludesfile = "~/.human/config/.gitignore_global"
+[include]
+    path = .gitconfig-personal
+[includeIf "gitdir:~/proj/status/**"]
+    path = .gitconfig-work

@@ -1,15 +1,18 @@
-# Ignore files and folders in the root dir ectory
+# Ignore all and track specific files
+
+## Ignore all files and folders in the root directory
 /*
 
-# Ignore hidden files and folders
+### Ignore hidden files and folders
 .*
 
-#
-# Exceptions
+## Exceptions
 
-# Personal
+### Personal
 !/tools/fzf/
 !/.human
 !/.nanorc
 !/.p10k.zsh
 
+#### Git
+!.gitconfig

@@ -88,9 +88,9 @@ AnsibleVarsExporter {
 
         Package {
             name: "git-extras"
-            aur: "git-extras"
-            apt: "git-extras"
-            brew: "git-extras"
+            aur: name
+            apt: name
+            brew: name
         }
         Package {
             name: "yay"
@@ -177,27 +177,27 @@ AnsibleVarsExporter {
 
         Package {
             name: "firefox"
-            pacman: "firefox"
-            apt: "firefox"
-            choco: "firefox"
-            brew_cask: "firefox"
+            pacman: name
+            apt: name
+            choco: name
+            brew_cask: name
         }
         Package {
-            name: "chrome"
-            aur: "google-chrome"
+            name: "google-chrome"
+            aur: name
             deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-            choco: "googlechrome"
-            brew_cask: "google-chrome"
+            choco: name
+            brew_cask: name
         }
         Package {
             name: "brave"
-            aur: "brave"
+            aur: brave
             custom_apt: CustomApt {
                 name: "brave"
                 key: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
                 repo: "deb https://brave-browser-apt-release.s3.brave.com/ stable main"
             }
-            choco: "brave"
+            choco: name
             brew_cask: "brave-browser"
         }
         AllUiPackage { name: "meld" }     // Diff
@@ -208,23 +208,37 @@ AnsibleVarsExporter {
         LinuxPackage { name: "peek" }   // GIF screen recorder
         Package {
             name: "nomachine"   //  Remote desktop connection
-            aur: "nomachine"
+            aur: name
             deb: "https://download.nomachine.com/download/7.8/Linux/nomachine_7.8.2_1_amd64.deb"
-            choco: "nomachine"
-            //brew_cask: "nomachine" // needs rosetta
+            choco: name
+            brew_cask: "nomachine"
         }
         Package {
             name: "discord"
-            pacman: "discord"
+            pacman: name
             deb: "https://discord.com/api/download?platform=linux&format=deb"
-            choco: "discord"
-            brew_cask: "discord"
+            choco: name
+            brew_cask: name
         }
         Package {
             name: "whatsapp"
-            aur: "whatsapp"
-            choco: "whatsapp"
-            brew_cask: "whatsapp"
+            aur: name
+            choco: name
+            brew_cask: name
+        }
+        Package {
+            name: "openvpn-connect"
+            // On linux use the one integrated in gnome
+            choco: name
+            brew_cask: name
+        }
+        Package {
+            name: "Flameshot"
+            brew_cask: name
+        }
+        Package {
+            name: "Slate"
+            brew_cask: name
         }
     }
 
@@ -390,7 +404,11 @@ AnsibleVarsExporter {
     PackageList {
         id: dev_android
 
-        AurPackage { name: "android-studio" }
+        Package {
+            name: "android-studio"
+            brew_cask: name
+            aur: name
+        }
         AurPackage { name: "android-sdk" }
         AurPackage { name: "android-sdk-build-tools" }
         AurPackage { name: "android-sdk-platform-tools" }
