@@ -1,0 +1,10 @@
+[alias]
+  # https://stackoverflow.com/questions/66232497/git-alias-which-works-for-main-or-master-or-other
+  # Use $(git main) instead of main/master; alias needs to be a shell script (which starts with !)
+  main = !git symbolic-ref refs/remotes/origin/HEAD | cut -d'/' -f4
+  # If any of the aliases errors with fatal: ref refs/remotes/origin/HEAD is not a symbolic ref
+  remotesh = remote set-head origin --auto
+  checkoutmain = "!f(){ git checkout $(git main) $@;}; f"
+  pullmain = "!f(){ git pull --rebase --autostash origin $(git main) $@;}; f"
+  rebasemain = "!f(){ git rebase -i --autosquash origin/$(git main) --no-verify $@;}; f"
+  pushpr = "!git push --set-upstream origin \"$(git rev-parse --abbrev-ref HEAD)\""

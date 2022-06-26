@@ -7,6 +7,8 @@
     pager = less -F -X
     excludesfile = "~/.human/config/.gitignore_global"
 [include]
+    path = ~/.human/config/git_aliases
+[include]
     path = .gitconfig-personal
 [includeIf "gitdir:~/proj/status/**"]
     path = .gitconfig-work

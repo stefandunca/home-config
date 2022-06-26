@@ -1,0 +1,8 @@
+# Qt for Python VScode
+.qt_for_python/
+
+# Python
+__pycache__
+
+# cmake build directory
+./build/

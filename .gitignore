@@ -3,14 +3,12 @@
 ## Ignore all files and folders in the root directory
 /*
 
-### Ignore hidden files and folders
-.*
-
 ## Exceptions
 
 ### Personal
+# `home status ~/.human --ignored`
 !/tools/fzf/
-!/.human
+!/.human/**/*
 !/.nanorc
 !/.p10k.zsh
 
