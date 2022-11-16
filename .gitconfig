@@ -4,10 +4,20 @@
     ff = only
 [core]
     editor = code --wait --new-window
-    pager = less -F -X
+	pager = less -F -X
     excludesfile = "~/.human/config/.gitignore_global"
 [include]
     path = ~/.human/config/git_aliases
+[diff]
+ tool = vscode
+[difftool "vscode"]
+ cmd = code --wait --new-window --disable-workspace-trust --diff $LOCAL $REMOTE
+[merge]
+ tool = vscode
+[mergetool "vscode"]
+ cmd = code --wait --new-window --disable-workspace-trust $MERGED
+[difftool]
+    prompt = false
 [include]
     path = .gitconfig-personal
 [includeIf "gitdir:~/proj/status/**"]

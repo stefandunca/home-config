@@ -13,6 +13,8 @@ install:
   - nano
   - util-linux
   - rmlint
+  - ranger
+  - bench
   - gparted
   - net-tools
   - borgbackup
@@ -54,6 +56,7 @@ install:
   - git-extras
   - visual-studio-code-bin
   - google-chrome
+  - brave
   - nomachine
   - whatsapp
   - drawio-desktop
@@ -80,6 +83,8 @@ install:
   - nano
   - util-linux
   - rmlint
+  - ranger
+  - bench
   - borgbackup
   - git-extras
   - python
@@ -100,6 +105,7 @@ install:
   - sqlcipher
   brew_cask:
   - visual-studio-code
+  - temurin
   - firefox
   - google-chrome
   - brave-browser
@@ -107,15 +113,20 @@ install:
   - vlc
   - gimp
   - inkscape
+  - nomachine
   - discord
   - whatsapp
   - openvpn-connect
+  - Flameshot
+  - Slate
   - ultimaker-cura
   - blender
+  - db-browser-for-sqlite
   - drawio
+  - android-studio
+  - ganache
+  - ledger-live
   brew_tap:
-  - cask: adoptopenjdk
-    tap: adoptopenjdk/openjdk
   - cask: mqtt-cli
     tap: hivemq/mqtt-cli
   choco:
@@ -136,7 +147,6 @@ install:
   - nodejs
   - npm
   - maven
-  - dbeaver
   - virtualbox
   - vagrant
   - cmake
@@ -159,7 +169,6 @@ install:
   - https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
   - https://download.nomachine.com/download/7.8/Linux/nomachine_7.8.2_1_amd64.deb
   - https://discord.com/api/download?platform=linux&format=deb
-  - https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb
   pacman:
   - zsh
   - git
@@ -174,6 +183,8 @@ install:
   - nano
   - util-linux
   - rmlint
+  - ranger
+  - bench
   - gparted
   - net-tools
   - nano-syntax-highlighting
@@ -203,7 +214,6 @@ install:
   - maven
   - docker
   - docker-compose
-  - dbeaver
   - virtualbox
   - vagrant
   - cmake

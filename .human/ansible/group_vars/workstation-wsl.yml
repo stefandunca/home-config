@@ -13,6 +13,8 @@ install:
   - nano
   - util-linux
   - rmlint
+  - ranger
+  - bench
   - gparted
   - net-tools
   - borgbackup
@@ -55,6 +57,8 @@ install:
   - nano
   - util-linux
   - rmlint
+  - ranger
+  - bench
   - borgbackup
   - git-extras
   - python
@@ -70,9 +74,9 @@ install:
   - go
   - golang
   - nim
+  brew_cask:
+  - temurin
   brew_tap:
-  - cask: adoptopenjdk
-    tap: adoptopenjdk/openjdk
   - cask: mqtt-cli
     tap: hivemq/mqtt-cli
   choco:
@@ -106,6 +110,8 @@ install:
   - nano
   - util-linux
   - rmlint
+  - ranger
+  - bench
   - gparted
   - net-tools
   - nano-syntax-highlighting

@@ -15,7 +15,9 @@ AnsibleVarsExporter {
             dev_cpp,
             dev_extra,
             dev_android,
-            dev_status
+            dev_status,
+
+            blockchain,
         ]
     }
 
@@ -53,7 +55,7 @@ AnsibleVarsExporter {
         ]
         allow_labels: ["wsl"]
     }
-    
+
     PackageList {
         id: base
 
@@ -70,8 +72,10 @@ AnsibleVarsExporter {
         UnixPackage { name: "nano" }
         UnixPackage { name: "util-linux" }
         UnixPackage { name: "rmlint" }
+        UnixPackage { name: "ranger" }
+        UnixPackage { name: "bench" }
 
-	LinuxPackage { name: "gparted" }
+    	LinuxPackage { name: "gparted" }
         LinuxPackage { name: "net-tools" }
 
 
@@ -140,16 +144,13 @@ AnsibleVarsExporter {
             apt: "default-jre"
             pacman: "jre-openjdk"
             choco: "javaruntime"
-            brew_tap: CustomBrewTap {
-                tap: "adoptopenjdk/openjdk"
-                cask: "adoptopenjdk"
-            }
+            brew_cask: "temurin"
         }
         // Not available natively yet
         // Package {
         //     name: "jdk"
-        //     
         // }
+        // TODO: still needed?
         Package {
             name: "jre8"
             pacman: "jre8-openjdk-headless"
@@ -191,7 +192,7 @@ AnsibleVarsExporter {
         }
         Package {
             name: "brave"
-            aur: brave
+            aur: "brave"
             custom_apt: CustomApt {
                 name: "brave"
                 key: "https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg"
@@ -285,11 +286,8 @@ AnsibleVarsExporter {
         id: dev_gui
 
         Package {
-            name: "dbeaver"
-            pacman: name
-            deb: "https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb"
-            choco: name
-            brew: dbeaver-community
+            name: "db-browser-for-sqlite"
+            brew_cask: "db-browser-for-sqlite"
         }
     }
 
@@ -358,7 +356,7 @@ AnsibleVarsExporter {
         }
         PipPackage { name: "jupyterlab" }
         PipPackage { name: "conan" }
-        
+
         Package {
             name: "ninja"
             pacman: "ninja"
@@ -454,7 +452,19 @@ AnsibleVarsExporter {
             name: "libfprint"
             aur: "libfprint-2-tod1-xps9300-bin"
         }
-        
+    }
+
+    PackageList {
+        id: blockchain
+
+        Package {
+            name: "ganache"
+            brew_cask: name
+        }
+        Package {
+            name: "ledger-live"
+            brew_cask: name
+        }
     }
 
     //
