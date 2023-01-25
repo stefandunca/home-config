@@ -8,9 +8,12 @@
 ### Personal
 # `home status ~/.human --ignored`
 !/tools/fzf/
-!/.human/**/*
+!/.human
 !/.nanorc
 !/.p10k.zsh
+
+# Add back
+.venv/
 
 #### Git
 !.gitconfig
