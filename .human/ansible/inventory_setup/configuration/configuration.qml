@@ -251,6 +251,7 @@ AnsibleVarsExporter {
             pacman: "cura"
             snap: "cura-slicer"
             brew_cask: "ultimaker-cura"
+            exclude: true
         }
         AllUiPackage { name: "blender" }  // 3D editing
     }

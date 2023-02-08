@@ -119,7 +119,6 @@ install:
   - openvpn-connect
   - Flameshot
   - Slate
-  - ultimaker-cura
   - blender
   - db-browser-for-sqlite
   - drawio
@@ -206,7 +205,6 @@ install:
   - inkscape
   - peek
   - discord
-  - cura
   - blender
   - github-cli
   - nodejs
@@ -235,14 +233,18 @@ install:
   - jupyterlab
   - conan
   snap:
-  - cura-slicer
   - drawio
 uninstall:
   apt:
   - hub
   brew:
   - hub
+  brew_cask:
+  - ultimaker-cura
   choco:
   - hub
   pacman:
+  - cura
   - hub
+  snap:
+  - cura-slicer
