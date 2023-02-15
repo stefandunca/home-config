@@ -91,6 +91,13 @@ AnsibleVarsExporter {
         }
 
         Package {
+            name: "dict"
+            pacman: name
+            apt: name
+            brew: name
+        }
+
+        Package {
             name: "git-extras"
             aur: name
             apt: name

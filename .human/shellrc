@@ -11,3 +11,5 @@ export PATH=$PATH:$HOME/.cargo/bin
 
 
 [[ -z "$ZSH_VERSION" ]] || [[ -f $HOME/.human/arch_aliases ]] && source $HOME/.human/arch_aliases
+
+syn() { dict "$1" | grep -i syn }
