@@ -17,7 +17,7 @@ alias vi=vim
 
 # https://apple.stackexchange.com/questions/300615/group-directories-first-option-for-ls-command
 if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
-  alias gls='ls --group-directories-first -Fh --color=auto'
+  alias ls='gls --group-directories-first -Fh --color=auto'
 else
   alias ls='ls --group-directories-first -Fh --color=auto'  # make ls coloured, and append characters to denote filetype ( eg trailing / on directory names)
 fi
@@ -41,7 +41,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 alias cp='cp -i'
 
-# Note that these aliases do not work when running a command as root using sudo. This will allow the 
+# Note that these aliases do not work when running a command as root using sudo. This will allow the
 # first word after 'sudo' to be substituted if an alias exists.
 alias sudo="sudo "
 
@@ -56,10 +56,21 @@ alias findt='grep -rnwli -e '
 # Case sensitive
 alias findtc='grep -rnwl -e '
 
-# Command line google search
-alias g='googler'
-
 alias battery='upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep -E "state|to\ full|percentage"'
 
 # Various helpers
 alias show_display_session='echo $XDG_SESSION_TYPE'
+
+# ChatGPT
+#
+alias c='sgpt'                        # Normal
+alias c4='sgpt --model gpt-4'         # GPT-4
+alias cc='sgpt --code'                # Only generate code
+alias c4c='sgpt --code --model gpt-4' # Code only with GPT-4
+alias cs='sgpt --shell'               # Generate and run commands
+alias c4s='sgpt --shell --model gpt-4'
+alias cds='sgpt --describe-shell'     # Describe shell
+alias chat='sgpt --chat=temp'         # Chat, temporary discussion
+alias chat4='sgpt --chat=temp --model gpt-4'
+alias crepl='c --shell --repl temp'   # Repl
+alias c4repl='c --model gpt-4 --shell --repl temp'   # GPT-4 Repl
