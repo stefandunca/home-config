@@ -18,6 +18,7 @@ install:
   - gparted
   - net-tools
   - borgbackup
+  - dict
   - git-extras
   - build-essential
   - python3-pip
@@ -85,6 +86,7 @@ install:
   - ranger
   - bench
   - borgbackup
+  - dict
   - git-extras
   - python
   - imagemagick
@@ -187,6 +189,7 @@ install:
   - net-tools
   - nano-syntax-highlighting
   - borg
+  - dict
   - yay
   - base-devel
   - python-pip

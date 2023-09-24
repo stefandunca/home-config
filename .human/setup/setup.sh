@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Eg 
+# Eg.:
 # Manjaro: $HOME/.human/setup/setup.sh $HOME/.human/ansible/group_vars/workstation-manjaro.yml $HOME/.human/ansible/workstation.yml
 # Ubuntu: $HOME/.human/setup/setup.sh $HOME/.human/ansible/group_vars/workstation.yml $HOME/.human/ansible/workstation.yml
 # Manjaro mobile rig: $HOME/.human/setup/setup.sh $HOME/.human/ansible/group_vars/mobilerig-manjaro.yml $HOME/.human/ansible/workstation.yml
@@ -36,7 +36,7 @@ python3 -m venv $HOME/.human/ansible/inventory_setup/.venv
 python3 -m pip install --upgrade pip
 python3 -m pip install -r $HOME/.human/ansible/inventory_setup/requirements.txt
 
-python $HOME/.human/ansible/inventory_setup/main.py --config $HOME/.human/ansible/inventory_setup/configuration/configuration.qml --output_dir $HOME/.human/ansible/group_vars/
+python3 $HOME/.human/ansible/inventory_setup/main.py --config $HOME/.human/ansible/inventory_setup/configuration/configuration.qml --output_dir $HOME/.human/ansible/group_vars/
 
 # Alternative parameters
 #

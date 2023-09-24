@@ -14,7 +14,7 @@ AnsibleVarsExporter {
             dev_host,
             dev_cpp,
             dev_extra,
-            dev_android,
+            //dev_android,
             dev_status,
 
             blockchain,
@@ -80,6 +80,8 @@ AnsibleVarsExporter {
 
 
         PipPackage { name: "thefuck" }
+        PipPackage { name: "shell-gpt" }
+        PipPackage { name: "watchdog" }
 
         PacmanPackage { name: "nano-syntax-highlighting" }
 
@@ -158,16 +160,16 @@ AnsibleVarsExporter {
         //     name: "jdk"
         // }
         // TODO: still needed?
-        Package {
-            name: "jre8"
-            pacman: "jre8-openjdk-headless"
-            apt: "openjdk-8-jre-headless"
-        }
-        Package {
-            name: "jdk8"
-            pacman: "jdk8-openjdk"
-            apt: "openjdk-8-jdk"
-        }
+        // Package {
+        //     name: "jre8"
+        //     pacman: "jre8-openjdk-headless"
+        //     apt: "openjdk-8-jre-headless"
+        // }
+        // Package {
+        //     name: "jdk8"
+        //     pacman: "jdk8-openjdk"
+        //     apt: "openjdk-8-jdk"
+        // }
         Package {
             name: "jre11"
             pacman: "jre11-openjdk-headless"
@@ -178,7 +180,11 @@ AnsibleVarsExporter {
             pacman: "jdk11-openjdk"
             apt: "openjdk-11-jdk"
         }
-    }
+        Package {
+            name: "cheat"
+            brew: "cheat"
+        }
+    } // PackageList { id: base }
 
     PackageList {
         id: gui_base
@@ -190,13 +196,13 @@ AnsibleVarsExporter {
             choco: name
             brew_cask: name
         }
-        Package {
-            name: "google-chrome"
-            aur: name
-            deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
-            choco: name
-            brew_cask: name
-        }
+        // Package {
+        //     name: "google-chrome"
+        //     aur: name
+        //     deb: "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb"
+        //     choco: name
+        //     brew_cask: name
+        // }
         Package {
             name: "brave"
             aur: "brave"
@@ -254,12 +260,12 @@ AnsibleVarsExporter {
         id: hobby
 
         // 3D printing slicer
-        Package {
-            pacman: "cura"
-            snap: "cura-slicer"
-            brew_cask: "ultimaker-cura"
-            exclude: true
-        }
+        // Package {
+        //     pacman: "cura"
+        //     snap: "cura-slicer"
+        //     brew_cask: "ultimaker-cura"
+        //     exclude: true
+        // }
         AllUiPackage { name: "blender" }  // 3D editing
     }
 
@@ -288,6 +294,8 @@ AnsibleVarsExporter {
             exclude: true
             name: "hub"
         }
+
+        PipPackage { name: "PySide6" }
     }
 
     PackageList {
@@ -364,6 +372,7 @@ AnsibleVarsExporter {
         }
         PipPackage { name: "jupyterlab" }
         PipPackage { name: "conan" }
+        PipPackage { name: "aqtinstall" }
 
         Package {
             name: "ninja"
