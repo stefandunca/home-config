@@ -1,15 +1,13 @@
-# .bashrc
+# To be run from .zshrc
 alias home='git --work-tree=$HOME --git-dir=$HOME/.home'
 export PATH=$PATH:$HOME/.cargo/bin
 
-# https://stackoverflow.com/questions/9910966/how-to-get-shell-to-self-detect-using-zsh-or-bash
 # .shell_profile additions
-[[ -f $HOME/.human/shell_profile ]] && . $HOME/.human/shell_profile
+[[ -f $HOME/.human/config/shell_profile ]] && . $HOME/.human/config/shell_profile
 
 [[ -f $HOME/.human/env_vars ]] && . $HOME/.human/env_vars
-[[ -f $HOME/.human/shell_aliases ]] && source $HOME/.human/shell_aliases
+[[ -f $HOME/.human/config/source ]] && source $HOME/.human/config/source
 
-
-[[ -z "$ZSH_VERSION" ]] || [[ -f $HOME/.human/arch_aliases ]] && source $HOME/.human/arch_aliases
+[[ -z "$ZSH_VERSION" ]] || [[ -f $HOME/.human/config/arch ]] && source $HOME/.human/config/arch
 
 syn() { dict "$1" | grep -i syn }

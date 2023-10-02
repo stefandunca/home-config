@@ -1,5 +1,13 @@
-# Listing information  aliases
-alias df='df -hT -xtmpfs -xdevtmpfs -xsquashfs -xvfat'
+# https://apple.stackexchange.com/questions/300615/group-directories-first-option-for-ls-command
+if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
+  alias df='df -h -T ufs,apfs | awk '\''/\/System\/Volumes\/Data/ {print "\033[0;32m" $0 "\033[0m"}; !/\/System\/Volumes\/Data/ {print $0}'\'
+  alias ls='gls --group-directories-first -Fh --color=auto'
+else
+  alias df='df -hT -xtmpfs -xdevtmpfs -xsquashfs -xvfat'
+  alias ls='ls --group-directories-first -Fh --color=auto'  # make ls coloured, and append characters to denote filetype ( eg trailing / on directory names)
+fi
+
+
 alias fsz='du -hs'
 
 # enable color support of ls and also add handy aliases
@@ -15,12 +23,6 @@ fi
 
 alias vi=vim
 
-# https://apple.stackexchange.com/questions/300615/group-directories-first-option-for-ls-command
-if [ "$OSTYPE" != linux-gnu ]; then  # Is this the macOS system?
-  alias ls='gls --group-directories-first -Fh --color=auto'
-else
-  alias ls='ls --group-directories-first -Fh --color=auto'  # make ls coloured, and append characters to denote filetype ( eg trailing / on directory names)
-fi
 alias l='ls -hCF'
 alias l.='ls -hd .*'  #show only hidden files
 alias la='ls -ha'  # list all files

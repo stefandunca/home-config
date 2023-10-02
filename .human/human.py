@@ -8,6 +8,8 @@ from dataclasses import dataclass
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 config_file = f"{script_dir}/.config.json"
+need_docker = ["jupyter"]
+stop_docker = False
 
 @dataclass
 class Config:
@@ -21,8 +23,10 @@ def save_config(config: Config):
     json.dump(config.__dict__, open(config_file, 'w'), indent=2)
 
 @click.group()
+@click.option('--dont-start_docker', '-d', is_flag=True, help="Start docker service")
+@click.option('--restart_docker', '-r', is_flag=True, help="Restart docker service")
 @click.pass_context
-def cli(ctx):
+def cli(ctx, dont_start_docker, restart_docker):
     # Setup context object
     obj = CtxObject
     if os.path.exists(config_file):
@@ -35,32 +39,34 @@ def cli(ctx):
 
     # No command, run default
     if ctx.invoked_subcommand is None:
-        # TODO: update packages
+        # TODO: run home_update.py
         pass
+    elif ctx.invoked_subcommand in need_docker:
+        if restart_docker:
+            sh.colima.restart(**out)
+        elif not dont_start_docker:
+            run_colima = False
+            try:
+                output = sh.colima.status()
+                run_colima = 'is running' in str(output)
+            except sh.ErrorReturnCode:
+                run_colima = True
+
+            if run_colima:
+                sh.colima.start(**out)
+                global stop_docker; stop_docker = True
+
 
 out = {'_out': click.get_text_stream('stdout'), '_err': click.get_text_stream('stderr')}
 
 @cli.command(help="Start jupyter notebook docker")
 @click.option('--update', '-u', is_flag=True, help="Update docker image")
 @click.option('--workspace', '-w', default=None, help="Workspace directory")
-@click.option('--start_docker', '-s', is_flag=True, help="Start docker service")
-@click.option('--restart_docker', '-r', is_flag=True, help="Restart docker service")
 @click.pass_obj
-def jupyter(obj: CtxObject, update, workspace, start_docker, restart_docker):
+def jupyter(obj: CtxObject, update, workspace):
     if workspace is not None:
         obj.config.notebook_workspace = workspace
         save_config(obj.config)
-
-    if start_docker or restart_docker:
-        if restart_docker:
-            sh.colima.restart(**out)
-        else:
-            try:
-                output = sh.colima.status()
-                return 'is running' in str(output)
-            except sh.ErrorReturnCode:
-                if start_docker:
-                    sh.colima.start(**out)
 
     if update:
         sh.docker.pull('janpfeifer/gonb_jupyterlab:latest', **out)
@@ -76,5 +82,7 @@ def echo(message):
 if __name__ == '__main__':
     try:
         cli()
+        if stop_docker:
+            sh.colima.stop(**out)
     except sh.ErrorReturnCode as e:
         echo(f'Command "{e.full_cmd}" failed with exit code {e.exit_code}')
