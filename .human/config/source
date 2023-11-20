@@ -65,14 +65,14 @@ alias show_display_session='echo $XDG_SESSION_TYPE'
 
 # ChatGPT
 #
-alias c='sgpt'                        # Normal
-alias c4='sgpt --model gpt-4'         # GPT-4
-alias cc='sgpt --code'                # Only generate code
-alias c4c='sgpt --code --model gpt-4' # Code only with GPT-4
-alias cs='sgpt --shell'               # Generate and run commands
-alias c4s='sgpt --shell --model gpt-4'
-alias cds='sgpt --describe-shell'     # Describe shell
-alias chat='sgpt --chat=temp'         # Chat, temporary discussion
-alias chat4='sgpt --chat=temp --model gpt-4'
-alias crepl='c --shell --repl temp'   # Repl
-alias c4repl='c --model gpt-4 --shell --repl temp'   # GPT-4 Repl
+alias c='sgpt --model gpt-3.5-turbo-1106'                     # GPT-3 Turbo
+alias c4='sgpt --model gpt-4-1106-preview'                    # GPT-4 Turbo
+alias cc='sgpt --code --model gpt-3.5-turbo-1106'             # Only generate code
+alias cc4='sgpt --code --model gpt-4-1106-preview'            # Code only with GPT-4 Turbo
+alias cs='sgpt --shell --model gpt-3.5-turbo-1106'            # Generate and run commands
+alias cs4='sgpt --shell --model gpt-4-1106-preview'
+alias cds='sgpt --describe-shell --model gpt-3.5-turbo-1106'  # Describe shell
+alias chat='sgpt --chat=temp --model gpt-3.5-turbo-1106'      # Chat, temporary discussion
+alias chat4='sgpt --chat=temp --model gpt-4-1106-preview'
+alias crepl='c --shell --repl temp'                               # Repl
+alias crepl4='c --model gpt-4-1106-preview --shell --repl temp'   # GPT-4 Repl
