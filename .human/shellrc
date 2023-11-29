@@ -10,4 +10,4 @@ export PATH=$PATH:$HOME/.cargo/bin
 
 [[ -z "$ZSH_VERSION" ]] || [[ -f $HOME/.human/config/arch ]] && source $HOME/.human/config/arch
 
-syn() { dict "$1" | grep -i syn }
+[[ -z "$ZSH_VERSION" ]] || $(syn() { dict "$1" | grep -i syn })

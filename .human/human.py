@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sh
 import click
-import glob
 import json
 import os
 from dataclasses import dataclass
