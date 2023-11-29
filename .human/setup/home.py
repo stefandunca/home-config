@@ -3,7 +3,7 @@ import os
 import sh
 import platform
 
-from helpers import *
+from helpers.helpers import *
 
 # Manual entry: `alias home='git --work-tree=$HOME --git-dir=$HOME/.home'`
 home_path = os.path.expanduser('~')

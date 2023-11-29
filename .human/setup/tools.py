@@ -5,14 +5,13 @@ from dataclasses import dataclass
 
 from typing import List
 
-from helpers import *
+from helpers.helpers import *
 from packages import *
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
-
 
 from tools.install_docker import install as install_docker
 
