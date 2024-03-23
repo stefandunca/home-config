@@ -17,7 +17,7 @@ chsh -s /bin/zsh
 #  IdentityFile ~/.keys/home-config-ro
 
 # fetch home-config sources and setup custom git
-alias home='git --work-tree=$HOME --git-dir=$HOME/.home' && home init && home remote add origin git@github.com-home-config:stefandunca/home-config.git && home fetch && home checkout main && home submodule update --init --recursive && pip install -r ~/.human/setup/requirements.txt && chmod +x ~/.human/setup/home.py && chmod +x ~/.human/setup/tools.py && ~/.human/setup/home.py && ~/.human/setup/tools.py
+alias home='git --work-tree=$HOME --git-dir=$HOME/.home' && home init && home remote add origin git@github.com-home-config:stefandunca/home-config.git && home fetch && home checkout main && home submodule update --init --recursive && python3 -m venv ~/.human/.venv && pip install -r ~/.human/setup/requirements.txt && chmod +x ~/.human/setup/home.py && chmod +x ~/.human/setup/tools.py && ~/.human/setup/home.py && ~/.human/setup/tools.py
 ```
 
 ## Tips
