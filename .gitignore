@@ -15,6 +15,7 @@
 # Add back
 .venv/
 .human/.config.json
+.vscode/
 
 #### Git
 !.gitconfig

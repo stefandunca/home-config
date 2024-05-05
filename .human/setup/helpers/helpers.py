@@ -37,7 +37,7 @@ def download_script_and_run(url: str, filename: str = None):
         tmpfile = os.path.join(tmpdir, "downloaded_{filename}")
         echo(f"download and install {url}")
         download(url, tmpfile)
-        sh.sh(filename, **out)
+        sh.sh(tmpfile, **out)
 
 
 def append_if_missing(file_path, regex, new_content):

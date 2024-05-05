@@ -7,7 +7,6 @@ else
   alias ls='ls --group-directories-first -Fh --color=auto'  # make ls coloured, and append characters to denote filetype ( eg trailing / on directory names)
 fi
 
-
 alias fsz='du -hs'
 
 # enable color support of ls and also add handy aliases
@@ -76,3 +75,7 @@ alias chat='sgpt --chat=temp --model gpt-3.5-turbo-1106'      # Chat, temporary 
 alias chat4='sgpt --chat=temp --model gpt-4-1106-preview'
 alias crepl='c --shell --repl temp'                               # Repl
 alias crepl4='c --model gpt-4-1106-preview --shell --repl temp'   # GPT-4 Repl
+
+# From Jakub's presentation
+alias search-keys="bindkey | grep"
+alias nice-git-log="git log --oneline | fzf --preview='git show \${1}'"

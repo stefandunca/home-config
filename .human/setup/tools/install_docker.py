@@ -8,7 +8,7 @@ def is_docker_installed():
     try:
         sh.docker("--version", **out)
         return True
-    except sh.ErrorReturnCode:
+    except (sh.ErrorReturnCode, sh.CommandNotFound):
         return False
 
 def install_docker():
@@ -18,10 +18,10 @@ def install_docker():
         with tempfile.TemporaryDirectory() as temp_dir:
             script_path = f"{temp_dir}/get-docker.sh"
             sh.curl("-fsSL", "https://get.docker.com", "-o", script_path, **out)
-            
+
             echo("Running Docker installation script...")
             sh.sudo("sh", script_path, **out)
-            
+
             echo("Docker installed successfully.")
     except sh.ErrorReturnCode as e:
         echo(f"An error occurred during Docker installation: {e}", err=True)
@@ -30,6 +30,7 @@ def install_docker():
         echo(f"Unexpected error: {e}", err=True)
         sys.exit(1)
 
+# TODO: remove me, docker-compose is not needed anymore
 def install_docker_compose():
     try:
         echo("Installing Docker Compose...")
@@ -45,7 +46,8 @@ def install():
     else:
         echo("Docker is already installed.")
 
-    install_docker_compose()
+    # No need, `docker compose` works fine
+    # install_docker_compose()
 
 if __name__ == "__main__":
     install()

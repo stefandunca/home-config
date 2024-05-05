@@ -2,9 +2,17 @@
 # Bash: https://wiki.archlinux.org/index.php/Bash#Tab_completion
 # Zsh: https://unix.stackexchange.com/questions/273861/unlimited-history-in-zsh
 export HISTCONTROL=ignoredups
-export HISTSIZE=10000
-export HISTFILESIZE=100000
+export HISTSIZE=10000           # lines kept in history
+export HISTFILESIZE=100000      # lines saved in the history after logout
 export SAVEHIST=$HISTSIZE
+
+# From Jakub's presentation
+if [ -n "$ZSH_VERSION" ]; then
+    setopt HIST_FIND_NO_DUPS # do not display duplicates in history
+    setopt HIST_IGNORE_DUPS # ignore duplication command history list
+    setopt HIST_SAVE_NO_DUPS # do not save duplicates in history
+    setopt HIST_REDUCE_BLANKS # remove superfluous blanks from each command line being saved
+fi
 
 # https://wiki.archlinux.org/index.php/nano
 export VISUAL=code

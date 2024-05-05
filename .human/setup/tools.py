@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!python
+# first: `source ~/.human/.venv/bin/activate`
 import os
 import sys
 from dataclasses import dataclass
