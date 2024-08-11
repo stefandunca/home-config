@@ -64,18 +64,49 @@ alias show_display_session='echo $XDG_SESSION_TYPE'
 
 # ChatGPT
 #
-alias c='sgpt --model gpt-3.5-turbo-1106'                     # GPT-3 Turbo
-alias c4='sgpt --model gpt-4-1106-preview'                    # GPT-4 Turbo
-alias cc='sgpt --code --model gpt-3.5-turbo-1106'             # Only generate code
-alias cc4='sgpt --code --model gpt-4-1106-preview'            # Code only with GPT-4 Turbo
-alias cs='sgpt --shell --model gpt-3.5-turbo-1106'            # Generate and run commands
-alias cs4='sgpt --shell --model gpt-4-1106-preview'
-alias cds='sgpt --describe-shell --model gpt-3.5-turbo-1106'  # Describe shell
-alias chat='sgpt --chat=temp --model gpt-3.5-turbo-1106'      # Chat, temporary discussion
-alias chat4='sgpt --chat=temp --model gpt-4-1106-preview'
-alias crepl='c --shell --repl temp'                               # Repl
-alias crepl4='c --model gpt-4-1106-preview --shell --repl temp'   # GPT-4 Repl
+# Chat
+alias aichat='sgpt --model gpt-4o' MAIN
+alias aichat3='sgpt --model gpt-3.5-turbo-1106'
+# Only generate code
+alias aicode='sgpt --code --model gpt-4o'
+alias aicode3='sgpt --code --model gpt-3.5-turbo-1106'
+# Generate and run commands
+alias ai='sgpt --shell --no-md --model gpt-4o'
+alias ai3='sgpt --shell --no-md --model gpt-3.5-turbo-1106'
+# Describe shell
+alias aishell='sgpt --describe-shell --model gpt-4o'
+# Chat, temporary discussion
+alias aitmp='sgpt --chat=temp --model gpt-4o'
+# REPL
+alias airepl='sgpt --shell --repl temp'
 
 # From Jakub's presentation
 alias search-keys="bindkey | grep"
 alias nice-git-log="git log --oneline | fzf --preview='git show \${1}'"
+alias nice-git-log-files="git log --oneline | fzf --preview='git show \${1}'"
+
+
+unalias g 2>/dev/null
+function g {
+  if [[ $# > 0 ]]; then
+    git "$@"
+  else
+    git status -sb
+  fi
+}
+
+unalias d 2>/dev/null
+function d {
+  if [[ $1 == 'purge' ]]; then
+    docker rm $(docker ps -a -q)
+  elif [[ $# > 0 ]]; then
+    docker "$@"
+  else
+    docker ps
+  fi
+}
+
+if [ -n "$ZSH_VERSION" ]; then
+  compdef g=git
+  compdef d=docker
+fi

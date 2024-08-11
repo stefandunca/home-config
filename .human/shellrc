@@ -6,7 +6,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 [[ -f $HOME/.human/config/shell_profile ]] && . $HOME/.human/config/shell_profile
 
 [[ -f $HOME/.human/env_vars ]] && . $HOME/.human/env_vars
-[[ -f $HOME/.human/config/source ]] && source $HOME/.human/config/source
+[[ -f $HOME/.human/config/aliases ]] && source $HOME/.human/config/aliases
 
 [[ -z "$ZSH_VERSION" ]] || [[ -f $HOME/.human/config/arch ]] && source $HOME/.human/config/arch
 
