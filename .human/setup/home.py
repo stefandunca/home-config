@@ -89,10 +89,16 @@ if os.path.exists(ohmy_path):
     # very slow: zsh-syntax-highlighting git-prompt for MSYS2
     # MY_OHMY_ZSH_PLUGINS="git-extras git colored-man-pages python vscode zsh-autosuggestions zsh-history-substring-search zsh-completions"
 
-    MY_OHMY_ZSH_PLUGINS="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
+    my_ohmy_zsh_plugins="git-prompt git-extras git archlinux colored-man-pages docker docker-compose dotenv spring python vscode zsh-syntax-highlighting zsh-autosuggestions zsh-history-substring-search zsh-completions"
 
-    if replace_line_matching(f"{home_path}/.zshrc", r'^plugins=(.*)$', f'plugins=({MY_OHMY_ZSH_PLUGINS})\n'):
-        echo(f"registered the following plugins {MY_OHMY_ZSH_PLUGINS}")
+    if sh.kubectl.bake(_ok_code=[0, 1])():
+        output_file = os.path.expanduser("~/.oh-my-zsh/custom/plugins/kubectl.plugin.zsh")
+        with open(output_file, 'w') as f:
+            sh.kubectl("completion", "zsh", _out=f)
+        my_ohmy_zsh_plugins += " kubectl"
+
+    if replace_line_matching(f"{home_path}/.zshrc", r'^plugins=(.*)$', f'plugins=({my_ohmy_zsh_plugins})\n'):
+        echo(f"registered the following plugins {my_ohmy_zsh_plugins}")
 
     echo("Update oh my zsh")
     sh.zsh('-ic', "omz update", **out)

@@ -26,6 +26,7 @@ base: List[Package] = [
     Package("tree"),
     Package("xclip"),
     Package("nano"),
+    Package("uv"),
 
     PipPackage("shell-gpt"),
     PipPackage("watchdog"),

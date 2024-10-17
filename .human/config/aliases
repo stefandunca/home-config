@@ -65,20 +65,29 @@ alias show_display_session='echo $XDG_SESSION_TYPE'
 # ChatGPT
 #
 # Chat
-alias aichat='sgpt --model gpt-4o' MAIN
-alias aichat3='sgpt --model gpt-3.5-turbo-1106'
+AI_MODEL=${AI_MODEL:-"gpt-4o-2024-08-06"}
+AI_MODEL_MINI=${AI_MODEL_MINI:-"gpt-4o-mini-2024-07-18"}
+
+alias aichat="sgpt --model $AI_MODEL"
+alias aichatm="sgpt --model $AI_MODEL_MINI"
+
 # Only generate code
-alias aicode='sgpt --code --model gpt-4o'
-alias aicode3='sgpt --code --model gpt-3.5-turbo-1106'
+alias aicode="sgpt --code --model $AI_MODEL"
+alias aicodem="sgpt --code --model $AI_MODEL_MINI"
+
 # Generate and run commands
-alias ai='sgpt --shell --no-md --model gpt-4o'
-alias ai3='sgpt --shell --no-md --model gpt-3.5-turbo-1106'
+alias ai="sgpt --shell --no-md --model $AI_MODEL"
+alias aim="sgpt --shell --no-md --model $AI_MODEL_MINI"
+
 # Describe shell
-alias aishell='sgpt --describe-shell --model gpt-4o'
+alias aishell="sgpt --describe-shell --model $AI_MODEL"
 # Chat, temporary discussion
-alias aitmp='sgpt --chat=temp --model gpt-4o'
+alias aitmp="sgpt --chat=temp --model $AI_MODEL_MINI"
 # REPL
-alias airepl='sgpt --shell --repl temp'
+alias airepl='sgpt --shell --repl temp --model $AI_MODEL'
+
+## Github copilot
+alias cop='gh copilot'
 
 # From Jakub's presentation
 alias search-keys="bindkey | grep"

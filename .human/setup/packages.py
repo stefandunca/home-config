@@ -1,9 +1,8 @@
 import sh
-import shutil
 
 from typing import List, Tuple
 
-from helpers.helpers import echo, out
+from helpers.helpers import echo, out, OSType, which_os
 
 class Package:
     def __init__(self, name: str, allow=None, **targets):
@@ -19,7 +18,8 @@ class PipPackage(Package):
         super().__init__(name, pip=name, **targets)
 
 def install(list: List[Package]):
-    if shutil.which("apt") is not None:
+    os_type: OSType = which_os()
+    if os_type is OSType.UBUNTU:
         echo("Update apt packages")
         sh.sudo.apt("update", **out)
         sh.sudo.apt("upgrade", "-y", **out)
@@ -27,6 +27,18 @@ def install(list: List[Package]):
         packages = get_names_for(list, "apt")
         echo("Install apt", packages=packages)
         sh.sudo.apt("install", "-y", *packages, **out)
+    elif os_type == OSType.MACOS:
+        echo("Update brew packages")
+        sh.brew("update", **out)
+        sh.brew("upgrade", **out)
+
+        packages = get_names_for(list, "brew")
+        echo("Install brew", packages=packages)
+        sh.brew("install", *packages, **out)
+    else:
+        echo("Unsupported OS", os_type=os_type)
+        return
+
 
 def get_names_for(list: List[Package], target: str):
     res = []

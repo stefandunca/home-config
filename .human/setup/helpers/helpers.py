@@ -4,13 +4,15 @@ import sh
 import click
 import requests
 import tempfile
+from enum import Enum
+import platform
+from typing import Literal, Union
 
 from urllib.parse import urlparse
 
 out = {'_out': click.get_text_stream('stdout'),
-       '_err': click.get_text_stream('stderr')
-       }
-
+    '_err': click.get_text_stream('stderr')
+    }
 
 def echo(message: str, *args, err=False, **kwargs):
     args_str = f"; {args}" if args else ""
@@ -80,3 +82,23 @@ def replace_line_matching(file_path, regex, new_content):
             f.truncate()
 
     return ret
+
+
+
+class OSType(Enum):
+    UBUNTU = "Ubuntu"
+    MACOS = "macOS"
+    UNKNOWN = "Unknown"
+
+
+def which_os() -> OSType:
+    system = platform.system()
+    
+    if system == "Linux":
+        distro = platform.freedesktop_os_release().get("ID", "")
+        if distro == "ubuntu":
+            return OSType.UBUNTU
+    elif system == "Darwin":
+        return OSType.MACOS
+    
+    return OSType.UNKNOWN
