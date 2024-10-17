@@ -30,24 +30,11 @@ def install_docker():
         echo(f"Unexpected error: {e}", err=True)
         sys.exit(1)
 
-# TODO: remove me, docker-compose is not needed anymore
-def install_docker_compose():
-    try:
-        echo("Installing Docker Compose...")
-        sh.sudo("pip3", "install", "docker-compose", **out)
-        echo("Docker Compose installed successfully.")
-    except sh.ErrorReturnCode as e:
-        echo(f"An error occurred during Docker Compose installation: {e}", err=True)
-        sys.exit(1)
-
 def install():
     if not is_docker_installed():
         install_docker()
     else:
         echo("Docker is already installed.")
-
-    # No need, `docker compose` works fine
-    # install_docker_compose()
 
 if __name__ == "__main__":
     install()

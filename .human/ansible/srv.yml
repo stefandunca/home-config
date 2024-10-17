@@ -1,7 +1,0 @@
-- name: "Server setup with Ansible and Git"
-  hosts: '{{ target }}'
-  become: true
-
-  roles:
-  - { role: packages,        tags: ['packages'] }
-  - { role: srv,             tags: ['srv'] }

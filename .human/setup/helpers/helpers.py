@@ -102,3 +102,13 @@ def which_os() -> OSType:
         return OSType.MACOS
     
     return OSType.UNKNOWN
+
+def is_raspberry_pi():
+    try:
+        with open("/proc/cpuinfo", "r") as f:
+            cpuinfo = f.read()
+            if "Raspberry Pi" in cpuinfo or "BCM" in cpuinfo:
+                return True
+    except FileNotFoundError:
+        pass
+    return False

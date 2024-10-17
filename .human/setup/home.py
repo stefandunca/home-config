@@ -6,6 +6,7 @@ import platform
 
 from helpers.helpers import *
 
+
 # Manual entry: `alias home='git --work-tree=$HOME --git-dir=$HOME/.home'`
 home_path = os.path.expanduser('~')
 # Force git to use .home instead of .git
@@ -83,7 +84,7 @@ if os.path.exists(ohmy_path):
     if append_if_missing(f"{home_path}/.zshrc", check_if_missing, exec_custom_line):
         echo("added loading powerlevel10k prompt at zsh console login")
 
-    if 'Ubuntu' in platform.platform() and append_if_missing(f"{home_path}/.zshrc", ".*path+=.*/home.*/.local/bin.*", "\n\n#PIP commands in ZSH\npath+=('~/.local/bin')"):
+    if which_os() is OSType.UBUNTU and append_if_missing(f"{home_path}/.zshrc", ".*path+=.*/home.*/.local/bin.*", "\n\n#PIP commands in ZSH\npath+=('~/.local/bin')"):
         echo("added PIP executable dir to ZSH path")
 
     # very slow: zsh-syntax-highlighting git-prompt for MSYS2

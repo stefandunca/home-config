@@ -1,12 +1,20 @@
 # home-config
 
+## Update
+
+Update tools
+
+```sh
+(source ~/.human/.venv/bin/activate && python3 ~/.human/setup/tools.py)
+```
+
 ## General first steps
 
 ```sh
 # Install minimal dependencies
 sudo apt install git python3-pip zsh curl
 # Or on macOS
-sudo brew install git curl uv
+brew install git curl uv
 
 # set zsh as the default shell if not already
 chsh -s /bin/zsh

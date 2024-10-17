@@ -36,29 +36,47 @@ workstation_base: List[Package] = [
     Package("dict"),
     Package("p7zip"),
     Package("vim"),
-    Package("util-linux"),
+    Package("util-linux", apt="util-linux"),
     Package("rmlint"),
-    Package("bench"),
-    Package("gparted"),
-    Package("net-tools"),
+    StrictPackage("gparted", apt="gparted"),
     Package("borg", apt="borgbackup", brew="borgbackup"),
 
     # Standard Packages
-    Package("git-extras"),
-    Package("yay", pacman="yay", allow=["manjaro"]),
-    Package("base-devel", apt="build-essential"),
+    StrictPackage("yay", pacman="yay", allow=["manjaro"]),
 
     # Software Packages
-    Package("vscode", aur="visual-studio-code-bin", deb="https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64", brew_cask="visual-studio-code", deny=["wsl"]),
-
-    # Java Packages
-    Package("java", apt="default-jre", pacman="jre-openjdk", choco="javaruntime", brew_cask="temurin"),
+    Package("vlc", brew=None, brew_cask="vlc"),
+    Package("gimp", brew=None, brew_cask="gimp"),
+    Package("inkscape", brew=None, brew_cask="inkscape"),
 
     # Misc
-    Package("cheat", brew="cheat")
+    Package("cheat")
 ]
+
+dev_base: List[Package] = [
+    Package("bench"),
+    StrictPackage("net-tools", apt="net-tools"),
+    Package("docker-credential-helper", brew="docker-credential-helper"),
+    Package("docker", brew="docker"),
+    Package("colima", brew="colima"),
+
+    # Standard Packages
+    Package("git-extras"),
+    StrictPackage("base-devel", apt="build-essential"),
+]
+
+dev: List[Package] = [
+    Package("kubectl"),
+]
+
+upgrade()
 
 install(base)
 
-# Call the function to install Docker
-install_docker()
+os_type: OSType = which_os()
+
+if not is_raspberry_pi():
+    install([*workstation_base, *dev_base, *dev])
+
+if os_type is not OSType.MACOS:
+    install_docker()

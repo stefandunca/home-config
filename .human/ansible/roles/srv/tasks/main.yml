@@ -1,8 +1,0 @@
----
-- name: Setup Mount Options
-  include_tasks: ./mount.yml
-  tags: mount
-
-- name: setup Services
-  include_tasks: services.yml
-  tags: services
