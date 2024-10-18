@@ -57,6 +57,12 @@ def update_ohmyzsh_plugin(name, url, scope):
             # Setup process alters files, cleanup
             sh.git(*(f"--git-dir {theme_path}/.git --work-tree={theme_path} reset --hard origin/master".split(' ')), **out)
 
+# Trigger customized configuration on bash interactive startup
+exec_py_env = "\n# Activate python environment\n[ -f ~/.human/.venv/bin/activate ] && source ~/.human/.venv/bin/activate\n"
+py_env_rg = r'.*~/.human/.venv/bin/activate.*'
+if append_if_missing(f"{home_path}/.zshrc", py_env_rg, exec_py_env):
+    echo("activate python environment at zsh console login")
+    
 if os.path.exists(ohmy_path):
     # Trigger customized configuration on bash interactive startup
     exec_custom_line = "\n# Source custom shell configuration\n[[ -f ~/.human/shellrc ]] && . ~/.human/shellrc\n"

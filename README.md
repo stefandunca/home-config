@@ -5,7 +5,7 @@
 Update tools
 
 ```sh
-(source ~/.human/.venv/bin/activate && python3 ~/.human/setup/tools.py)
+(source ~/.human/.venv/bin/activate && uv pip install -r ~/.human/setup/requirements.txt && python3 ~/.human/setup/tools.py)
 ```
 
 ## General first steps
@@ -27,14 +27,10 @@ chsh -s /bin/zsh
 #  IdentityFile ~/.keys/home-config-ro
 
 # fetch home-config sources and setup custom git
-alias home='git --work-tree=$HOME --git-dir=$HOME/.home' && home init && home remote add origin git@github.com-home-config:stefandunca/home-config.git && home fetch && home checkout main && home submodule update --init --recursive && (uv venv ~/.human/.venv && source ~/.human/.venv/bin/activate && uv pip install -r ~/.human/setup/requirements.txt && python3 ~/.human/setup/home.py && python3 ~/.human/setup/tools.py)
+alias home='git --work-tree=$HOME --git-dir=$HOME/.home' && home init && home remote add origin git@github.com-home-config:stefandunca/home-config.git && home fetch && home checkout main && home submodule update --init --recursive && (uv venv ~/.human/.venv && source ~/.human/.venv/bin/activate && uv pip install -r ~/.human/setup/requirements.txt && python3 ~/.human/setup/tools.py && python3 ~/.human/setup/home.py)
 ```
 
 ## Tips
 
 - Sudo without a password
   - use `sudo visudo` to edit the sudoers, add the end of the file: `<username> ALL=(ALL) NOPASSWD:ALL`
-
-## TODO
-
-- [ ] drop local ansible setup, use scripts. Should make it more user friendly and for better documentation

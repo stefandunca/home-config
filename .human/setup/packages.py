@@ -20,11 +20,6 @@ class StrictPackage(Package):
     def __init__(self, name, **targets):
         super().__init__(name, specific=True, **targets)
 
-class PipPackage(Package):
-    def __init__(self, name, **targets):
-        super().__init__(name, pip=name, specific=True, **targets)
-
-
 def upgrade():
     os_type: OSType = which_os()
     if os_type is OSType.UBUNTU:

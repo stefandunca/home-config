@@ -27,9 +27,6 @@ base: List[Package] = [
     Package("xclip"),
     Package("nano"),
     Package("uv"),
-
-    PipPackage("shell-gpt"),
-    PipPackage("watchdog"),
 ]
 
 workstation_base: List[Package] = [
